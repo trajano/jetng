@@ -140,11 +140,20 @@ public class JetNgParser {
                     directivesInLine = true;
                 } else if (c == '=') {
                     processExpression(reader);
-                } else if (c == '-' && isComment(reader)) {
-                    processComment(reader);
+                } else if (c == '-') {
+                    if (isComment(reader)) {
+                        processComment(reader);
+                    } else {
+                        context.unindent();
+                        processScriptlet(reader, true);
+                    }
+                    directivesInLine = true;
+                } else if (c == '+') {
+                    processScriptlet(reader, true);
+                    context.indent();
                     directivesInLine = true;
                 } else {
-                    processScriptlet(reader);
+                    processScriptlet(reader, false);
                     directivesInLine = true;
                 }
             } else if (c != '\r') {
@@ -256,10 +265,13 @@ public class JetNgParser {
      *
      * @param r
      *            reader
+     * @param trim
+     *            trims the initial whitespace if any
      * @throws IOException
      *             I/O Exception
      */
-    private void processScriptlet(final PushbackReader r) throws IOException {
+    private void processScriptlet(final PushbackReader r, final boolean trim)
+            throws IOException {
         handler.startScriptlet(context);
         final StringBuilder b = new StringBuilder();
         int c = r.read();
@@ -273,7 +285,10 @@ public class JetNgParser {
                 handler.endScriptlet(context);
                 return;
             } else {
-                b.append((char) c);
+                if (!(trim && b.length() == 0 && (c == ' ' || c == '\t'
+                        || c == '\r' || c == '\n'))) {
+                    b.append((char) c);
+                }
             }
             c = r.read();
         }

@@ -50,12 +50,22 @@ public class DefaultParseEventHandler implements ParseEventHandler {
         }
     }
 
+    protected void doEndDocument(final ParserContext context) {
+    }
+
     @Override
     public void endComment(final ParserContext context) {
     }
 
     @Override
-    public void endDocument(final ParserContext context) {
+    public final void endDocument(final ParserContext context)
+            throws IOException {
+        if (context.getIndentLevel() != 0) {
+            throw new ParseException(
+                    "Indent level is not at zero at the end of the document",
+                    context);
+        }
+        doEndDocument(context);
     }
 
     @Override
@@ -83,7 +93,7 @@ public class DefaultParseEventHandler implements ParseEventHandler {
             context.setStartTag(attributes.get("startTag"));
         }
         if (attributes.get("endTag") != null) {
-            context.setStartTag(attributes.get("endTag"));
+            context.setEndTag(attributes.get("endTag"));
         }
         final Set<String> attributeNames = new HashSet<String>(
                 attributes.keySet());
@@ -113,6 +123,7 @@ public class DefaultParseEventHandler implements ParseEventHandler {
      * after the first jet directive is handled.
      *
      * @param context
+     *            context
      */
     public void header(final ParserContext context) {
     }

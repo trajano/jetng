@@ -47,7 +47,11 @@ public interface ParseEventHandler {
 
     void endComment(ParserContext context);
 
-    void endDocument(ParserContext context);
+    /**
+     * Checks if the indent level is at zero otherwise throws an exception
+     * before ending the document.
+     */
+    void endDocument(ParserContext context) throws IOException;
 
     void endExpression(ParserContext context);
 

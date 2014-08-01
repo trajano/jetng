@@ -43,15 +43,15 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
     }
 
     @Override
-    public void endComment(final ParserContext context) {
-    }
-
-    @Override
-    public void endDocument(final ParserContext context) {
+    public void doEndDocument(final ParserContext context) {
         if (context.isTopFile()) {
             out.println("    }");
             out.println("}");
         }
+    }
+
+    @Override
+    public void endComment(final ParserContext context) {
     }
 
     @Override
@@ -64,7 +64,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 
     @Override
     public void expression(final ParserContext context, final String expression) {
-        out.println(indents(2 + context.getIndentLevel()) + "out.println("
+        out.println(indents(2 + context.getIndentLevel()) + "out.print("
                 + expression + ");");
     }
 

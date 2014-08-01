@@ -1,5 +1,5 @@
-<%@ jet class="TableModuleGenerator" objectClass="MetaTableModule" package="net.trajano.apt.jpa.internal" imports="java.util.* javax.xml.*"%>
-package <%=argument.getPackageName()%>;
+<%@ jet class="TableModuleGenerator" objectClass="MetaTableModule" package="net.trajano.apt.jpa.internal" imports="java.util.* javax.xml.*" startTag="<$" endTag="$>" %>
+package <$=argument.getPackageName()$>;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 
 /**
- * SLSB to manage {@link <%=argument.getEntityClassName()%>} using the table model design pattern.
+ * SLSB to manage {@link <$=argument.getEntityClassName()$>} using the table model design pattern.
  */
 @Stateless
-public class <%=argument.getClassName()%> {
+public class <$=argument.getClassName()$> {
     /**
      * Entity manager.
      */
@@ -26,51 +26,51 @@ public class <%=argument.getClassName()%> {
      *            primary key
      * @return persisted bean
      */
-    public <%=argument.getEntityClassName()%> get(final <%=argument.getIdType()%> id) {
-        return em.find(<%=argument.getEntityClassName()%>.class, id);
+    public <$=argument.getEntityClassName()$> get(final <$=argument.getIdType()$> id) {
+        return em.find(<$=argument.getEntityClassName()$>.class, id);
     }
 
-<%-- comment here --%>
-<% for (final MetaNamedQuery namedQuery : argument.getNamedQueries()) { %>
+<$-- comment here --$>
+<$+ for (final MetaNamedQuery namedQuery : argument.getNamedQueries()) { $>
     /**
-     * Execute named query <%=namedQuery.getName()%>.
-<%  for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { %>
-     * @param <%=namedQuery.getParameters().get(i)%> <%=namedQuery.getParameters().get(i)%> 
-<%  } %>
-     * @return list of <%=argument.getEntityClassName()%>
+     * Execute named query <$=namedQuery.getName()$>.
+    <$+ for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { $>
+     * @param <$=namedQuery.getParameters().get(i)$> <$=namedQuery.getParameters().get(i)$> 
+    <$- } $>
+     * @return list of <$=argument.getEntityClassName()$>
      */
-    public List<<%=argument.getEntityClassName()%>> <%=namedQuery.getMethodName()%>(<%  for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { %>final Object <%=namedQuery.getParameters().get(i)%><% if (i < namedQuery.getParameters().size() - 1) { %>,<% } %><%  } %>) {
+    public List<<$=argument.getEntityClassName()$>> <$=namedQuery.getMethodName()$>(<$+ for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { $>final Object <$=namedQuery.getParameters().get(i)$><$+ if (i < namedQuery.getParameters().size() - 1) { $>,<$- } $><$- } $>) {
         return em
-                .createNamedQuery("<%=namedQuery.getName()%>",
-                        <%=argument.getEntityClassName()%>.class)
+                .createNamedQuery("<$=namedQuery.getName()$>",
+                        <$=argument.getEntityClassName()$>.class)
                 .setFlushMode(FlushModeType.AUTO)
-<%  for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { %>
-                .setParameter("<%=namedQuery.getParameters().get(i)%>", <%=namedQuery.getParameters().get(i)%>) 
-<%  } %>
+<$+ for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { $>
+                .setParameter("<$=namedQuery.getParameters().get(i)$>", <$=namedQuery.getParameters().get(i)$>) 
+<$- } $>
                 .getResultList();
     }
 
-<% } %>
-<% for (final MetaOperation operation: argument.getExtraOperations()) { %>
+<$- } $>
+<$+ for (final MetaOperation operation: argument.getExtraOperations()) { $>
     /**
-     * Execute extra operation <%=operation.getMethodName()%>.
-<%  for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { %>
-     * @param <%=operation.getParameterNames().get(i)%> <%=operation.getParameterNames().get(i)%> 
-<%  } %>
-     * @return <%=operation.getReturnType()%> 
+     * Execute extra operation <$=operation.getMethodName()$>.
+    <$+ for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { $>
+     * @param <$=operation.getParameterNames().get(i)$> <$=operation.getParameterNames().get(i)$> 
+    <$- } $>
+     * @return <$=operation.getReturnType()$> 
      */
-    public <%=operation.getReturnType()%> <%=operation.getMethodName()%>(<%  for (int i = 0 ; i < operation.getParameterDeclarations().size(); ++i) { %><%=operation.getParameterDeclarations().get(i)%><% if (i < operation.getParameterDeclarations().size() - 1) { %>,<% } %><%  } %>)
-<%  if (!operation.getThrownTypes().isEmpty()) {%>
-      throws <%  for (int i = 0 ; i < operation.getThrownTypes().size(); ++i) { %><%=operation.getThrownTypes().get(i)%><% if (i < operation.getThrownTypes().size() - 1) { %>,<% } %><%  } %>
-<%  } %>
+    public <$=operation.getReturnType()$> <$=operation.getMethodName()$>(<$  for (int i = 0 ; i < operation.getParameterDeclarations().size(); ++i) { $><$=operation.getParameterDeclarations().get(i)$><$ if (i < operation.getParameterDeclarations().size() - 1) { $>,<$ } $><$  } $>)
+    <$+ if (!operation.getThrownTypes().isEmpty()) {$>
+      throws <$  for (int i = 0 ; i < operation.getThrownTypes().size(); ++i) { $><$=operation.getThrownTypes().get(i)$><$ if (i < operation.getThrownTypes().size() - 1) { $>,<$ } $><$  } $>
+    <$- } $>
     {
-<%  if (!"void".equals(operation.getReturnType())) {%>
+    <$+ if (!"void".equals(operation.getReturnType())) {$>
         return 
-<%  } %>
-        <%=argument.getEntityClassName()%>.<%=operation.getMethodName()%>(em<% for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { %>, <%=operation.getParameterNames().get(i) %><%  } %>);
+    <$- } $>
+        <$=argument.getEntityClassName()$>.<$=operation.getMethodName()$>(em<$ for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { $>, <$=operation.getParameterNames().get(i) $><$  } $>);
     }
 
-<% } %>
+<$- } $>
     /**
      * Save, flush and refresh a persisted bean. The flush and refreshing is
      * needed to ensure that the temporal data contains the proper values.
@@ -78,7 +78,7 @@ public class <%=argument.getClassName()%> {
      * @param bean
      *            bean to persist.
      */
-    public void save(final <%=argument.getEntityClassName()%> bean) {
+    public void save(final <$=argument.getEntityClassName()$> bean) {
         em.persist(bean);
         em.flush();
         em.refresh(bean);
@@ -90,7 +90,7 @@ public class <%=argument.getClassName()%> {
      * @param bean
      *            bean to remove.
      */
-    public void remove(final <%=argument.getEntityClassName()%> bean) {
+    public void remove(final <$=argument.getEntityClassName()$> bean) {
         em.persist(bean);
         em.flush();
     }
