@@ -1,0 +1,2 @@
+<%@ jet class="TableModuleGenerator" package="net.trajano.apt.jpa.internal" %>
+<%= MetaTableModule meta = (MetaTableModule)argument; %> 
