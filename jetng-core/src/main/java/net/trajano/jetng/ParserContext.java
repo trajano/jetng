@@ -1,45 +1,80 @@
 package net.trajano.jetng;
 
+import java.io.IOException;
+import java.util.Collection;
+
 /**
- * Configuration for the JET parser.
+ * Context for the JET parser.
  *
  * @author Archimedes Trajano
  */
-public class ParserContext {
-    /**
-     * End comment tag. This is "--" followed by the end tag.
-     */
-    private String endCommentTag;
+public interface ParserContext {
+    void addImports(String... imports);
 
     /**
-     * End tag.
+     * Gets the class name.
+     *
+     * @return class name
      */
-    private String endTag;
+    String getClassName();
 
     /**
-     * Start tag.
+     * End comment tag. Should be "--" + {@link #getEndTag()}.
+     *
+     * @return end comment tag
      */
-    private String startTag;
+    String getEndCommentTag();
 
     /**
-     * Creates the configuration with the default start and end tags.
+     * Get end tag.
+     *
+     * @return end tag
      */
-    public ParserContext() {
-        setStartTag("<%");
-        setEndTag("%>");
-    }
+    String getEndTag();
 
-    public String getEndCommentTag() {
-        return endCommentTag;
-    }
+    /**
+     * Returns the imports.
+     *
+     * @return
+     */
+    Collection<String> getImports();
 
-    public String getEndTag() {
-        return endTag;
-    }
+    /**
+     * Gets the current indent level.
+     *
+     * @return
+     */
+    int getIndentLevel();
 
-    public String getStartTag() {
-        return startTag;
-    }
+    /**
+     * Gets the object class name.
+     *
+     * @return object class name
+     */
+    String getObjectClassName();
+
+    String getPackage();
+
+    /**
+     * Get start tag.
+     *
+     * @return start tag
+     */
+    String getStartTag();
+
+    /**
+     * Increases indent level.
+     */
+    void indent();
+
+    /**
+     * Dealing with the topmost file.
+     *
+     * @return
+     */
+    boolean isTopFile();
+
+    void setClassName(String className);
 
     /**
      * Sets the end tag and related values.
@@ -47,10 +82,11 @@ public class ParserContext {
      * @param endTag
      *            end tag
      */
-    public void setEndTag(final String endTag) {
-        this.endTag = endTag;
-        endCommentTag = "--" + endTag;
-    }
+    void setEndTag(String endTag);
+
+    void setObjectClassName(String objectClassName);
+
+    void setPackage(String packageName);
 
     /**
      * Sets the start tag and related values.
@@ -58,7 +94,13 @@ public class ParserContext {
      * @param startTag
      *            start tag
      */
-    public void setStartTag(final String startTag) {
-        this.startTag = startTag;
-    }
+    void setStartTag(String startTag);
+
+    /**
+     * Decreases indent level. Throws an exception if the indentation level is
+     * already at zero.
+     *
+     * @throws IOException
+     */
+    void unindent() throws IOException;
 }

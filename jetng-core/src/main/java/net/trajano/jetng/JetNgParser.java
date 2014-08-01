@@ -1,8 +1,10 @@
 package net.trajano.jetng;
 
-import static net.trajano.jetng.internal.ReaderUtil.isTextComing;
+import static net.trajano.jetng.internal.Util.isTextComing;
 
 import java.io.EOFException;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PushbackReader;
 import java.io.Reader;
@@ -10,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import net.trajano.jetng.internal.DefaultParserContext;
 
 /**
  * Parser.
@@ -21,7 +25,12 @@ public class JetNgParser {
     /**
      * Parser context.
      */
-    private final ParserContext context;
+    private DefaultParserContext context;
+
+    /**
+     * File going to be parsed.
+     */
+    private final File file;
 
     /**
      * Parse event handler.
@@ -32,6 +41,23 @@ public class JetNgParser {
      * Reader.
      */
     private final PushbackReader reader;
+
+    /**
+     * Constructs the parser with specified tag limit size.
+     *
+     * @param file
+     *            file
+     * @param handler
+     *            handler
+     * @param size
+     *            maximum size for the tag.
+     */
+    public JetNgParser(final File file, final ParseEventHandler handler,
+            final int size) throws IOException {
+        reader = new PushbackReader(new FileReader(file), size + 2);
+        this.handler = handler;
+        this.file = file;
+    }
 
     /**
      * Constructs the parser with the default maximum tag size of 5.
@@ -59,7 +85,7 @@ public class JetNgParser {
             final int size) {
         this.reader = new PushbackReader(reader, size + 2);
         this.handler = handler;
-        context = new ParserContext();
+        file = null;
     }
 
     /**
@@ -85,6 +111,11 @@ public class JetNgParser {
      * @throws IOException
      */
     public void parse() throws IOException {
+        if (file == null) {
+            context = new DefaultParserContext();
+        } else {
+            context = new DefaultParserContext(file);
+        }
         handler.startDocument(context);
         final StringBuilder currentCharacters = new StringBuilder();
         int c = reader.read();
@@ -172,14 +203,15 @@ public class JetNgParser {
             if (isTextComing((char) c, context.getEndTag(), r)) {
 
                 final String directiveText = b.toString().trim();
-                final Pattern directiveNamePattern = Pattern.compile("[a-z]+");
+                final Pattern directiveNamePattern = Pattern
+                        .compile("[A-Za-z]+");
                 final Matcher m = directiveNamePattern.matcher(directiveText);
                 if (!m.find()) {
                     throw new IOException("unable to find directive name");
                 }
                 final String directiveName = m.group();
                 m.usePattern(Pattern
-                        .compile("[ \\t\\r\\n]+([a-z]+)[ \\t\\r\\n]*=[ \\t\\r\\n]*('([^']+)'|\"([^\"]+)\")"));
+                        .compile("[ \\t\\r\\n]+([a-zA-Z]+)[ \\t\\r\\n]*=[ \\t\\r\\n]*('([^']+)'|\"([^\"]+)\")"));
                 final Map<String, String> attributes = new HashMap<String, String>();
                 while (m.find()) {
                     attributes.put(m.group(1),

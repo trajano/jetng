@@ -1,5 +1,6 @@
 package net.trajano.jetng;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -39,9 +40,10 @@ public interface ParseEventHandler {
      * @param context
      * @param directiveName
      * @param attributes
+     * @throws IOException
      */
     void directive(ParserContext context, String directiveName,
-            Map<String, String> attributes);
+            Map<String, String> attributes) throws IOException;
 
     void endComment(ParserContext context);
 

@@ -1,0 +1,232 @@
+package net.trajano.jetng.internal;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.Stack;
+import java.util.TreeSet;
+
+import net.trajano.jetng.CycleFoundException;
+import net.trajano.jetng.ParseException;
+import net.trajano.jetng.ParserContext;
+
+/**
+ * Configuration for the JET parser.
+ *
+ * @author Archimedes Trajano
+ */
+public class DefaultParserContext implements ParserContext {
+    private String className;
+    /**
+     * End comment tag. This is "--" followed by the end tag.
+     */
+    private String endCommentTag;
+    /**
+     * End tag.
+     */
+    private String endTag;
+
+    /**
+     * File positions.
+     */
+    private final Map<File, FilePosition> filePositions = new HashMap<File, FilePosition>();
+
+    /**
+     * File stack.
+     */
+    private final Stack<File> fileStack = new Stack<File>();
+
+    /**
+     * Imports.
+     */
+    private final SortedSet<String> importedPackages = new TreeSet<String>();
+
+    private int indentLevel;
+
+    /**
+     * Object class name. Defaults to "Object". If not fully qualified, then the
+     * package must be placed in imports.
+     */
+    private String objectClassName;
+
+    /**
+     * Package name.
+     */
+    private String packageName;
+
+    /**
+     * Start tag.
+     */
+    private String startTag;
+
+    /**
+     * Creates the configuration with the default start and end tags.
+     */
+    public DefaultParserContext() throws IOException {
+        this(NullFile.get());
+    }
+
+    /**
+     * Creates the configuration with the default start and end tags.
+     *
+     * @param file
+     *            initial file
+     */
+    public DefaultParserContext(final File file) throws IOException {
+        pushFile(file);
+        setStartTag("<%");
+        setEndTag("%>");
+        objectClassName = "Object";
+    }
+
+    @Override
+    public void addImports(final String... imports) {
+        for (final String importPackage : imports) {
+            importedPackages.add(importPackage);
+        }
+    }
+
+    @Override
+    public String getClassName() {
+        return className;
+    }
+
+    @Override
+    public String getEndCommentTag() {
+        return endCommentTag;
+    }
+
+    @Override
+    public String getEndTag() {
+        return endTag;
+    }
+
+    @Override
+    public Collection<String> getImports() {
+        return importedPackages;
+    }
+
+    @Override
+    public int getIndentLevel() {
+        return indentLevel;
+    }
+
+    @Override
+    public String getObjectClassName() {
+        return objectClassName;
+    }
+
+    @Override
+    public String getPackage() {
+        return packageName;
+    }
+
+    @Override
+    public String getStartTag() {
+        return startTag;
+    }
+
+    /**
+     * Increment current file column.
+     */
+    public void inc() {
+        filePositions.get(fileStack.peek()).inc();
+    }
+
+    @Override
+    public void indent() {
+        ++indentLevel;
+
+    }
+
+    @Override
+    public boolean isTopFile() {
+        return fileStack.size() == 1;
+    }
+
+    /**
+     * Increment current file row and reset column.
+     */
+    public void nl() {
+        filePositions.get(fileStack.peek()).nl();
+    }
+
+    /**
+     * Pops file from stack.
+     */
+    public void popFile() {
+        filePositions.remove(fileStack.pop());
+    }
+
+    /**
+     * Pushes the file to the stack. If the file is already loaded, it will
+     * throw a parse exception to indicate a cycle. File can only be null if the
+     * stack is empty.
+     *
+     * @param file
+     *            file to push.
+     */
+    public void pushFile(final File file) throws IOException {
+        if (file == NullFile.get() && !fileStack.isEmpty()) {
+            throw new ParseException(
+                    "Cannot pass a null file handle unless the parse context is empty",
+                    this);
+        }
+        if (filePositions.containsKey(file)) {
+            throw new CycleFoundException(file, this);
+        }
+        filePositions.put(file, new FilePosition());
+        fileStack.push(file);
+    }
+
+    @Override
+    public void setClassName(final String className) {
+        this.className = className;
+    }
+
+    /**
+     * Sets the end tag and related values.
+     *
+     * @param endTag
+     *            end tag
+     */
+    @Override
+    public void setEndTag(final String endTag) {
+        this.endTag = endTag;
+        endCommentTag = "--" + endTag;
+    }
+
+    @Override
+    public void setObjectClassName(final String objectClassName) {
+        this.objectClassName = objectClassName;
+    }
+
+    @Override
+    public void setPackage(final String packageName) {
+        this.packageName = packageName;
+    }
+
+    /**
+     * Sets the start tag and related values.
+     *
+     * @param startTag
+     *            start tag
+     */
+    @Override
+    public void setStartTag(final String startTag) {
+        this.startTag = startTag;
+    }
+
+    @Override
+    public void unindent() throws IOException {
+        if (indentLevel == 0) {
+            throw new ParseException("Unable to reduce indent level", this);
+        }
+        --indentLevel;
+
+    }
+
+}

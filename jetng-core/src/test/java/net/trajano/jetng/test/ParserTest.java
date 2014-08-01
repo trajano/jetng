@@ -2,9 +2,9 @@ package net.trajano.jetng.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.io.Reader;
 import java.io.StringWriter;
 
 import net.trajano.jetng.JetNgParser;
@@ -24,11 +24,11 @@ public class ParserTest {
         final String verify = w.toString().replace("\r\n", "\n")
                 .replace("\r", "\n");
         final StringWriter target = new StringWriter(verify.length());
-        final Reader r = new InputStreamReader(Thread.currentThread()
-                .getContextClassLoader().getResourceAsStream(file + ".jet"));
         final PrintWriter out = new PrintWriter(target);
-        final JetNgParser parser = new JetNgParser(r, new PrintWriterHandler(
-                out));
+        final JetNgParser parser = new JetNgParser(new File(Thread
+                .currentThread().getContextClassLoader()
+                .getResource(file + ".jet").toURI()), new PrintWriterHandler(
+                        out), 6);
         parser.parse();
         out.close();
         // assertEquals(verify.length(), target.toString().length());
