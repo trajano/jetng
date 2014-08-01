@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import net.trajano.jetng.ContextNotReadyException;
 import net.trajano.jetng.JavaEmitterParseEventHandler;
 import net.trajano.jetng.JetNgParser;
 
@@ -40,30 +41,27 @@ public class EmitterTest {
     }
 
     private void outputTestFile(final String file) throws Exception {
-        // final StringWriter w = new StringWriter();
-        // IOUtils.copy(new InputStreamReader(Thread.currentThread()
-        // .getContextClassLoader().getResourceAsStream(file + ".java")), w);
-        //
-        // final String verify = w.toString().replace("\r\n", "\n")
-        // .replace("\r", "\n");
-        // final StringWriter target = new StringWriter(verify.length());
-        // final PrintWriter out = new PrintWriter(target);
         final PrintWriter out = new PrintWriter(System.out);
         final JetNgParser parser = new JetNgParser(new File(Thread
                 .currentThread().getContextClassLoader()
                 .getResource(file + ".jet").toURI()),
                 new JavaEmitterParseEventHandler(out), 6);
         parser.parse();
-        out.close();
-        // assertEquals(verify,
-        // target.toString().replace("\r\n", "\n").replace("\r", "\n"));
+        out.flush();
+    }
 
+    /**
+     * Tests the blog post example.
+     */
+    @Test
+    public void testBlogPost() throws Exception {
+        doTestFile("BlogPost");
     }
 
     /**
      * Tests the module method.
      */
-    @Test
+    @Test(expected = ContextNotReadyException.class)
     public void testDirectiveOnly() throws Exception {
         outputTestFile("DirectiveOnly");
     }
@@ -73,7 +71,7 @@ public class EmitterTest {
      */
     @Test
     public void testFull() throws Exception {
-        outputTestFile("TableModuleGenerator");
+        doTestFile("TableModuleGenerator");
     }
 
     /**

@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.PushbackReader;
 import java.io.StringReader;
 
+import net.trajano.jetng.ParserContext;
+import net.trajano.jetng.internal.DefaultParserContext;
 import net.trajano.jetng.internal.Util;
 
 import org.junit.Test;
@@ -21,8 +23,9 @@ public class ReaderTest {
      */
     @Test
     public void testBadStartTag() throws Exception {
+        final ParserContext context = new DefaultParserContext();
         final PushbackReader r = new PushbackReader(new StringReader("X<% abc"));
-        assertFalse(Util.isTextComing((char) r.read(), "<%", r));
+        assertFalse(Util.isTextComing(context, (char) r.read(), "<%", r));
     }
 
     /**
@@ -30,9 +33,10 @@ public class ReaderTest {
      */
     @Test
     public void testEndOfComment() throws Exception {
+        final ParserContext context = new DefaultParserContext();
         final PushbackReader r = new PushbackReader(
                 new StringReader("--%> abc"));
-        assertTrue(Util.isTextComing((char) r.read(), "--%>", r));
+        assertTrue(Util.isTextComing(context, (char) r.read(), "--%>", r));
         assertEquals(' ', (char) r.read());
         assertEquals('a', (char) r.read());
         assertEquals('b', (char) r.read());
@@ -44,9 +48,10 @@ public class ReaderTest {
      */
     @Test
     public void testNotEndOfComment() throws Exception {
+        final ParserContext context = new DefaultParserContext();
         final String text = "-%foo -%>";
         final PushbackReader r = new PushbackReader(new StringReader(text), 10);
-        assertFalse(Util.isTextComing((char) r.read(), "--%>", r));
+        assertFalse(Util.isTextComing(context, (char) r.read(), "--%>", r));
         final char[] cbuf = new char[text.length() - 1];
         r.read(cbuf);
         assertArrayEquals(text.substring(1).toCharArray(), cbuf);
@@ -71,8 +76,9 @@ public class ReaderTest {
      */
     @Test
     public void testStartTag() throws Exception {
+        final ParserContext context = new DefaultParserContext();
         final PushbackReader r = new PushbackReader(new StringReader("<% abc"));
-        assertTrue(Util.isTextComing((char) r.read(), "<%", r));
+        assertTrue(Util.isTextComing(context, (char) r.read(), "<%", r));
         assertEquals(' ', (char) r.read());
         assertEquals('a', (char) r.read());
         assertEquals('b', (char) r.read());

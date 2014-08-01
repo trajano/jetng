@@ -1,0 +1,5 @@
+<%@ jet package="foo" class="Bar" argumentsClass="Meta" %>
+Hello world
+<%-- comments --%>
+<% Meta meta = (Meta)arguments; %>
+<%= meta.getValue()%>

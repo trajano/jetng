@@ -3,6 +3,8 @@ package net.trajano.jetng;
 import java.io.IOException;
 import java.util.Collection;
 
+import net.trajano.jetng.internal.FilePosition;
+
 /**
  * Context for the JET parser.
  *
@@ -12,11 +14,20 @@ public interface ParserContext {
     void addImports(String... imports);
 
     /**
+     * Gets the arguments class name.
+     *
+     * @return arguments class name
+     */
+    String getArgumentsClassName();
+
+    /**
      * Gets the class name.
      *
      * @return class name
      */
     String getClassName();
+
+    FilePosition getCurrentFilePosition();
 
     /**
      * End comment tag. Should be "--" + {@link #getEndTag()}.
@@ -46,13 +57,6 @@ public interface ParserContext {
      */
     int getIndentLevel();
 
-    /**
-     * Gets the object class name.
-     *
-     * @return object class name
-     */
-    String getObjectClassName();
-
     String getPackage();
 
     /**
@@ -61,6 +65,8 @@ public interface ParserContext {
      * @return start tag
      */
     String getStartTag();
+
+    void inc();
 
     /**
      * Increases indent level.
@@ -74,6 +80,16 @@ public interface ParserContext {
      */
     boolean isTopFile();
 
+    void nl();
+
+    /**
+     * Sets the arguments class name.
+     *
+     * @param argumentsClassName
+     *            class name
+     */
+    void setArgumentsClassName(String argumentsClassName);
+
     void setClassName(String className);
 
     /**
@@ -84,8 +100,12 @@ public interface ParserContext {
      */
     void setEndTag(String endTag);
 
-    void setObjectClassName(String objectClassName);
-
+    /**
+     * Sets the package name.
+     *
+     * @param packageName
+     *            package name
+     */
     void setPackage(String packageName);
 
     /**

@@ -99,6 +99,7 @@ public class JetNgParser {
     private boolean isComment(final PushbackReader r) throws IOException {
         final int c = r.read();
         if (c == '-') {
+            context.inc();
             return true;
         }
         r.unread(c);
@@ -121,14 +122,17 @@ public class JetNgParser {
         int c = reader.read();
         boolean directivesInLine = false;
         while (c != -1) {
+            context.inc();
             if (c == '\n') {
+                context.nl();
                 handler.characters(context, currentCharacters.toString(), true,
                         directivesInLine
                         && currentCharacters.toString().trim()
                         .isEmpty());
                 currentCharacters.setLength(0);
                 directivesInLine = false;
-            } else if (isTextComing((char) c, context.getStartTag(), reader)) {
+            } else if (isTextComing(context, (char) c, context.getStartTag(),
+                    reader)) {
                 if (!currentCharacters.toString().trim().isEmpty()) {
                     handler.characters(context, currentCharacters.toString(),
                             false, false);
@@ -136,11 +140,14 @@ public class JetNgParser {
                 }
                 c = reader.read();
                 if (c == '@') {
+                    context.inc();
                     processDirective(reader);
                     directivesInLine = true;
                 } else if (c == '=') {
+                    context.inc();
                     processExpression(reader);
                 } else if (c == '-') {
+                    context.inc();
                     if (isComment(reader)) {
                         processComment(reader);
                     } else {
@@ -149,10 +156,12 @@ public class JetNgParser {
                     }
                     directivesInLine = true;
                 } else if (c == '+') {
+                    context.inc();
                     processScriptlet(reader, true);
                     context.indent();
                     directivesInLine = true;
                 } else {
+                    reader.unread(c);
                     processScriptlet(reader, false);
                     directivesInLine = true;
                 }
@@ -182,10 +191,13 @@ public class JetNgParser {
         final StringBuilder b = new StringBuilder();
         int c = r.read();
         while (c != -1) {
+            context.inc();
             if (c == '\n') {
+                context.nl();
                 handler.comment(context, b.toString(), true);
                 b.setLength(0);
-            } else if (isTextComing((char) c, context.getEndCommentTag(), r)) {
+            } else if (isTextComing(context, (char) c,
+                    context.getEndCommentTag(), r)) {
                 final String text = b.toString();
                 handler.comment(context, text, false);
                 handler.endComment(context);
@@ -209,7 +221,11 @@ public class JetNgParser {
         final StringBuilder b = new StringBuilder();
         int c = r.read();
         while (c != -1) {
-            if (isTextComing((char) c, context.getEndTag(), r)) {
+            context.inc();
+            if (c == '\n') {
+                context.nl();
+            }
+            if (isTextComing(context, (char) c, context.getEndTag(), r)) {
 
                 final String directiveText = b.toString().trim();
                 final Pattern directiveNamePattern = Pattern
@@ -248,7 +264,11 @@ public class JetNgParser {
         final StringBuilder b = new StringBuilder();
         int c = r.read();
         while (c != -1) {
-            if (isTextComing((char) c, context.getEndTag(), r)) {
+            context.inc();
+            if (c == '\n') {
+                context.nl();
+            }
+            if (isTextComing(context, (char) c, context.getEndTag(), r)) {
                 handler.expression(context, b.toString().trim());
                 handler.endExpression(context);
                 return;
@@ -276,10 +296,12 @@ public class JetNgParser {
         final StringBuilder b = new StringBuilder();
         int c = r.read();
         while (c != -1) {
+            context.inc();
             if (c == '\n') {
+                context.nl();
                 handler.scriptlet(context, b.toString(), true);
                 b.setLength(0);
-            } else if (isTextComing((char) c, context.getEndTag(), r)) {
+            } else if (isTextComing(context, (char) c, context.getEndTag(), r)) {
                 final String text = b.toString();
                 handler.scriptlet(context, text, false);
                 handler.endScriptlet(context);
@@ -287,6 +309,7 @@ public class JetNgParser {
             } else {
                 if (!(trim && b.length() == 0 && (c == ' ' || c == '\t'
                         || c == '\r' || c == '\n'))) {
+
                     b.append((char) c);
                 }
             }

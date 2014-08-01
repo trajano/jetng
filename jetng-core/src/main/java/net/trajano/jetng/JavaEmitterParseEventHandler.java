@@ -22,7 +22,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
     }
 
     @Override
-    public void characters(final ParserContext context,
+    public void doCharacters(final ParserContext context,
             final String characters, final boolean eol,
             final boolean aloneOnLine) {
         if (aloneOnLine) {
@@ -38,7 +38,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
     }
 
     @Override
-    public void comment(final ParserContext context, final String comment,
+    public void doComment(final ParserContext context, final String comment,
             final boolean eol) {
     }
 
@@ -82,7 +82,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 
         out.println();
         out.println(format("    public String generate(final %s arguments) {",
-                context.getObjectClassName()));
+                context.getArgumentsClassName()));
         out.println("        final StringWriter w = new StringWriter();");
         out.println("        generate(arguments, w);");
         out.println("        return w.toString();");
@@ -91,7 +91,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
         out.println();
         out.println(format(
                 "    public void generate(final %s arguments, final PrintWriter out) {",
-                context.getObjectClassName()));
+                context.getArgumentsClassName()));
 
     }
 

@@ -27,6 +27,11 @@ public class NullFile extends File {
     }
 
     @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
     public boolean mkdir() {
         throw new IllegalStateException();
     }

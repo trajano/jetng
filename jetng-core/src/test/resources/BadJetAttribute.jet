@@ -1,0 +1,6 @@
+<%@ jet class="TableModuleGenerator" package="net.trajano.apt.jpa.internal" %>
+Foo<%--multi-line
+comment--%>Bar<%
+System.out.println("hello world");
+%>Scripts
+<%@ jet class="TableModuleGenerator" foo="net.trajano.apt.jpa.internal" %>

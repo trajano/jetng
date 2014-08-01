@@ -1,4 +1,4 @@
-<%@ jet class="TableModuleGenerator" objectClass="MetaTableModule" package="net.trajano.apt.jpa.internal" imports="java.util.* javax.xml.*" startTag="<$" endTag="$>" %>
+<%@ jet class="TableModuleGenerator" argumentsClass="MetaTableModule" package="net.trajano.apt.jpa.internal" imports="java.util.* javax.xml.*" startTag="<$" endTag="$>" %>
 package <$=argument.getPackageName()$>;
 
 import java.util.List;
@@ -59,15 +59,15 @@ public class <$=argument.getClassName()$> {
     <$- } $>
      * @return <$=operation.getReturnType()$> 
      */
-    public <$=operation.getReturnType()$> <$=operation.getMethodName()$>(<$  for (int i = 0 ; i < operation.getParameterDeclarations().size(); ++i) { $><$=operation.getParameterDeclarations().get(i)$><$ if (i < operation.getParameterDeclarations().size() - 1) { $>,<$ } $><$  } $>)
+    public <$=operation.getReturnType()$> <$=operation.getMethodName()$>(<$+ for (int i = 0 ; i < operation.getParameterDeclarations().size(); ++i) { $><$=operation.getParameterDeclarations().get(i)$><$+ if (i < operation.getParameterDeclarations().size() - 1) { $>,<$- } $><$- } $>)
     <$+ if (!operation.getThrownTypes().isEmpty()) {$>
-      throws <$  for (int i = 0 ; i < operation.getThrownTypes().size(); ++i) { $><$=operation.getThrownTypes().get(i)$><$ if (i < operation.getThrownTypes().size() - 1) { $>,<$ } $><$  } $>
+      throws <$+ for (int i = 0 ; i < operation.getThrownTypes().size(); ++i) { $><$=operation.getThrownTypes().get(i)$><$+ if (i < operation.getThrownTypes().size() - 1) { $>,<$- } $><$- } $>
     <$- } $>
     {
     <$+ if (!"void".equals(operation.getReturnType())) {$>
         return 
     <$- } $>
-        <$=argument.getEntityClassName()$>.<$=operation.getMethodName()$>(em<$ for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { $>, <$=operation.getParameterNames().get(i) $><$  } $>);
+        <$=argument.getEntityClassName()$>.<$=operation.getMethodName()$>(em<$+ for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { $>, <$=operation.getParameterNames().get(i) $><$- } $>);
     }
 
 <$- } $>

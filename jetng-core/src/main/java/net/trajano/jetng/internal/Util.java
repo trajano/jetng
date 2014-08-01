@@ -6,6 +6,8 @@ import java.io.PushbackReader;
 import java.util.HashSet;
 import java.util.Set;
 
+import net.trajano.jetng.ParserContext;
+
 /**
  * This class contains methods that have been exported so it can be tested
  * without making it part of the public API.
@@ -88,6 +90,8 @@ public final class Util {
      * the reader will be at the point after the text. Otherwise, the data will
      * be pushed back up until the character
      *
+     * @param context
+     *            parsing context
      * @param firstChar
      *            first character
      * @param text
@@ -96,8 +100,9 @@ public final class Util {
      *            reader
      * @return end comment
      */
-    public static boolean isTextComing(final char firstChar, final String text,
-            final PushbackReader r) throws IOException {
+    public static boolean isTextComing(final ParserContext context,
+            final char firstChar, final String text, final PushbackReader r)
+            throws IOException {
 
         final char[] carray = text.toCharArray();
         if (firstChar != carray[0]) {
@@ -114,6 +119,9 @@ public final class Util {
                 return false;
             }
             ++i;
+        }
+        for (int j = 0; j < carray.length - 1; ++j) {
+            context.inc();
         }
         return true;
     }

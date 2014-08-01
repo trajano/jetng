@@ -90,8 +90,18 @@ public class DefaultParserContext implements ParserContext {
     }
 
     @Override
+    public String getArgumentsClassName() {
+        return objectClassName;
+    }
+
+    @Override
     public String getClassName() {
         return className;
+    }
+
+    @Override
+    public FilePosition getCurrentFilePosition() {
+        return filePositions.get(fileStack.peek());
     }
 
     @Override
@@ -115,11 +125,6 @@ public class DefaultParserContext implements ParserContext {
     }
 
     @Override
-    public String getObjectClassName() {
-        return objectClassName;
-    }
-
-    @Override
     public String getPackage() {
         return packageName;
     }
@@ -132,6 +137,7 @@ public class DefaultParserContext implements ParserContext {
     /**
      * Increment current file column.
      */
+    @Override
     public void inc() {
         filePositions.get(fileStack.peek()).inc();
     }
@@ -150,6 +156,7 @@ public class DefaultParserContext implements ParserContext {
     /**
      * Increment current file row and reset column.
      */
+    @Override
     public void nl() {
         filePositions.get(fileStack.peek()).nl();
     }
@@ -178,8 +185,13 @@ public class DefaultParserContext implements ParserContext {
         if (filePositions.containsKey(file)) {
             throw new CycleFoundException(file, this);
         }
-        filePositions.put(file, new FilePosition());
+        filePositions.put(file, new FilePosition(file.getName()));
         fileStack.push(file);
+    }
+
+    @Override
+    public void setArgumentsClassName(final String objectClassName) {
+        this.objectClassName = objectClassName;
     }
 
     @Override
@@ -197,11 +209,6 @@ public class DefaultParserContext implements ParserContext {
     public void setEndTag(final String endTag) {
         this.endTag = endTag;
         endCommentTag = "--" + endTag;
-    }
-
-    @Override
-    public void setObjectClassName(final String objectClassName) {
-        this.objectClassName = objectClassName;
     }
 
     @Override

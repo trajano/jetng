@@ -15,17 +15,26 @@ public class DefaultParseEventHandler implements ParseEventHandler {
     /**
      * Flag indicating the {@link #header(ParserContext)} has been called.
      */
-    private boolean headerSent = false;
+    private boolean headerSent;
 
     @Override
-    public void characters(final ParserContext context,
+    public final void characters(final ParserContext context,
             final String characters, final boolean eol,
-            final boolean aloneOnLine) {
+            final boolean aloneOnLine) throws IOException {
+        if (!isContextReadyForWriting(context)) {
+            throw new ContextNotReadyException(context);
+        }
+        doCharacters(context, characters, eol, aloneOnLine);
+
     }
 
     @Override
     public void comment(final ParserContext context, final String comment,
-            final boolean eol) {
+            final boolean eol) throws IOException {
+        if (!isContextReadyForWriting(context)) {
+            throw new ContextNotReadyException(context);
+        }
+        doComment(context, comment, eol);
     }
 
     @Override
@@ -35,6 +44,9 @@ public class DefaultParseEventHandler implements ParseEventHandler {
         if ("jet".equals(directiveName)) {
             handleJetDirective(context, attributes);
             if (!headerSent) {
+                if (!isContextReadyForWriting(context)) {
+                    throw new ContextNotReadyException(context);
+                }
                 header(context);
                 headerSent = true;
             }
@@ -48,6 +60,22 @@ public class DefaultParseEventHandler implements ParseEventHandler {
             throw new ParseException("Unsupported directive:" + directiveName,
                     context);
         }
+    }
+
+    /**
+     *
+     * @param context
+     * @param characters
+     * @param eol
+     * @param aloneOnLine
+     */
+    protected void doCharacters(final ParserContext context,
+            final String characters, final boolean eol,
+            final boolean aloneOnLine) {
+    }
+
+    public void doComment(final ParserContext context, final String comment,
+            final boolean eol) throws IOException {
     }
 
     protected void doEndDocument(final ParserContext context) {
@@ -101,20 +129,28 @@ public class DefaultParseEventHandler implements ParseEventHandler {
         attributeNames.remove("endTag");
         if (!attributeNames.isEmpty() && headerSent) {
             throw new ParseException(
-                    "JET directives found that cannot be in included file "
+                    "Unexpected JET directives attributes found "
                             + attributeNames, context);
         }
         if (attributes.get("imports") != null) {
             context.addImports(attributes.get("imports").split("\\s"));
+            attributeNames.remove("imports");
         }
         if (attributes.get("package") != null) {
             context.setPackage(attributes.get("package"));
+            attributeNames.remove("package");
         }
         if (attributes.get("class") != null) {
             context.setClassName(attributes.get("class"));
+            attributeNames.remove("class");
         }
-        if (attributes.get("objectClass") != null) {
-            context.setObjectClassName(attributes.get("objectClass"));
+        if (attributes.get("argumentsClass") != null) {
+            context.setArgumentsClassName(attributes.get("argumentsClass"));
+            attributeNames.remove("argumentsClass");
+        }
+        if (!attributeNames.isEmpty()) {
+            throw new ParseException("Unsupported jet directive attributes  "
+                    + attributeNames, context);
         }
     }
 
@@ -126,6 +162,18 @@ public class DefaultParseEventHandler implements ParseEventHandler {
      *            context
      */
     public void header(final ParserContext context) {
+    }
+
+    /**
+     * Check if the context is ready for writing. The class and package names
+     * have to be set for it to be ready for writing.
+     *
+     * @param context
+     *            context to evaluate
+     * @return <code>true</code> if the context is ready for writing.
+     */
+    private boolean isContextReadyForWriting(final ParserContext context) {
+        return context.getClassName() != null && context.getPackage() != null;
     }
 
     @Override

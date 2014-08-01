@@ -1,0 +1,2 @@
+<%@ jet class="TableModuleGenerator" package="net.trajano.apt.jpa.internal" %>
+Foo<%=foo%>Bar<%@ jet class="TableModuleGenerator" package="net.trajano.apt.jpa.internal" %>

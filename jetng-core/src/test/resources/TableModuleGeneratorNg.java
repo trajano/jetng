@@ -120,21 +120,21 @@ public class TableModuleGenerator {
             out.print(operation.getReturnType());
             out.print(operation.getMethodName());
             out.print(" (");
-             for (int i = 0 ; i < operation.getParameterDeclarations().size(); ++i) { 
-            out.print(operation.getParameterDeclarations().get(i));
-            if (i < operation.getParameterDeclarations().size() - 1) { 
-            out.print(',');
+            for (int i = 0 ; i < operation.getParameterDeclarations().size(); ++i) { 
+                out.print(operation.getParameterDeclarations().get(i));
+                if (i < operation.getParameterDeclarations().size() - 1) { 
+                    out.print(',');
+                } 
             } 
-             } 
             out.println(')');
             if (!operation.getThrownTypes().isEmpty()) {
                 out.print("      throws ");
-                 for (int i = 0 ; i < operation.getThrownTypes().size(); ++i) { 
-                out.print(operation.getThrownTypes().get(i));
-                if (i < operation.getThrownTypes().size() - 1) { 
-                out.print(',');
+                for (int i = 0 ; i < operation.getThrownTypes().size(); ++i) { 
+                    out.print(operation.getThrownTypes().get(i));
+                    if (i < operation.getThrownTypes().size() - 1) { 
+                        out.print(',');
+                    } 
                 } 
-                 } 
             } 
             out.println("    {");
             if (!"void".equals(operation.getReturnType())) {
@@ -145,9 +145,9 @@ public class TableModuleGenerator {
             out.print(operation.getMethodName());
             out.print("(em");
             for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { 
-            out.print(", ");
-            out.print(operation.getParameterNames().get(i));
-             } 
+                out.print(", ");
+                out.print(operation.getParameterNames().get(i));
+            } 
             out.println(");");
             out.println("    }");
             out.println();
