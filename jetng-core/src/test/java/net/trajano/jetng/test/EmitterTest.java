@@ -39,14 +39,12 @@ public class EmitterTest {
 
     }
 
-    private void outputTestFile(final String file) throws Exception {
-        final PrintWriter out = new PrintWriter(System.out);
-        final JetNgParser parser = new JetNgParser(new File(Thread
-                .currentThread().getContextClassLoader()
-                .getResource(file + ".jet").toURI()),
-                new JavaEmitterParseEventHandler(out), 6);
-        parser.parse();
-        out.flush();
+    /**
+     * Tests the blog post example.
+     */
+    @Test
+    public void testArgumentsBlogPost() throws Exception {
+        doTestFile("ArgumentsBlogPost");
     }
 
     /**
@@ -79,5 +77,13 @@ public class EmitterTest {
     @Test
     public void testInclude() throws Exception {
         doTestFile("Include");
+    }
+
+    /**
+     * Tests the blog post example.
+     */
+    @Test
+    public void testIndentBlogPost() throws Exception {
+        doTestFile("IndentBlogPost");
     }
 }

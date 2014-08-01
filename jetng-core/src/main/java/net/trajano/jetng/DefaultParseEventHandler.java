@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Handles parse events.
+ * Default handler. Comments are ignored.
  *
  * @author Archimedes
  *
@@ -28,13 +28,19 @@ public class DefaultParseEventHandler implements ParseEventHandler {
 
     }
 
+    /**
+     * Does nothing.
+     *
+     * @param context
+     *            ignored
+     * @param comment
+     *            ignored
+     * @param eol
+     *            ignored
+     */
     @Override
-    public void comment(final ParserContext context, final String comment,
-            final boolean eol) throws IOException {
-        if (!isContextReadyForWriting(context)) {
-            throw new ContextNotReadyException(context);
-        }
-        doComment(context, comment, eol);
+    public final void comment(final ParserContext context,
+            final String comment, final boolean eol) throws IOException {
     }
 
     @Override
@@ -63,26 +69,39 @@ public class DefaultParseEventHandler implements ParseEventHandler {
     }
 
     /**
+     * Method to handle characters.
      *
      * @param context
+     *            context
      * @param characters
+     *            characters
      * @param eol
+     *            end of line
      * @param aloneOnLine
+     *            alone on line indicator
      */
     protected void doCharacters(final ParserContext context,
             final String characters, final boolean eol,
             final boolean aloneOnLine) {
     }
 
-    public void doComment(final ParserContext context, final String comment,
-            final boolean eol) throws IOException {
-    }
-
+    /**
+     * Method to handle end of the document.
+     *
+     * @param context
+     *            context.
+     */
     protected void doEndDocument(final ParserContext context) {
     }
 
+    /**
+     * Does nothing.
+     *
+     * @param context
+     *            ignored
+     */
     @Override
-    public void endComment(final ParserContext context) {
+    public final void endComment(final ParserContext context) {
     }
 
     @Override
@@ -112,11 +131,18 @@ public class DefaultParseEventHandler implements ParseEventHandler {
      * Handle include directive.
      *
      * @param context
+     *            context
      * @param attributes
+     *            attributes
      * @throws IOException
      */
     private void handleIncludeDirective(final ParserContext context,
             final Map<String, String> attributes) throws IOException {
+        if (!(attributes.containsKey("file") && attributes.size() == 1)) {
+            throw new ParseException(
+                    "Unexpected JET directives attributes found "
+                            + attributes.keySet(), context);
+        }
 
         context.pushFile(attributes.get("file"));
         new JetNgParser(context.getCurrentFilePosition().getFile(), this, 6)
@@ -131,7 +157,9 @@ public class DefaultParseEventHandler implements ParseEventHandler {
      * set.
      *
      * @param context
+     *            context
      * @param attributes
+     *            attributes
      */
     private void handleJetDirective(final ParserContext context,
             final Map<String, String> attributes) throws IOException {
@@ -155,7 +183,7 @@ public class DefaultParseEventHandler implements ParseEventHandler {
             attributeNames.remove("imports");
         }
         if (attributes.get("package") != null) {
-            context.setPackage(attributes.get("package"));
+            context.setPackageName(attributes.get("package"));
             attributeNames.remove("package");
         }
         if (attributes.get("class") != null) {
@@ -191,7 +219,7 @@ public class DefaultParseEventHandler implements ParseEventHandler {
      * @return <code>true</code> if the context is ready for writing.
      */
     private boolean isContextReadyForWriting(final ParserContext context) {
-        return context.getClassName() != null && context.getPackage() != null;
+        return context.getClassName() != null && context.getPackageName() != null;
     }
 
     @Override
@@ -199,8 +227,14 @@ public class DefaultParseEventHandler implements ParseEventHandler {
             final boolean eol) {
     }
 
+    /**
+     * Does nothing.
+     *
+     * @param context
+     *            ignored
+     */
     @Override
-    public void startComment(final ParserContext context) {
+    public final void startComment(final ParserContext context) {
     }
 
     @Override

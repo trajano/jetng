@@ -86,8 +86,10 @@ public class JetNgParser {
     /**
      * Checks if this is a comment. Just checks if the next character is a "-".
      *
+     * @param context
+     *            parsing context
      * @param r
-     *            reader.
+     *            reader
      * @return true if it is a comment.
      * @throws IOException
      */
@@ -117,6 +119,9 @@ public class JetNgParser {
 
     /**
      * Parse using an existing context.
+     *
+     * @param context
+     *            parsing context
      *
      * @throws IOException
      */
@@ -186,6 +191,8 @@ public class JetNgParser {
     /**
      * Process JET comments.
      *
+     * @param context
+     *            parsing context
      * @param r
      *            reader
      * @throws IOException
@@ -218,6 +225,8 @@ public class JetNgParser {
     /**
      * Process directive.
      *
+     * @param context
+     *            parsing context
      * @param r
      *            reader
      * @throws IOException
@@ -262,6 +271,8 @@ public class JetNgParser {
     /**
      * Process expression element.
      *
+     * @param context
+     *            parsing context
      * @param r
      *            reader
      * @throws IOException
@@ -292,6 +303,8 @@ public class JetNgParser {
     /**
      * Process a scriptlet element.
      *
+     * @param context
+     *            parsing context
      * @param r
      *            reader
      * @param trim

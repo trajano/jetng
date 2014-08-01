@@ -15,8 +15,17 @@ import net.trajano.jetng.internal.Util;
  */
 public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 
+    /**
+     * Writer.
+     */
     private final PrintWriter out;
 
+    /**
+     * Constructs the handler with a given writer.
+     *
+     * @param out
+     *            writer
+     */
     public JavaEmitterParseEventHandler(final PrintWriter out) {
         this.out = out;
     }
@@ -38,28 +47,11 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
     }
 
     @Override
-    public void doComment(final ParserContext context, final String comment,
-            final boolean eol) {
-    }
-
-    @Override
     public void doEndDocument(final ParserContext context) {
         if (context.isTopFile()) {
             out.println("    }");
             out.println("}");
         }
-    }
-
-    @Override
-    public void endComment(final ParserContext context) {
-    }
-
-    @Override
-    public void endExpression(final ParserContext context) {
-    }
-
-    @Override
-    public void endScriptlet(final ParserContext context) {
     }
 
     @Override
@@ -70,7 +62,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 
     @Override
     public void header(final ParserContext context) {
-        out.println("package " + context.getPackage() + ";");
+        out.println("package " + context.getPackageName() + ";");
         if (!context.getImports().isEmpty()) {
             out.println();
             for (final String importPackage : context.getImports()) {
@@ -99,7 +91,8 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
      * Build indentation string.
      *
      * @param level
-     * @return
+     *            indentation level
+     * @return indent.
      */
     private String indents(final int level) {
         final char[] carray = new char[4 * level];

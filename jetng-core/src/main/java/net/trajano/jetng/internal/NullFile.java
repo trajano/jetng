@@ -3,15 +3,32 @@ package net.trajano.jetng.internal;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Null object for File.
+ *
+ * @author Archimedes
+ */
 @SuppressWarnings("serial")
-public class NullFile extends File {
+public final class NullFile extends File {
 
-    private static NullFile INSTANCE = new NullFile();
+    /**
+     * Instance.
+     */
+    private static final NullFile INSTANCE = new NullFile();
 
+    /**
+     * Gets instance of the null file.
+     *
+     * @return intance
+     */
     public static NullFile get() {
         return INSTANCE;
     }
 
+    /**
+     * Prevent construction of the object. Use {@link #get()} to get the
+     * instance.
+     */
     private NullFile() {
         super("");
     }

@@ -19,8 +19,20 @@ import net.trajano.jetng.ParserContext;
  * @author Archimedes Trajano
  */
 public class DefaultParserContext implements ParserContext {
+    /**
+     * Object class name. Defaults to "Object". If not fully qualified, then the
+     * package must be placed in imports.
+     */
+    private String argumentsClassName;
+    /**
+     * Class name.
+     */
     private String className;
+    /**
+     * Current file.
+     */
     private final File currentFile;
+
     /**
      * End comment tag. This is "--" followed by the end tag.
      */
@@ -46,13 +58,10 @@ public class DefaultParserContext implements ParserContext {
      */
     private final SortedSet<String> importedPackages = new TreeSet<String>();
 
-    private int indentLevel;
-
     /**
-     * Object class name. Defaults to "Object". If not fully qualified, then the
-     * package must be placed in imports.
+     * Current indentation level.
      */
-    private String objectClassName;
+    private int indentLevel;
 
     /**
      * Package name.
@@ -82,7 +91,7 @@ public class DefaultParserContext implements ParserContext {
         pushFile(file);
         setStartTag("<%");
         setEndTag("%>");
-        objectClassName = "Object";
+        argumentsClassName = "Object";
     }
 
     @Override
@@ -94,7 +103,7 @@ public class DefaultParserContext implements ParserContext {
 
     @Override
     public String getArgumentsClassName() {
-        return objectClassName;
+        return argumentsClassName;
     }
 
     @Override
@@ -128,7 +137,7 @@ public class DefaultParserContext implements ParserContext {
     }
 
     @Override
-    public String getPackage() {
+    public String getPackageName() {
         return packageName;
     }
 
@@ -202,8 +211,8 @@ public class DefaultParserContext implements ParserContext {
     }
 
     @Override
-    public void setArgumentsClassName(final String objectClassName) {
-        this.objectClassName = objectClassName;
+    public void setArgumentsClassName(final String argumentsClassName) {
+        this.argumentsClassName = argumentsClassName;
     }
 
     @Override
@@ -224,7 +233,7 @@ public class DefaultParserContext implements ParserContext {
     }
 
     @Override
-    public void setPackage(final String packageName) {
+    public void setPackageName(final String packageName) {
         this.packageName = packageName;
     }
 

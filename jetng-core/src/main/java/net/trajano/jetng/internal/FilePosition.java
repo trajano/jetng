@@ -2,6 +2,9 @@ package net.trajano.jetng.internal;
 
 import java.io.File;
 
+/**
+ * Represents the current file position.
+ */
 public class FilePosition {
     /**
      * Column.
@@ -30,8 +33,8 @@ public class FilePosition {
     /**
      * Constructs the file position with the col and row at zero.
      *
-     * @param fileName
-     *            file name.
+     * @param file
+     *            file.
      */
     public FilePosition(final File file) {
         this.file = file;
@@ -86,7 +89,9 @@ public class FilePosition {
      * Set tags.
      *
      * @param start
+     *            start tag
      * @param end
+     *            end tag
      */
     public void setTags(final String start, final String end) {
         startTag = start;

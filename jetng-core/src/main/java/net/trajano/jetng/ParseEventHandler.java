@@ -15,6 +15,8 @@ public interface ParseEventHandler {
      * element starts on a line in which preceding text in only whitespace, and
      * ends on a line that is only whitespace.
      *
+     * @param context
+     *            parsing context
      * @param characters
      *            characters
      * @param eol
@@ -29,9 +31,12 @@ public interface ParseEventHandler {
     /**
      * Characters in a comment.
      *
+     * @param context
+     *            parsing context
      * @param comment
      *            characters
-     * @parm eol needs end of line.
+     * @param eol
+     *            needs end of line.
      */
     void comment(ParserContext context, String comment, boolean eol)
             throws IOException;
@@ -40,40 +45,93 @@ public interface ParseEventHandler {
      * Handles JET directives.
      *
      * @param context
+     *            parsing context
      * @param directiveName
+     *            directive name
      * @param attributes
+     *            attributes
      * @throws IOException
      */
     void directive(ParserContext context, String directiveName,
             Map<String, String> attributes) throws IOException;
 
+    /**
+     * Fired at the end of the comment.
+     *
+     * @param context
+     *            parsing context
+     * @throws IOException
+     */
     void endComment(ParserContext context) throws IOException;
 
     /**
      * Checks if the indent level is at zero otherwise throws an exception
      * before ending the document.
+     *
+     * @param context
+     *            parsing context
      */
     void endDocument(ParserContext context) throws IOException;
 
+    /**
+     * Fired at the end of an expression.
+     *
+     * @param context
+     *            parsing context
+     * @throws IOException
+     */
     void endExpression(ParserContext context) throws IOException;
 
+    /**
+     * Fired at the end of a scriptlet.
+     *
+     * @param context
+     *            parsing context
+     * @throws IOException
+     */
     void endScriptlet(ParserContext context) throws IOException;
 
+    /**
+     * Fired for an expression.
+     *
+     * @param context
+     *            parsing context
+     * @param expression
+     *            expression string
+     * @throws IOException
+     */
     void expression(ParserContext context, String expression)
             throws IOException;
 
     /**
      * Characters in a scriptlet.
      *
+     * @param context
+     *            parsing context
      * @param scriptlet
      *            characters
-     * @parm eol needs end of line.
+     * @param eol
+     *            needs end of line.
      */
     void scriptlet(ParserContext context, String scriptlet, boolean eol)
             throws IOException;
 
+    /**
+     * Fired at the start of a comment.
+     *
+     * @param context
+     *            parsing context
+     * @throws IOException
+     */
     void startComment(ParserContext context) throws IOException;
 
+    /**
+     * Fired at the start of a document.
+     *
+     * @param context
+     *            parsing context
+     * @throws IOException
+     */
     void startDocument(ParserContext context) throws IOException;
 
     /**

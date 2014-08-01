@@ -12,22 +12,34 @@ import net.trajano.jetng.internal.FilePosition;
  * @author Archimedes Trajano
  */
 public interface ParserContext {
+    /**
+     * Add imports that are specified in the <code>jet</code> directive.
+     *
+     * @param imports
+     *            imports to add
+     */
     void addImports(String... imports);
 
     /**
-     * Gets the arguments class name.
+     * Gets the arguments class name that is configured in the <code>jet</code>
+     * directive. This is by default "Object".
      *
      * @return arguments class name
      */
     String getArgumentsClassName();
 
     /**
-     * Gets the class name.
+     * Gets the class name that is configured in the <code>jet</code> directive.
      *
      * @return class name
      */
     String getClassName();
 
+    /**
+     * Gets the current file position.
+     *
+     * @return current file position
+     */
     FilePosition getCurrentFilePosition();
 
     /**
@@ -47,18 +59,24 @@ public interface ParserContext {
     /**
      * Returns the imports.
      *
-     * @return
+     * @return imports
      */
     Collection<String> getImports();
 
     /**
      * Gets the current indent level.
      *
-     * @return
+     * @return indent level
      */
     int getIndentLevel();
 
-    String getPackage();
+    /**
+     * Gets the package name that is configured in the <code>jet</code>
+     * directive.
+     *
+     * @return package name
+     */
+    String getPackageName();
 
     /**
      * Get start tag.
@@ -67,6 +85,9 @@ public interface ParserContext {
      */
     String getStartTag();
 
+    /**
+     * Increments the column count on the current file.
+     */
     void inc();
 
     /**
@@ -77,16 +98,37 @@ public interface ParserContext {
     /**
      * Dealing with the topmost file.
      *
-     * @return
+     * @return true if dealing with the topmost file.
      */
     boolean isTopFile();
 
+    /**
+     * Incrementes the row count of the current file and resets the column count
+     * back to 1.
+     */
     void nl();
 
+    /**
+     * Pops file from the file stack.
+     */
     void popFile();
 
+    /**
+     * Pushes a file to the file stack.
+     *
+     * @param file
+     *            file to push into the stack
+     * @throws IOException
+     */
     void pushFile(File file) throws IOException;
 
+    /**
+     * Pushes a file to the file stack.
+     *
+     * @param filename
+     *            relative to the current file.
+     * @throws IOException
+     */
     void pushFile(String filename) throws IOException;
 
     /**
@@ -97,6 +139,12 @@ public interface ParserContext {
      */
     void setArgumentsClassName(String argumentsClassName);
 
+    /**
+     * Sets the class name.
+     *
+     * @param className
+     *            class name
+     */
     void setClassName(String className);
 
     /**
@@ -113,7 +161,7 @@ public interface ParserContext {
      * @param packageName
      *            package name
      */
-    void setPackage(String packageName);
+    void setPackageName(String packageName);
 
     /**
      * Sets the start tag and related values.
