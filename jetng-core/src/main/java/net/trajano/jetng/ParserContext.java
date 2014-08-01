@@ -1,5 +1,6 @@
 package net.trajano.jetng;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
@@ -81,6 +82,12 @@ public interface ParserContext {
     boolean isTopFile();
 
     void nl();
+
+    void popFile();
+
+    void pushFile(File file) throws IOException;
+
+    void pushFile(String filename) throws IOException;
 
     /**
      * Sets the arguments class name.

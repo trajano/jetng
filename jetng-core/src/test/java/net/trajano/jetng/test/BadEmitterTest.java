@@ -39,8 +39,8 @@ public class BadEmitterTest {
         } catch (final ParseException e) {
             final FilePosition currentFilePosition = e.getContext()
                     .getCurrentFilePosition();
-            assertEquals("BadJetAttribute.jet",
-                    currentFilePosition.getFileName());
+            assertEquals("BadJetAttribute.jet", currentFilePosition.getFile()
+                    .getName());
             assertEquals(6, currentFilePosition.getRow());
             assertEquals(75, currentFilePosition.getCol());
         }
@@ -65,8 +65,8 @@ public class BadEmitterTest {
         } catch (final ParseException e) {
             final FilePosition currentFilePosition = e.getContext()
                     .getCurrentFilePosition();
-            assertEquals("BadDoubleDirective.jet",
-                    currentFilePosition.getFileName());
+            assertEquals("BadDoubleDirective.jet", currentFilePosition
+                    .getFile().getName());
             assertEquals(2, currentFilePosition.getRow());
             assertEquals(93, currentFilePosition.getCol());
         }

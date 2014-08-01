@@ -23,11 +23,6 @@ import net.trajano.jetng.internal.DefaultParserContext;
  */
 public class JetNgParser {
     /**
-     * Parser context.
-     */
-    private DefaultParserContext context;
-
-    /**
      * File going to be parsed.
      */
     private final File file;
@@ -96,7 +91,8 @@ public class JetNgParser {
      * @return true if it is a comment.
      * @throws IOException
      */
-    private boolean isComment(final PushbackReader r) throws IOException {
+    private boolean isComment(final ParserContext context,
+            final PushbackReader r) throws IOException {
         final int c = r.read();
         if (c == '-') {
             context.inc();
@@ -107,16 +103,24 @@ public class JetNgParser {
     }
 
     /**
-     * Parse.
+     * Parse creating new context.
      *
      * @throws IOException
      */
     public void parse() throws IOException {
         if (file == null) {
-            context = new DefaultParserContext();
+            parse(new DefaultParserContext());
         } else {
-            context = new DefaultParserContext(file);
+            parse(new DefaultParserContext(file));
         }
+    }
+
+    /**
+     * Parse using an existing context.
+     *
+     * @throws IOException
+     */
+    public void parse(final ParserContext context) throws IOException {
         handler.startDocument(context);
         final StringBuilder currentCharacters = new StringBuilder();
         int c = reader.read();
@@ -141,28 +145,28 @@ public class JetNgParser {
                 c = reader.read();
                 if (c == '@') {
                     context.inc();
-                    processDirective(reader);
+                    processDirective(context, reader);
                     directivesInLine = true;
                 } else if (c == '=') {
                     context.inc();
-                    processExpression(reader);
+                    processExpression(context, reader);
                 } else if (c == '-') {
                     context.inc();
-                    if (isComment(reader)) {
-                        processComment(reader);
+                    if (isComment(context, reader)) {
+                        processComment(context, reader);
                     } else {
                         context.unindent();
-                        processScriptlet(reader, true);
+                        processScriptlet(context, reader, true);
                     }
                     directivesInLine = true;
                 } else if (c == '+') {
                     context.inc();
-                    processScriptlet(reader, true);
+                    processScriptlet(context, reader, true);
                     context.indent();
                     directivesInLine = true;
                 } else {
                     reader.unread(c);
-                    processScriptlet(reader, false);
+                    processScriptlet(context, reader, false);
                     directivesInLine = true;
                 }
             } else if (c != '\r') {
@@ -186,7 +190,8 @@ public class JetNgParser {
      *            reader
      * @throws IOException
      */
-    private void processComment(final PushbackReader r) throws IOException {
+    private void processComment(final ParserContext context,
+            final PushbackReader r) throws IOException {
         handler.startComment(context);
         final StringBuilder b = new StringBuilder();
         int c = r.read();
@@ -217,7 +222,8 @@ public class JetNgParser {
      *            reader
      * @throws IOException
      */
-    private void processDirective(final PushbackReader r) throws IOException {
+    private void processDirective(final ParserContext context,
+            final PushbackReader r) throws IOException {
         final StringBuilder b = new StringBuilder();
         int c = r.read();
         while (c != -1) {
@@ -243,6 +249,8 @@ public class JetNgParser {
                             m.group(2).substring(1, m.group(2).length() - 1));
                 }
                 handler.directive(context, directiveName, attributes);
+                context.getCurrentFilePosition().setTags(context.getStartTag(),
+                        context.getEndTag());
                 return;
             } else {
                 b.append((char) c);
@@ -259,7 +267,8 @@ public class JetNgParser {
      * @throws IOException
      *             I/O Exception.
      */
-    private void processExpression(final PushbackReader r) throws IOException {
+    private void processExpression(final ParserContext context,
+            final PushbackReader r) throws IOException {
         handler.startExpression(context);
         final StringBuilder b = new StringBuilder();
         int c = r.read();
@@ -290,8 +299,8 @@ public class JetNgParser {
      * @throws IOException
      *             I/O Exception
      */
-    private void processScriptlet(final PushbackReader r, final boolean trim)
-            throws IOException {
+    private void processScriptlet(final ParserContext context,
+            final PushbackReader r, final boolean trim) throws IOException {
         handler.startScriptlet(context);
         final StringBuilder b = new StringBuilder();
         int c = r.read();

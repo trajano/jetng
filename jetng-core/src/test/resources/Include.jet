@@ -1,0 +1,8 @@
+<%@ jet class="TableModuleGenerator" package="net.trajano.apt.jpa.internal" %>
+This is the top level file
+<%@ include file="Included.inc" %>
+This is the top level file
+<%@ include file="IncludedWithCustomTag.inc" %>
+This is the top level file
+<%@ include file="Included.inc" %>
+This is the top level file

@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import net.trajano.jetng.ContextNotReadyException;
 import net.trajano.jetng.JavaEmitterParseEventHandler;
 import net.trajano.jetng.JetNgParser;
 
@@ -61,14 +60,6 @@ public class EmitterTest {
     /**
      * Tests the module method.
      */
-    @Test(expected = ContextNotReadyException.class)
-    public void testDirectiveOnly() throws Exception {
-        outputTestFile("DirectiveOnly");
-    }
-
-    /**
-     * Tests the module method.
-     */
     @Test
     public void testFull() throws Exception {
         doTestFile("TableModuleGenerator");
@@ -80,5 +71,13 @@ public class EmitterTest {
     @Test
     public void testFullNg() throws Exception {
         doTestFile("TableModuleGeneratorNg");
+    }
+
+    /**
+     * Tests the include directive.
+     */
+    @Test
+    public void testInclude() throws Exception {
+        doTestFile("Include");
     }
 }

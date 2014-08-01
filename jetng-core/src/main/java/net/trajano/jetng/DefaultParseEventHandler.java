@@ -51,7 +51,7 @@ public class DefaultParseEventHandler implements ParseEventHandler {
                 headerSent = true;
             }
         } else if ("include".equals(directiveName)) {
-            handleJetDirective(context, attributes);
+            handleIncludeDirective(context, attributes);
         } else if ("taglib".equals(directiveName)) {
             // TODO implement taglib support
             throw new ParseException("Unsupported directive:" + directiveName,
@@ -106,6 +106,24 @@ public class DefaultParseEventHandler implements ParseEventHandler {
 
     @Override
     public void expression(final ParserContext context, final String expression) {
+    }
+
+    /**
+     * Handle include directive.
+     *
+     * @param context
+     * @param attributes
+     * @throws IOException
+     */
+    private void handleIncludeDirective(final ParserContext context,
+            final Map<String, String> attributes) throws IOException {
+
+        context.pushFile(attributes.get("file"));
+        new JetNgParser(context.getCurrentFilePosition().getFile(), this, 6)
+        .parse(context);
+        context.popFile();
+        context.setStartTag(context.getCurrentFilePosition().getStartTag());
+        context.setEndTag(context.getCurrentFilePosition().getEndTag());
     }
 
     /**

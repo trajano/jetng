@@ -20,10 +20,12 @@ import net.trajano.jetng.ParserContext;
  */
 public class DefaultParserContext implements ParserContext {
     private String className;
+    private final File currentFile;
     /**
      * End comment tag. This is "--" followed by the end tag.
      */
     private String endCommentTag;
+
     /**
      * End tag.
      */
@@ -76,6 +78,7 @@ public class DefaultParserContext implements ParserContext {
      *            initial file
      */
     public DefaultParserContext(final File file) throws IOException {
+        currentFile = file;
         pushFile(file);
         setStartTag("<%");
         setEndTag("%>");
@@ -164,6 +167,7 @@ public class DefaultParserContext implements ParserContext {
     /**
      * Pops file from stack.
      */
+    @Override
     public void popFile() {
         filePositions.remove(fileStack.pop());
     }
@@ -176,6 +180,7 @@ public class DefaultParserContext implements ParserContext {
      * @param file
      *            file to push.
      */
+    @Override
     public void pushFile(final File file) throws IOException {
         if (file == NullFile.get() && !fileStack.isEmpty()) {
             throw new ParseException(
@@ -185,8 +190,15 @@ public class DefaultParserContext implements ParserContext {
         if (filePositions.containsKey(file)) {
             throw new CycleFoundException(file, this);
         }
-        filePositions.put(file, new FilePosition(file.getName()));
+        filePositions.put(file, new FilePosition(file));
         fileStack.push(file);
+    }
+
+    @Override
+    public void pushFile(final String fileName) throws IOException {
+        final File includedFile = new File(currentFile.getParentFile(),
+                fileName);
+        pushFile(includedFile);
     }
 
     @Override

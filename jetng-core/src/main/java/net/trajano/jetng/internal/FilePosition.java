@@ -1,5 +1,7 @@
 package net.trajano.jetng.internal;
 
+import java.io.File;
+
 public class FilePosition {
     /**
      * Column.
@@ -7,14 +9,23 @@ public class FilePosition {
     private int col;
 
     /**
-     * File name.
+     * End tag.
      */
-    private final String fileName;
+    private String endTag;
+
+    /**
+     * File.
+     */
+    private final File file;
 
     /**
      * Row.
      */
     private int row;
+    /**
+     * Start tag.
+     */
+    private String startTag;
 
     /**
      * Constructs the file position with the col and row at zero.
@@ -22,8 +33,8 @@ public class FilePosition {
      * @param fileName
      *            file name.
      */
-    public FilePosition(final String fileName) {
-        this.fileName = fileName;
+    public FilePosition(final File file) {
+        this.file = file;
         col = 1;
         row = 1;
     }
@@ -32,12 +43,20 @@ public class FilePosition {
         return col;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getEndTag() {
+        return endTag;
+    }
+
+    public File getFile() {
+        return file;
     }
 
     public int getRow() {
         return row;
+    }
+
+    public String getStartTag() {
+        return startTag;
     }
 
     /**
@@ -63,8 +82,19 @@ public class FilePosition {
         this.row = row;
     }
 
+    /**
+     * Set tags.
+     *
+     * @param start
+     * @param end
+     */
+    public void setTags(final String start, final String end) {
+        startTag = start;
+        endTag = end;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s[%d,%d]", fileName, row, col);
+        return String.format("%s[%d,%d]", file, row, col);
     }
 }
