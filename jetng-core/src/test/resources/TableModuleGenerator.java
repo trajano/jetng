@@ -61,8 +61,9 @@ public class TableModuleGenerator {
           for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { 
         out.print("     * @param ");
         out.print(namedQuery.getParameters().get(i));
+        out.print(' ');
         out.print(namedQuery.getParameters().get(i));
-        out.println("  ");
+        out.println(' ');
           } 
         out.print("     * @return list of ");
         out.print(meta.getEntityClassName());
@@ -85,8 +86,9 @@ public class TableModuleGenerator {
         out.print("                .createNamedQuery(\"");
         out.print(namedQuery.getName());
         out.println("\",");
+        out.print("                        ");
         out.print(meta.getEntityClassName());
-        out.println("                        .class)");
+        out.println(".class)");
         out.println("                .setFlushMode(FlushModeType.AUTO)");
           for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { 
         out.print("                .setParameter(\"");
@@ -107,8 +109,9 @@ public class TableModuleGenerator {
           for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { 
         out.print("     * @param ");
         out.print(operation.getParameterNames().get(i));
+        out.print(' ');
         out.print(operation.getParameterNames().get(i));
-        out.println("  ");
+        out.println(' ');
           } 
         out.print("     * @return ");
         out.print(operation.getReturnType());
@@ -116,8 +119,9 @@ public class TableModuleGenerator {
         out.println("     */");
         out.print("    public ");
         out.print(operation.getReturnType());
+        out.print(' ');
         out.print(operation.getMethodName());
-        out.print(" (");
+        out.print('(');
           for (int i = 0 ; i < operation.getParameterDeclarations().size(); ++i) { 
         out.print(operation.getParameterDeclarations().get(i));
          if (i < operation.getParameterDeclarations().size() - 1) { 
@@ -138,8 +142,9 @@ public class TableModuleGenerator {
           if (!"void".equals(operation.getReturnType())) {
         out.println("        return ");
           } 
+        out.print("        ");
         out.print(meta.getEntityClassName());
-        out.print("        .");
+        out.print('.');
         out.print(operation.getMethodName());
         out.print("(em");
          for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { 

@@ -92,4 +92,13 @@ public class EmitterTest {
     public void testIndentBlogPost() throws Exception {
         doTestFile("IndentBlogPost", "foo/Bar.java");
     }
+
+    /**
+     * Tests the module method.
+     */
+    @Test
+    public void testSpaceCheck() throws Exception {
+        doTestFile("SpaceCheck",
+                "net/trajano/apt/jpa/internal/TableModuleGenerator.java");
+    }
 }

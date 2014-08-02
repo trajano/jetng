@@ -60,11 +60,14 @@ public class TableModuleGenerator {
             out.print("     * Execute named query ");
             out.print(namedQuery.getName());
             out.println('.');
+            out.print("    ");
             for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { 
                 out.print("     * @param ");
                 out.print(namedQuery.getParameters().get(i));
+                out.print(' ');
                 out.print(namedQuery.getParameters().get(i));
-                out.println("  ");
+                out.println(' ');
+                out.print("    ");
             } 
             out.print("     * @return list of ");
             out.print(argument.getEntityClassName());
@@ -87,8 +90,9 @@ public class TableModuleGenerator {
             out.print("                .createNamedQuery(\"");
             out.print(namedQuery.getName());
             out.println("\",");
+            out.print("                        ");
             out.print(argument.getEntityClassName());
-            out.println("                        .class)");
+            out.println(".class)");
             out.println("                .setFlushMode(FlushModeType.AUTO)");
             for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { 
                 out.print("                .setParameter(\"");
@@ -106,11 +110,14 @@ public class TableModuleGenerator {
             out.print("     * Execute extra operation ");
             out.print(operation.getMethodName());
             out.println('.');
+            out.print("    ");
             for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { 
                 out.print("     * @param ");
                 out.print(operation.getParameterNames().get(i));
+                out.print(' ');
                 out.print(operation.getParameterNames().get(i));
-                out.println("  ");
+                out.println(' ');
+                out.print("    ");
             } 
             out.print("     * @return ");
             out.print(operation.getReturnType());
@@ -118,8 +125,9 @@ public class TableModuleGenerator {
             out.println("     */");
             out.print("    public ");
             out.print(operation.getReturnType());
+            out.print(' ');
             out.print(operation.getMethodName());
-            out.print(" (");
+            out.print('(');
             for (int i = 0 ; i < operation.getParameterDeclarations().size(); ++i) { 
                 out.print(operation.getParameterDeclarations().get(i));
                 if (i < operation.getParameterDeclarations().size() - 1) { 
@@ -127,6 +135,7 @@ public class TableModuleGenerator {
                 } 
             } 
             out.println(')');
+            out.print("    ");
             if (!operation.getThrownTypes().isEmpty()) {
                 out.print("      throws ");
                 for (int i = 0 ; i < operation.getThrownTypes().size(); ++i) { 
@@ -135,13 +144,17 @@ public class TableModuleGenerator {
                         out.print(',');
                     } 
                 } 
+                out.print("    ");
             } 
             out.println("    {");
+            out.print("    ");
             if (!"void".equals(operation.getReturnType())) {
                 out.println("        return ");
+                out.print("    ");
             } 
+            out.print("        ");
             out.print(argument.getEntityClassName());
-            out.print("        .");
+            out.print('.');
             out.print(operation.getMethodName());
             out.print("(em");
             for (int i = 0 ; i < operation.getParameterNames().size(); ++i) { 

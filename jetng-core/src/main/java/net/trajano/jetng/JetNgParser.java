@@ -143,7 +143,7 @@ public class JetNgParser {
                 directivesInLine = false;
             } else if (isTextComing(context, (char) c, context.getStartTag(),
                     reader)) {
-                if (!currentCharacters.toString().trim().isEmpty()) {
+                if (!currentCharacters.toString().isEmpty()) {
                     handler.characters(context, currentCharacters.toString(),
                             false, false);
                     currentCharacters.setLength(0);
