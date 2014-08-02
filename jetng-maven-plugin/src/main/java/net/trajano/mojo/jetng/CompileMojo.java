@@ -90,8 +90,6 @@ public class CompileMojo extends AbstractMojo {
 		destDir.mkdirs();
 		if (jetFileSets == null) {
 			final FileSet defaultJetFileSet = new FileSet();
-			System.out.println("project=" + project);
-			System.out.println("build context=" + buildContext);
 			defaultJetFileSet.setDirectory(new File(project.getBasedir(),
 					"src/main/jetng").getPath());
 			defaultJetFileSet.addInclude("**/*.jet");
