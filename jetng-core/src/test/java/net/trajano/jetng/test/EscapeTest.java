@@ -41,6 +41,8 @@ public class EscapeTest {
         assertEquals("'a'", Util.escapeJavaString("a"));
         assertEquals("'\\''", Util.escapeJavaString("'"));
         assertEquals("'\"'", Util.escapeJavaString("\""));
+        assertEquals("'='", Util.escapeJavaString("="));
+        assertEquals("'\\u0215'", Util.escapeJavaString("\u0215"));
     }
 
     /**

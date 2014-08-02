@@ -22,8 +22,8 @@ public final class Util {
     private static final Set<Character> SAFE_CHARACTERS;
     static {
         SAFE_CHARACTERS = new HashSet<Character>();
-        for (final char c : " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@#$%^&*()_+{}|:;'/?<>,.[]-"
-            .toCharArray()) {
+        for (final char c : " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@#$%^&*()_+{}|:;'/?<>,.[]-="
+                .toCharArray()) {
             SAFE_CHARACTERS.add(c);
         }
     }
@@ -81,7 +81,7 @@ public final class Util {
         } else if (SAFE_CHARACTERS.contains(c)) {
             return String.valueOf(c);
         } else {
-            return "\\u" + Long.toHexString(c);
+            return String.format("\\u%04x", (int) c);
         }
     }
 

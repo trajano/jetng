@@ -187,7 +187,7 @@ public class TableModuleGenerator {
         out.println("     *            entity manager.");
         out.println("     */");
         out.println("    public void setEntityManager(final EntityManager entityManager) {");
-        out.println("        em \u3d entityManager;");
+        out.println("        em = entityManager;");
         out.println("    }");
         out.println('}');
     }
