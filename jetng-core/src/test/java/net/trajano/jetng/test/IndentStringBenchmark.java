@@ -12,6 +12,12 @@ public class IndentStringBenchmark {
         return new String(carray);
     }
 
+    private static String indentArrayMethodIntern(final int level) {
+        final char[] carray = new char[4 * level];
+        Arrays.fill(carray, ' ');
+        return new String(carray).intern();
+    }
+
     private static String indentStringBuilderMethod(final int level) {
         final StringBuilder b = new StringBuilder(level * 4);
         for (int i = level - 1; i >= 0; --i) {
@@ -36,6 +42,13 @@ public class IndentStringBenchmark {
     public void timeArrayMethod(final int reps) {
         for (int i = 0; i < reps; i++) {
             indentArrayMethod(20);
+        }
+    }
+
+    @Benchmark
+    public void timeArrayMethodIntern(final int reps) {
+        for (int i = 0; i < reps; i++) {
+            indentArrayMethodIntern(20);
         }
     }
 
