@@ -107,13 +107,14 @@ public class JetNgParser {
     /**
      * Parse creating new context.
      *
+     * @return context that was used
      * @throws IOException
      */
-    public void parse() throws IOException {
+    public ParserContext parse() throws IOException {
         if (file == null) {
-            parse(new DefaultParserContext());
+            return parse(new DefaultParserContext());
         } else {
-            parse(new DefaultParserContext(file));
+            return parse(new DefaultParserContext(file));
         }
     }
 
@@ -122,10 +123,10 @@ public class JetNgParser {
      *
      * @param context
      *            parsing context
-     *
+     * @return context that was used
      * @throws IOException
      */
-    public void parse(final ParserContext context) throws IOException {
+    public ParserContext parse(final ParserContext context) throws IOException {
         handler.startDocument(context);
         final StringBuilder currentCharacters = new StringBuilder();
         int c = reader.read();
@@ -186,6 +187,7 @@ public class JetNgParser {
                     && currentCharacters.toString().trim().isEmpty());
         }
         handler.endDocument(context);
+        return context;
     }
 
     /**

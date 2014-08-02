@@ -75,14 +75,14 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
         out.println();
         out.println(format("    public String generate(final %s arguments) {",
                 context.getArgumentsClassName()));
-        out.println("        final StringWriter w = new StringWriter();");
-        out.println("        generate(arguments, w);");
+        out.println("        final java.io.StringWriter w = new java.io.StringWriter();");
+        out.println("        generate(arguments, new java.io.PrintWriter(w));");
         out.println("        return w.toString();");
         out.println("    }");
 
         out.println();
         out.println(format(
-                "    public void generate(final %s arguments, final PrintWriter out) {",
+                "    public void generate(final %s arguments, final java.io.PrintWriter out) {",
                 context.getArgumentsClassName()));
 
     }

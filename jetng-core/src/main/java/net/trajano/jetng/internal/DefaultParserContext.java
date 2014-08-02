@@ -146,6 +146,11 @@ public class DefaultParserContext implements ParserContext {
         return startTag;
     }
 
+    @Override
+    public String getTargetFile() {
+        return packageName.replace('.', '/') + '/' + className + ".java";
+    }
+
     /**
      * Increment current file column.
      */

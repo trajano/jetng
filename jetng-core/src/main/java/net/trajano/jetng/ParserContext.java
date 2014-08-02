@@ -86,6 +86,14 @@ public interface ParserContext {
     String getStartTag();
 
     /**
+     * Provides the target file name. This should be the package name with the
+     * dots as slashes and the class name followed by .java.
+     *
+     * @return target file name.
+     */
+    String getTargetFile();
+
+    /**
      * Increments the column count on the current file.
      */
     void inc();

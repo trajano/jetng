@@ -9,6 +9,7 @@ import java.io.StringWriter;
 
 import net.trajano.jetng.JavaEmitterParseEventHandler;
 import net.trajano.jetng.JetNgParser;
+import net.trajano.jetng.ParserContext;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
@@ -17,7 +18,8 @@ import org.junit.Test;
  * Tests the parser.
  */
 public class EmitterTest {
-    private void doTestFile(final String file) throws Exception {
+    private void doTestFile(final String file, final String targetFile)
+            throws Exception {
         final StringWriter w = new StringWriter();
         IOUtils.copy(new InputStreamReader(Thread.currentThread()
                 .getContextClassLoader().getResourceAsStream(file + ".java")),
@@ -31,11 +33,12 @@ public class EmitterTest {
                 .currentThread().getContextClassLoader()
                 .getResource(file + ".jet").toURI()),
                 new JavaEmitterParseEventHandler(out), 6);
-        parser.parse();
+        final ParserContext context = parser.parse();
         out.close();
         // assertEquals(verify.length(), target.toString().length());
         assertEquals(verify,
                 target.toString().replace("\r\n", "\n").replace("\r", "\n"));
+        assertEquals(targetFile, context.getTargetFile());
 
     }
 
@@ -44,7 +47,7 @@ public class EmitterTest {
      */
     @Test
     public void testArgumentsBlogPost() throws Exception {
-        doTestFile("ArgumentsBlogPost");
+        doTestFile("ArgumentsBlogPost", "foo/Bar.java");
     }
 
     /**
@@ -52,7 +55,7 @@ public class EmitterTest {
      */
     @Test
     public void testBlogPost() throws Exception {
-        doTestFile("BlogPost");
+        doTestFile("BlogPost", "foo/Bar.java");
     }
 
     /**
@@ -60,7 +63,8 @@ public class EmitterTest {
      */
     @Test
     public void testFull() throws Exception {
-        doTestFile("TableModuleGenerator");
+        doTestFile("TableModuleGenerator",
+                "net/trajano/apt/jpa/internal/TableModuleGenerator.java");
     }
 
     /**
@@ -68,7 +72,8 @@ public class EmitterTest {
      */
     @Test
     public void testFullNg() throws Exception {
-        doTestFile("TableModuleGeneratorNg");
+        doTestFile("TableModuleGeneratorNg",
+                "net/trajano/apt/jpa/internal/TableModuleGenerator.java");
     }
 
     /**
@@ -76,14 +81,15 @@ public class EmitterTest {
      */
     @Test
     public void testInclude() throws Exception {
-        doTestFile("Include");
+        doTestFile("Include",
+                "net/trajano/apt/jpa/internal/TableModuleGenerator.java");
     }
 
     /**
-     * Tests the blog post example.
+     * Tests the indentation example.
      */
     @Test
     public void testIndentBlogPost() throws Exception {
-        doTestFile("IndentBlogPost");
+        doTestFile("IndentBlogPost", "foo/Bar.java");
     }
 }

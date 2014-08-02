@@ -6,12 +6,12 @@ import javax.xml.*;
 public class TableModuleGenerator {
 
     public String generate(final MetaTableModule arguments) {
-        final StringWriter w = new StringWriter();
-        generate(arguments, w);
+        final java.io.StringWriter w = new java.io.StringWriter();
+        generate(arguments, new java.io.PrintWriter(w));
         return w.toString();
     }
 
-    public void generate(final MetaTableModule arguments, final PrintWriter out) {
+    public void generate(final MetaTableModule arguments, final java.io.PrintWriter out) {
         out.print("package ");
         out.print(argument.getPackageName());
         out.println(';');
