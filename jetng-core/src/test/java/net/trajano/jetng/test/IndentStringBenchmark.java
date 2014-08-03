@@ -18,8 +18,36 @@ public class IndentStringBenchmark {
         return new String(carray).intern();
     }
 
+    /**
+     * Construct as an array, but use {@link String#String(char[], int, int)} to
+     * build the string.
+     *
+     * @param level
+     * @return
+     */
+    private static String indentArrayNewStringThreeParameterMethod(
+            final int level) {
+        final char[] carray = new char[4 * level];
+        Arrays.fill(carray, ' ');
+        return new String(carray, 0, 4 * level);
+    }
+
     private static String indentStringBuilderMethod(final int level) {
         final StringBuilder b = new StringBuilder(level * 4);
+        for (int i = level - 1; i >= 0; --i) {
+            b.append("    ");
+        }
+        return b.toString();
+    }
+
+    /**
+     * Create the string builder without initially defining the target size.
+     *
+     * @param level
+     * @return
+     */
+    private static String indentStringBuilderMethodNoSize(final int level) {
+        final StringBuilder b = new StringBuilder();
         for (int i = level - 1; i >= 0; --i) {
             b.append("    ");
         }
@@ -53,9 +81,23 @@ public class IndentStringBenchmark {
     }
 
     @Benchmark
-    public void timeStringBufferMethod(final int reps) {
+    public void timeArrayNewStringThreeParameterMethod(final int reps) {
+        for (int i = 0; i < reps; i++) {
+            indentArrayNewStringThreeParameterMethod(20);
+        }
+    }
+
+    @Benchmark
+    public void timeStringBuilderMethod(final int reps) {
         for (int i = 0; i < reps; i++) {
             indentStringBuilderMethod(20);
+        }
+    }
+
+    @Benchmark
+    public void timeStringBuilderNoSizeMethod(final int reps) {
+        for (int i = 0; i < reps; i++) {
+            indentStringBuilderMethodNoSize(20);
         }
     }
 
