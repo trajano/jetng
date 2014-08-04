@@ -4,6 +4,7 @@ import static java.lang.String.format;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
@@ -95,6 +96,7 @@ public class CompileMojo extends AbstractMojo {
 			defaultJetFileSet.addInclude("**/*.jet");
 			jetFileSets = Collections.singletonList(defaultJetFileSet);
 		}
+		final File tmpFile = new File(destDir, "jetng.tmp"); // NOPMD
 		for (final FileSet fileSet : jetFileSets) {
 			final String directory = fileSet.getDirectory();
 			final File baseDirectory = new File(directory); // NOPMD
@@ -108,16 +110,11 @@ public class CompileMojo extends AbstractMojo {
 			scanner.scan();
 			project.addCompileSourceRoot(destDir.toString());
 			for (final String includedFile : scanner.getIncludedFiles()) {
-
 				final File inputFile = new File(baseDirectory, // NOPMD
 						includedFile);
-				final String basename = includedFile.substring(0,
-						includedFile.lastIndexOf('.'));
 				try {
-					final File javaFile = File
-							.createTempFile(basename, ".java"); // NOPMD
 					final PrintWriter out = new PrintWriter(// NOPMD
-							buildContext.newFileOutputStream(javaFile));
+							buildContext.newFileOutputStream(tmpFile));
 					final JetNgParser parser = new JetNgParser(inputFile,
 							new JavaEmitterParseEventHandler(out), maxTagSize);
 					final ParserContext parseContext = parser.parse();
@@ -125,8 +122,11 @@ public class CompileMojo extends AbstractMojo {
 					final File targetFile = new File(destDir,
 							parseContext.getTargetFile());
 					targetFile.getParentFile().mkdirs();
-					IOUtil.copy(new FileInputStream(javaFile),
-							buildContext.newFileOutputStream(targetFile));
+					final OutputStream output = buildContext
+							.newFileOutputStream(targetFile);
+					IOUtil.copy(new FileInputStream(tmpFile), output);
+					output.close();
+					buildContext.refresh(targetFile);
 				} catch (final ParseException e) {
 					throw new MojoExecutionException(String.format(R
 							.getString("parseerror"), inputFile, e.getContext()
@@ -137,6 +137,7 @@ public class CompileMojo extends AbstractMojo {
 				}
 			}
 		}
+		tmpFile.delete();
 	}
 
 }
