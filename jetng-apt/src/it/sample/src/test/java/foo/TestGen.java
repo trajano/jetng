@@ -23,7 +23,8 @@ public class TestGen {
                 new InputStreamReader(
                         blah.SampleProcessor.class
                                 .getResourceAsStream("/META-INF/services/javax.annotation.processing.Processor")));
-//        assertEquals("blah.SampleProcessor", reader.readLine());
+        assertEquals("blah.SampleProcessor", reader.readLine());
+        assertEquals("blah.SampleProcessor2", reader.readLine());
         reader.close();
     }
 }
