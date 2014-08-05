@@ -101,4 +101,14 @@ public class EmitterTest {
         doTestFile("SpaceCheck",
                 "net/trajano/apt/jpa/internal/TableModuleGenerator.java");
     }
+
+    /**
+     * Tests scenario where the class name was not specified and derived from
+     * the file name.
+     */
+    @Test
+    public void testWithoutClassName() throws Exception {
+        doTestFile("TableModuleGeneratorNg2",
+                "net/trajano/apt/jpa/internal/TableModuleGeneratorNg2.java");
+    }
 }
