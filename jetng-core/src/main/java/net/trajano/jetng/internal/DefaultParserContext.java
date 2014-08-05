@@ -91,8 +91,10 @@ public class DefaultParserContext implements ParserContext {
         pushFile(file);
         setStartTag("<%");
         setEndTag("%>");
-        className = file.getName()
-                .substring(0, file.getName().lastIndexOf('.'));
+        if (file != NullFile.get()) {
+            className = file.getName().substring(0,
+                    file.getName().lastIndexOf('.'));
+        }
         argumentsClassName = "Object";
     }
 
