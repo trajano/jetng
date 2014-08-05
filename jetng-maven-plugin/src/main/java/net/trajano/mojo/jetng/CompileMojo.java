@@ -85,7 +85,7 @@ public class CompileMojo extends AbstractMojo {
 	 * Performs the compile.
 	 *
 	 * @throws MojoExecutionException
-	 *             thrown when there is a problem executing Mjo.
+	 *             thrown when there is a problem executing mojo.
 	 */
 	@Override
 	public void execute() throws MojoExecutionException {
