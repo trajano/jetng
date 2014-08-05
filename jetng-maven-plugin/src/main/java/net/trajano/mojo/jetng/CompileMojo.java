@@ -4,6 +4,7 @@ import static java.lang.String.format;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Collections;
@@ -96,7 +97,14 @@ public class CompileMojo extends AbstractMojo {
 			defaultJetFileSet.addInclude("**/*.jet");
 			jetFileSets = Collections.singletonList(defaultJetFileSet);
 		}
-		final File tmpFile = new File(destDir, "jetng.tmp"); // NOPMD
+		final File tmpFile;
+		try {
+			tmpFile = File.createTempFile("jetng-maven-plugin", ".tmp"); // NOPMD
+		} catch (final IOException e) {
+			throw new MojoExecutionException(
+					R.getString("failedtocreatetempfile"), e);
+
+		}
 		for (final FileSet fileSet : jetFileSets) {
 			final String directory = fileSet.getDirectory();
 			final File baseDirectory = new File(directory); // NOPMD
