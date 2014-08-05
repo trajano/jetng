@@ -4,7 +4,6 @@ package <%=arguments.getPackageName()%>;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -13,7 +12,6 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.persistence.Entity;
 import javax.tools.Diagnostic.Kind;
 
 @SupportedAnnotationTypes(<%=arguments.getSupportedAnnotationTypesString()%>)
@@ -28,7 +26,7 @@ public class <%=arguments.getClassName()%> extends AbstractProcessor {
         final <%=arguments.getGeneratorClassName()%> generator = new <%=arguments.getGeneratorClassName()%>();
 <%+ for (String supportedType: arguments.getSupportedAnnotationTypes()) { %>
         for (final Element element : roundEnv
-                .getElementsAnnotatedWith(Entity.class)) {
+                .getElementsAnnotatedWith(<%=supportedType%>.class)) {
             try {
                 final <%=arguments.getArgumentClassName()%> arguments = new <%=arguments.getArgumentClassName()%>(
                         (<%=arguments.getArgumentConstructorParameterType()%>) element);
