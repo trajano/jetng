@@ -40,7 +40,7 @@ public class <%=arguments.getClassName()%> extends AbstractProcessor {
             } catch (final IOException e) {
                 processingEnv.getMessager().printMessage(Kind.ERROR,
                         e.getMessage(), element);
-                return false;
+                throw new RuntimeException(e);
             }
         }
 <%- } %>
