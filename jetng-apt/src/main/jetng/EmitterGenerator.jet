@@ -1,0 +1,52 @@
+<%@ jet class="EmitterGenerator" package="net.trajano.jetng.apt.internal" argumentsClass="EmitModel" %>
+package <%=arguments.getPackageName()%>;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Set;
+import java.util.logging.Logger;
+
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.persistence.Entity;
+import javax.tools.Diagnostic.Kind;
+
+@SupportedAnnotationTypes(<%=arguments.getSupportedAnnotationTypesString()%>)
+@SupportedSourceVersion(<%=arguments.getSupportedSourceVersion()%>)
+public class <%=arguments.getClassName()%> extends AbstractProcessor {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean process(final Set<? extends TypeElement> annotations,
+            final RoundEnvironment roundEnv) {
+        final <%=arguments.getGeneratorClassName()%> generator = new <%=arguments.getGeneratorClassName()%>();
+<%+ for (String supportedType: arguments.getSupportedAnnotationTypes()) { %>
+        for (final Element element : roundEnv
+                .getElementsAnnotatedWith(Entity.class)) {
+            try {
+                final <%=arguments.getArgumentClassName()%> arguments = new <%=arguments.getArgumentClassName()%>(
+                        (<%=arguments.getArgumentConstructorParameterType()%>) element);
+                final Writer w = processingEnv
+                        .getFiler()
+                        .createSourceFile(arguments.<%=arguments.getQualifiedNameMethod()%>(),
+                                element).openWriter();
+
+                w.write(generator.generate(arguments));
+                w.close();
+            } catch (final IOException e) {
+                processingEnv.getMessager().printMessage(Kind.ERROR,
+                        e.getMessage(), element);
+                return false;
+            }
+        }
+<%- } %>
+        return true;
+        
+    }
+}

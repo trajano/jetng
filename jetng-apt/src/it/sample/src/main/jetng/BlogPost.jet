@@ -1,0 +1,5 @@
+<%@ jet package="foo" class="Bar" imports="java.util.List" %>
+Hello world
+<%-- comments --%>
+<% List<String> meta = (List<String>)arguments; %>
+<%= meta.size() %>

@@ -13,6 +13,7 @@
     <name>Java Emitter Template NG</name>
     <description>Next generation of the Java Emitter Template.</description>
     <modules>
+        <module>jetng-apt</module>
         <module>jetng-core</module>
         <module>jetng-maven-plugin</module>
     </modules>
