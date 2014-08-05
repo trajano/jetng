@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schema.trajano.net/emitter"
+	xmlns:tns="http://schema.trajano.net/emitter" elementFormDefault="qualified">
+	<element name="emitter">
+		<complexType>
+			<all>
+				<element name="class" type="token" />
+				<element name="argument">
+					<complexType>
+						<all>
+							<element name="class" type="token" />
+							<element name="qualifiedNameMethod" type="token"
+								default="getQualifiedName" />
+							<element name="constructorParameter" default="javax.model.element.TypeElement">
+								<simpleType>
+									<restriction base="token">
+										<enumeration value="javax.model.element.Element" />
+										<enumeration value="javax.model.element.TypeElement" />
+										<enumeration value="javax.model.element.ExecutableElement" />
+										<enumeration value="javax.model.element.VariableElement" />
+										<enumeration value="javax.model.element.PackageElement" />
+									</restriction>
+								</simpleType>
+							</element>
+						</all>
+					</complexType>
+				</element>
+				<element name="supportedSourceVersion" default="javax.lang.model.SourceVersion.RELEASE_6">
+					<simpleType>
+						<restriction base="token">
+							<enumeration value="javax.lang.model.SourceVersion.RELEASE_5" />
+							<enumeration value="javax.lang.model.SourceVersion.RELEASE_6" />
+							<enumeration value="javax.lang.model.SourceVersion.RELEASE_7" />
+							<enumeration value="javax.lang.model.SourceVersion.RELEASE_8" />
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="template" type="token" />
+				<element name="supportedAnnotationTypes">
+					<complexType>
+						<sequence>
+							<element name="class" type="token" minOccurs="1"
+								maxOccurs="unbounded" />
+						</sequence>
+					</complexType>
+				</element>
+			</all>
+		</complexType>
+	</element>
+</schema>

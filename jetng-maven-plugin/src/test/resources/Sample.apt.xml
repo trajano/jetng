@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<emitter xmlns="http://schema.trajano.net/emitter"
+	xsi:schemaLocation="http://schema.trajano.net/emitter emitter.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<class>somepackage.SampleProcessor</class>
+	<argument>
+		<class>blah.Sample</class>
+		<qualifiedNameMethod>getQualifiedName</qualifiedNameMethod>
+		<constructorParameter>javax.model.element.TypeElement</constructorParameter>
+	</argument>
+	<template>foo.Bar</template>
+	<supportedSourceVersion>javax.lang.model.SourceVersion.RELEASE_6</supportedSourceVersion>
+	<supportedAnnotationTypes>
+		<class>javax.persistence.Entity</class>
+	</supportedAnnotationTypes>
+</emitter>

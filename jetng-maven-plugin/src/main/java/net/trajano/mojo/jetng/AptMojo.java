@@ -3,18 +3,15 @@ package net.trajano.mojo.jetng;
 import static java.lang.String.format;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import net.trajano.jetng.JavaEmitterParseEventHandler;
-import net.trajano.jetng.JetNgParser;
-import net.trajano.jetng.ParseException;
-import net.trajano.jetng.ParserContext;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import net.trajano.schema.emitter.Emitter;
 
 import org.apache.maven.model.FileSet;
 import org.apache.maven.plugin.AbstractMojo;
@@ -24,15 +21,15 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.IOUtil;
 import org.codehaus.plexus.util.Scanner;
 import org.sonatype.plexus.build.incremental.BuildContext;
 
 /**
- * Compile.
+ * This processes ".apt.xml" files to generate annotation processors that uses
+ * JETNG.
  */
-@Mojo(name = "compile", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true, requiresOnline = false)
-public class CompileMojo extends AbstractMojo {
+@Mojo(name = "apt", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true, requiresOnline = false)
+public class AptMojo extends AbstractMojo {
 	/**
 	 * Resource bundle.
 	 */
@@ -45,9 +42,9 @@ public class CompileMojo extends AbstractMojo {
 	private BuildContext buildContext;
 
 	/**
-	 * The directory to write the processed JET files.
+	 * The directory to write the annotation processor code.
 	 */
-	@Parameter(defaultValue = "${project.build.directory}/generated-sources/jetng", required = true)
+	@Parameter(defaultValue = "${project.build.directory}/generated-sources/jetng-apt", required = true)
 	private File destDir;
 
 	/**
@@ -58,7 +55,7 @@ public class CompileMojo extends AbstractMojo {
 	 *     &lt;fileSet>
 	 *         &lt;directory>${basedir}/src/main/jetng&lt;/directory>
 	 *         &lt;includes>
-	 *             &lt;include>**\/\*.jet&lt;/include>
+	 *             &lt;include>**\/\*.apt.xml&lt;/include>
 	 *         &lt;/includes>
 	 *         &lt;excludes>
 	 *         &lt;/excludes>
@@ -67,7 +64,7 @@ public class CompileMojo extends AbstractMojo {
 	 * </pre>
 	 */
 	@Parameter(required = false)
-	private List<FileSet> jetFileSets;
+	private List<FileSet> aptXmlFileSets;
 
 	/**
 	 * Maximum number of characters for tags.
@@ -89,23 +86,22 @@ public class CompileMojo extends AbstractMojo {
 	 */
 	@Override
 	public void execute() throws MojoExecutionException {
+		final Unmarshaller um;
+		try {
+			final JAXBContext jc = JAXBContext.newInstance(Emitter.class);
+			um = jc.createUnmarshaller();
+		} catch (final JAXBException e) {
+			throw new MojoExecutionException(R.getString("jaxbissue"));
+		}
 		destDir.mkdirs();
-		if (jetFileSets == null) {
+		if (aptXmlFileSets == null) {
 			final FileSet defaultJetFileSet = new FileSet();
 			defaultJetFileSet.setDirectory(new File(project.getBasedir(),
 					"src/main/jetng").getPath());
-			defaultJetFileSet.addInclude("**/*.jet");
-			jetFileSets = Collections.singletonList(defaultJetFileSet);
+			defaultJetFileSet.addInclude("**/*.apt.xml");
+			aptXmlFileSets = Collections.singletonList(defaultJetFileSet);
 		}
-		final File tmpFile;
-		try {
-			tmpFile = File.createTempFile("jetng-maven-plugin", ".tmp"); // NOPMD
-		} catch (final IOException e) {
-			throw new MojoExecutionException(
-					R.getString("failedtocreatetempfile"), e);
-
-		}
-		for (final FileSet fileSet : jetFileSets) {
+		for (final FileSet fileSet : aptXmlFileSets) {
 			final String directory = fileSet.getDirectory();
 			final File baseDirectory = new File(directory); // NOPMD
 			if (!baseDirectory.isDirectory()) { // NOPMD
@@ -121,31 +117,12 @@ public class CompileMojo extends AbstractMojo {
 				final File inputFile = new File(baseDirectory, // NOPMD
 						includedFile);
 				try {
-					final PrintWriter out = new PrintWriter(// NOPMD
-							buildContext.newFileOutputStream(tmpFile));
-					final JetNgParser parser = new JetNgParser(inputFile,
-							new JavaEmitterParseEventHandler(out), maxTagSize);
-					final ParserContext parseContext = parser.parse();
-					out.close();
-					final File targetFile = new File(destDir,
-							parseContext.getTargetFile());
-					targetFile.getParentFile().mkdirs();
-					final OutputStream output = buildContext
-							.newFileOutputStream(targetFile);
-					IOUtil.copy(new FileInputStream(tmpFile), output);
-					output.close();
-					buildContext.refresh(targetFile);
-				} catch (final ParseException e) {
-					throw new MojoExecutionException(String.format(R
-							.getString("parseerror"), inputFile, e.getContext()
-							.getCurrentFilePosition()), e);
+					final Emitter emitter = (Emitter) um.unmarshal(inputFile);
 				} catch (final Exception e) {
 					throw new MojoExecutionException(String.format(
 							R.getString("failedtocompile"), inputFile), e);
 				}
 			}
 		}
-		tmpFile.delete();
 	}
-
 }
