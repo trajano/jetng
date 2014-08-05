@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -54,6 +55,11 @@ public class EmitsProcessor extends AbstractProcessor {
                         ExecutableElement.class.getName(),
                         PackageElement.class.getName())));
     }
+    /**
+     * Annotation processors.
+     */
+    private final Set<String> annotationProcessors = new TreeSet<String>();
+    private final Set<TypeElement> elementCollection = new HashSet<TypeElement>();
 
     /**
      * {@inheritDoc}
@@ -62,21 +68,19 @@ public class EmitsProcessor extends AbstractProcessor {
     public boolean process(final Set<? extends TypeElement> annotations,
             final RoundEnvironment roundEnv) {
 
-        final Set<TypeElement> annotationProcessors = new HashSet<TypeElement>();
         // final TableModuleGenerator generator = new TableModuleGenerator();
         for (final Element element : roundEnv
                 .getElementsAnnotatedWith(Emits.class)) {
             final TypeElement typeElement = (TypeElement) element;
             for (final Emit emit : typeElement.getAnnotation(Emits.class)
                     .value()) {
-                processEmit(emit, typeElement, annotationProcessors);
+                processEmit(emit, typeElement);
             }
         }
         for (final Element element : roundEnv
                 .getElementsAnnotatedWith(Emit.class)) {
             final TypeElement typeElement = (TypeElement) element;
-            processEmit(typeElement.getAnnotation(Emit.class), typeElement,
-                    annotationProcessors);
+            processEmit(typeElement.getAnnotation(Emit.class), typeElement);
         }
         if (roundEnv.processingOver() && !roundEnv.errorRaised()) {
             try {
@@ -87,11 +91,11 @@ public class EmitsProcessor extends AbstractProcessor {
                                 StandardLocation.SOURCE_OUTPUT,
                                 "",
                                 "META-INF/services/javax.annotation.processing.Processor",
-                                annotationProcessors
+                                elementCollection
                                 .toArray(new Element[0]))
                                 .openWriter());
-                for (final TypeElement processor : annotationProcessors) {
-                    metaWriter.println(processor.asType().toString());
+                for (final String processor : annotationProcessors) {
+                    metaWriter.println(processor);
                 }
                 metaWriter.close();
             } catch (final IOException e) {
@@ -113,13 +117,10 @@ public class EmitsProcessor extends AbstractProcessor {
      *            emit annotation
      * @param typeElement
      *            type element
-     * @param annotationProcessors
-     *            accumulated annotation processors
      * @throws IOException
      */
-    private void processEmit(final Emit emit, final TypeElement typeElement,
-            final Set<TypeElement> annotationProcessors) {
-        annotationProcessors.add(typeElement);
+    private void processEmit(final Emit emit, final TypeElement typeElement) {
+        elementCollection.add(typeElement);
         final EmitterGenerator generator = new EmitterGenerator();
         String elementClassUsedInArgumentsClassConstructor = null;
         for (final Element element : typeElement.getEnclosedElements()) {
@@ -166,6 +167,7 @@ public class EmitsProcessor extends AbstractProcessor {
         model.setSupportedSourceVersion("SourceVersion."
                 + emit.supportedSourceVersion());
         try {
+            annotationProcessors.add(model.getQualifiedName());
             final PrintWriter writer = new PrintWriter(processingEnv.getFiler()
                     .createSourceFile(model.getQualifiedName()).openWriter());
             generator.generate(model, writer);
