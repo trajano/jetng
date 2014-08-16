@@ -3,10 +3,11 @@ package net.trajano.jetng.internal;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.SortedSet;
-import java.util.Stack;
 import java.util.TreeSet;
 
 import net.trajano.jetng.CycleFoundException;
@@ -51,7 +52,7 @@ public class DefaultParserContext implements ParserContext {
     /**
      * File stack.
      */
-    private final Stack<File> fileStack = new Stack<File>();
+    private final Deque<File> fileStack = new LinkedList<File>();
 
     /**
      * Imports.
