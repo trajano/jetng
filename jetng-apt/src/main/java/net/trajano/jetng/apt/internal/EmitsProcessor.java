@@ -33,7 +33,7 @@ import net.trajano.jetng.apt.Emits;
  * the plural version of the entity name.
  */
 @SupportedAnnotationTypes({ "net.trajano.jetng.apt.Emits",
-        "net.trajano.jetng.apt.Emit" })
+"net.trajano.jetng.apt.Emit" })
 @SupportedSourceVersion(SourceVersion.RELEASE_5)
 public class EmitsProcessor extends AbstractProcessor {
     /**
@@ -72,7 +72,6 @@ public class EmitsProcessor extends AbstractProcessor {
     public boolean process(final Set<? extends TypeElement> annotations,
             final RoundEnvironment roundEnv) {
 
-        // final TableModuleGenerator generator = new TableModuleGenerator();
         for (final Element element : roundEnv
                 .getElementsAnnotatedWith(Emits.class)) {
             final TypeElement typeElement = (TypeElement) element;
@@ -90,13 +89,13 @@ public class EmitsProcessor extends AbstractProcessor {
             try {
                 final PrintWriter metaWriter = new PrintWriter(
                         processingEnv
-                                .getFiler()
-                                .createResource(
-                                        StandardLocation.SOURCE_OUTPUT,
-                                        "",
-                                        "META-INF/services/javax.annotation.processing.Processor",
-                                        elementCollection
-                                                .toArray(new Element[0]))
+                        .getFiler()
+                        .createResource(
+                                StandardLocation.SOURCE_OUTPUT,
+                                "",
+                                "META-INF/services/javax.annotation.processing.Processor",
+                                elementCollection
+                                .toArray(new Element[0]))
                                 .openWriter());
                 for (final String processor : annotationProcessors) {
                     metaWriter.println(processor);
