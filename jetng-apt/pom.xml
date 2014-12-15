@@ -22,12 +22,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>net.trajano.caliper</groupId>
             <artifactId>caliper</artifactId>
             <version>1.1.1</version>
@@ -83,7 +77,7 @@
             <extension>
                 <groupId>net.trajano</groupId>
                 <artifactId>coding-standards</artifactId>
-                <version>1.1.2</version>
+                <version>2.0.0</version>
             </extension>
         </extensions>
     </build>
