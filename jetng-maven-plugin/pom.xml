@@ -152,63 +152,6 @@
                         </plugin>
                     </plugins>
                 </pluginManagement>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>2.13</version>
-                        <executions>
-                            <execution>
-                                <id>check</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-pmd-plugin</artifactId>
-                        <version>3.1</version>
-                        <executions>
-                            <execution>
-                                <id>pmd</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>net.trajano.mojo</groupId>
-                        <artifactId>m2e-codestyle-maven-plugin</artifactId>
-                        <version>1.1.0</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>configure</goal>
-                                </goals>
-                                <configuration>
-                                    <codeStyleBaseUrl>codestyle</codeStyleBaseUrl>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>findbugs-maven-plugin</artifactId>
-                        <version>2.5.4</version>
-                        <executions>
-                            <execution>
-                                <id>findbugs</id>
-                                <phase>compile</phase>
-                                <goals>
-                                    <goal>findbugs</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
             </build>
         </profile>
     </profiles>
