@@ -180,7 +180,7 @@
                     <artifactId>findbugs-maven-plugin</artifactId>
                     <version>3.0.0</version>
                     <configuration>
-                        <excludeFilterFile>config/findbugs-exclude-filter.xml</excludeFilterFile>
+<!--                         <excludeFilterFile>config/findbugs-exclude-filter.xml</excludeFilterFile>  -->
                     </configuration>
                 </plugin>
                 <plugin>
@@ -283,7 +283,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <configuration>
-                    <excludeFilterFile>config/findbugs-exclude-filter.xml</excludeFilterFile>
+<!--                     <excludeFilterFile>config/findbugs-exclude-filter.xml</excludeFilterFile> -->
                 </configuration>
             </plugin>
             <plugin>

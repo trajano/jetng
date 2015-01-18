@@ -7,7 +7,6 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>jetng-core</artifactId>
-    <packaging>bundle</packaging>
     <name>Java Emitter Template NG Core</name>
     <description>Core JETNG parser code.</description>
     <dependencies>
