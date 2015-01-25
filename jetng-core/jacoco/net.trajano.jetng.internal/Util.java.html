@@ -23,7 +23,7 @@ public final class Util {
     static {
 <span class="fc" id="L24">        SAFE_CHARACTERS = new HashSet&lt;Character&gt;();</span>
 <span class="fc bfc" id="L25" title="All 2 branches covered.">        for (final char c : &quot; 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@#$%^&amp;*()_+{}|:;'/?&lt;&gt;,.[]-=&quot;</span>
-<span class="fc" id="L26">                .toCharArray()) {</span>
+                .toCharArray()) {
 <span class="fc" id="L27">            SAFE_CHARACTERS.add(c);</span>
         }
 <span class="fc" id="L29">    }</span>
@@ -56,7 +56,7 @@ public final class Util {
 <span class="fc bfc" id="L56" title="All 2 branches covered.">        for (final char c : carray) {</span>
 <span class="fc bfc" id="L57" title="All 2 branches covered.">            if (c == '&quot;') {</span>
 <span class="fc" id="L58">                b.append(&quot;\\\&quot;&quot;);</span>
-<span class="fc" id="L59">            } else {</span>
+            } else {
 <span class="fc" id="L60">                b.append(escapeSingleCharacter(c));</span>
             }
         }
@@ -119,7 +119,7 @@ public final class Util {
 <span class="fc" id="L119">                return false;</span>
             }
 <span class="fc" id="L121">            ++i;</span>
-        }
+<span class="fc" id="L122">        }</span>
 <span class="fc bfc" id="L123" title="All 2 branches covered.">        for (int j = 0; j &lt; carray.length - 1; ++j) {</span>
 <span class="fc" id="L124">            context.inc();</span>
         }

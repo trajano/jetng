@@ -94,7 +94,7 @@ public class DefaultParserContext implements ParserContext {
 <span class="fc" id="L94">        setEndTag(&quot;%&gt;&quot;);</span>
 <span class="fc bfc" id="L95" title="All 2 branches covered.">        if (file != NullFile.get()) {</span>
 <span class="fc" id="L96">            className = file.getName().substring(0,</span>
-<span class="fc" id="L97">                    file.getName().lastIndexOf('.'));</span>
+                    file.getName().lastIndexOf('.'));
         }
 <span class="fc" id="L99">        argumentsClassName = &quot;Object&quot;;</span>
 <span class="fc" id="L100">    }</span>
@@ -203,8 +203,8 @@ public class DefaultParserContext implements ParserContext {
     public void pushFile(final File file) throws IOException {
 <span class="pc bpc" id="L204" title="1 of 4 branches missed.">        if (file == NullFile.get() &amp;&amp; !fileStack.isEmpty()) {</span>
 <span class="nc" id="L205">            throw new ParseException(</span>
-<span class="nc" id="L206">                    &quot;Cannot pass a null file handle unless the parse context is empty&quot;,</span>
-<span class="nc" id="L207">                    this);</span>
+                    &quot;Cannot pass a null file handle unless the parse context is empty&quot;,
+                    this);
         }
 <span class="pc bpc" id="L209" title="1 of 2 branches missed.">        if (filePositions.containsKey(file)) {</span>
 <span class="nc" id="L210">            throw new CycleFoundException(file, this);</span>
@@ -216,7 +216,7 @@ public class DefaultParserContext implements ParserContext {
     @Override
     public void pushFile(final String fileName) throws IOException {
 <span class="fc" id="L218">        final File includedFile = new File(currentFile.getParentFile(),</span>
-<span class="fc" id="L219">                fileName);</span>
+                fileName);
 <span class="fc" id="L220">        pushFile(includedFile);</span>
 <span class="fc" id="L221">    }</span>
 

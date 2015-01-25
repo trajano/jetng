@@ -47,8 +47,8 @@ public class JetNgParser {
      * @param size
      *            maximum size for the tag.
      */
-<span class="fc" id="L50">    public JetNgParser(final File file, final ParseEventHandler handler,</span>
-            final int size) throws IOException {
+    public JetNgParser(final File file, final ParseEventHandler handler,
+<span class="fc" id="L51">            final int size) throws IOException {</span>
 <span class="fc" id="L52">        reader = new PushbackReader(new FileReader(file), size + 2);</span>
 <span class="fc" id="L53">        this.handler = handler;</span>
 <span class="fc" id="L54">        this.file = file;</span>
@@ -76,8 +76,8 @@ public class JetNgParser {
      * @param size
      *            maximum size for the tag.
      */
-<span class="nc" id="L79">    public JetNgParser(final Reader reader, final ParseEventHandler handler,</span>
-            final int size) {
+    public JetNgParser(final Reader reader, final ParseEventHandler handler,
+<span class="nc" id="L80">            final int size) {</span>
 <span class="nc" id="L81">        this.reader = new PushbackReader(reader, size + 2);</span>
 <span class="nc" id="L82">        this.handler = handler;</span>
 <span class="nc" id="L83">        file = null;</span>
@@ -135,17 +135,17 @@ public class JetNgParser {
 <span class="fc" id="L135">            context.inc();</span>
 <span class="fc bfc" id="L136" title="All 2 branches covered.">            if (c == '\n') {</span>
 <span class="fc" id="L137">                context.nl();</span>
-<span class="fc" id="L138">                handler.characters(context, currentCharacters.toString(), true,</span>
-<span class="fc bfc" id="L139" title="All 2 branches covered.">                        directivesInLine</span>
-<span class="fc" id="L140">                        &amp;&amp; currentCharacters.toString().trim()</span>
-<span class="fc bfc" id="L141" title="All 2 branches covered.">                        .isEmpty());</span>
+<span class="fc bfc" id="L138" title="All 4 branches covered.">                handler.characters(context, currentCharacters.toString(), true,</span>
+                        directivesInLine
+                        &amp;&amp; currentCharacters.toString().trim()
+                        .isEmpty());
 <span class="fc" id="L142">                currentCharacters.setLength(0);</span>
 <span class="fc" id="L143">                directivesInLine = false;</span>
-<span class="fc" id="L144">            } else if (isTextComing(context, (char) c, context.getStartTag(),</span>
-<span class="fc bfc" id="L145" title="All 2 branches covered.">                    reader)) {</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">            } else if (isTextComing(context, (char) c, context.getStartTag(),</span>
+                    reader)) {
 <span class="fc bfc" id="L146" title="All 2 branches covered.">                if (!currentCharacters.toString().isEmpty()) {</span>
 <span class="fc" id="L147">                    handler.characters(context, currentCharacters.toString(),</span>
-<span class="fc" id="L148">                            false, false);</span>
+                            false, false);
 <span class="fc" id="L149">                    currentCharacters.setLength(0);</span>
                 }
 <span class="fc" id="L151">                c = reader.read();</span>
@@ -160,7 +160,7 @@ public class JetNgParser {
 <span class="fc" id="L160">                    context.inc();</span>
 <span class="fc bfc" id="L161" title="All 2 branches covered.">                    if (isComment(context, reader)) {</span>
 <span class="fc" id="L162">                        processComment(context, reader);</span>
-<span class="fc" id="L163">                    } else {</span>
+                    } else {
 <span class="fc" id="L164">                        context.unindent();</span>
 <span class="fc" id="L165">                        processScriptlet(context, reader, true);</span>
                     }
@@ -170,21 +170,21 @@ public class JetNgParser {
 <span class="fc" id="L170">                    processScriptlet(context, reader, true);</span>
 <span class="fc" id="L171">                    context.indent();</span>
 <span class="fc" id="L172">                    directivesInLine = true;</span>
-<span class="fc" id="L173">                } else {</span>
+                } else {
 <span class="fc" id="L174">                    reader.unread(c);</span>
 <span class="fc" id="L175">                    processScriptlet(context, reader, false);</span>
 <span class="fc" id="L176">                    directivesInLine = true;</span>
                 }
-<span class="fc bfc" id="L178" title="All 2 branches covered.">            } else if (c != '\r') {</span>
+<span class="pc bpc" id="L178" title="1 of 2 branches missed.">            } else if (c != '\r') {</span>
                 // ignore CR.
 <span class="fc" id="L180">                currentCharacters.append((char) c);</span>
             }
 <span class="fc" id="L182">            c = reader.read();</span>
         }
 <span class="pc bpc" id="L184" title="1 of 2 branches missed.">        if (currentCharacters.length() &gt; 0) {</span>
-<span class="nc" id="L185">            handler.characters(context, currentCharacters.toString(), false,</span>
-<span class="nc bnc" id="L186" title="All 2 branches missed.">                    directivesInLine</span>
-<span class="nc bnc" id="L187" title="All 2 branches missed.">                    &amp;&amp; currentCharacters.toString().trim().isEmpty());</span>
+<span class="nc bnc" id="L185" title="All 4 branches missed.">            handler.characters(context, currentCharacters.toString(), false,</span>
+                    directivesInLine
+                    &amp;&amp; currentCharacters.toString().trim().isEmpty());
         }
 <span class="fc" id="L189">        handler.endDocument(context);</span>
 <span class="fc" id="L190">        return context;</span>
@@ -210,8 +210,8 @@ public class JetNgParser {
 <span class="fc" id="L210">                context.nl();</span>
 <span class="fc" id="L211">                handler.comment(context, b.toString(), true);</span>
 <span class="fc" id="L212">                b.setLength(0);</span>
-<span class="fc" id="L213">            } else if (isTextComing(context, (char) c,</span>
-<span class="fc bfc" id="L214" title="All 2 branches covered.">                    context.getEndCommentTag(), r)) {</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">            } else if (isTextComing(context, (char) c,</span>
+                    context.getEndCommentTag(), r)) {
 <span class="fc" id="L215">                final String text = b.toString();</span>
 <span class="fc" id="L216">                handler.comment(context, text, false);</span>
 <span class="fc" id="L217">                handler.endComment(context);</span>
@@ -246,22 +246,22 @@ public class JetNgParser {
 
 <span class="fc" id="L247">                final String directiveText = b.toString().trim();</span>
 <span class="fc" id="L248">                final Pattern directiveNamePattern = Pattern</span>
-<span class="fc" id="L249">                        .compile(&quot;[A-Za-z]+&quot;);</span>
+                        .compile(&quot;[A-Za-z]+&quot;);
 <span class="fc" id="L250">                final Matcher m = directiveNamePattern.matcher(directiveText);</span>
 <span class="pc bpc" id="L251" title="1 of 2 branches missed.">                if (!m.find()) {</span>
 <span class="nc" id="L252">                    throw new IOException(&quot;unable to find directive name&quot;);</span>
                 }
 <span class="fc" id="L254">                final String directiveName = m.group();</span>
 <span class="fc" id="L255">                m.usePattern(Pattern</span>
-<span class="fc" id="L256">                        .compile(&quot;[ \\t\\r\\n]+([a-zA-Z]+)[ \\t\\r\\n]*=[ \\t\\r\\n]*('([^']+)'|\&quot;([^\&quot;]+)\&quot;)&quot;));</span>
+                        .compile(&quot;[ \\t\\r\\n]+([a-zA-Z]+)[ \\t\\r\\n]*=[ \\t\\r\\n]*('([^']+)'|\&quot;([^\&quot;]+)\&quot;)&quot;));
 <span class="fc" id="L257">                final Map&lt;String, String&gt; attributes = new HashMap&lt;String, String&gt;();</span>
 <span class="fc bfc" id="L258" title="All 2 branches covered.">                while (m.find()) {</span>
 <span class="fc" id="L259">                    attributes.put(m.group(1),</span>
-<span class="fc" id="L260">                            m.group(2).substring(1, m.group(2).length() - 1));</span>
+                            m.group(2).substring(1, m.group(2).length() - 1));
                 }
 <span class="fc" id="L262">                handler.directive(context, directiveName, attributes);</span>
 <span class="fc" id="L263">                context.getCurrentFilePosition().setTags(context.getStartTag(),</span>
-<span class="fc" id="L264">                        context.getEndTag());</span>
+                        context.getEndTag());
 <span class="fc" id="L265">                return;</span>
             } else {
 <span class="fc" id="L267">                b.append((char) c);</span>
@@ -331,8 +331,8 @@ public class JetNgParser {
 <span class="fc" id="L331">                handler.endScriptlet(context);</span>
 <span class="fc" id="L332">                return;</span>
             } else {
-<span class="pc bpc" id="L334" title="1 of 8 branches missed.">                if (!(trim &amp;&amp; b.length() == 0 &amp;&amp; (c == ' ' || c == '\t'</span>
-<span class="pc bpc" id="L335" title="2 of 4 branches missed.">                        || c == '\r' || c == '\n'))) {</span>
+<span class="pc bpc" id="L334" title="3 of 12 branches missed.">                if (!(trim &amp;&amp; b.length() == 0 &amp;&amp; (c == ' ' || c == '\t'</span>
+                        || c == '\r' || c == '\n'))) {
 
 <span class="fc" id="L337">                    b.append((char) c);</span>
                 }

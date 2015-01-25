@@ -1,10 +1,10 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./Util.html" title="net.trajano.jetng.internal.Util" alt="" coords="22,17,61,42"/>
+<area shape="rect" id="node1_0" href="./Util.html" title="net.trajano.jetng.internal.Util" alt="" coords="21,16,62,43"/>
 <area shape="rect" id="node1" href="./Util.html" title="&lt;TABLE&gt;" alt="" coords="5,5,77,53"/>
-<area shape="rect" id="node2_1" href="./NullFile.html" title="net.trajano.jetng.internal.NullFile" alt="" coords="113,17,175,42"/>
-<area shape="rect" id="node2" href="./NullFile.html" title="&lt;TABLE&gt;" alt="" coords="102,5,186,53"/>
-<area shape="rect" id="node3_2" href="./FilePosition.html" title="net.trajano.jetng.internal.FilePosition" alt="" coords="221,17,309,42"/>
-<area shape="rect" id="node3" href="./FilePosition.html" title="&lt;TABLE&gt;" alt="" coords="211,5,320,53"/>
-<area shape="rect" id="node4_3" href="./DefaultParserContext.html" title="net.trajano.jetng.internal.DefaultParserContext" alt="" coords="355,17,498,42"/>
-<area shape="rect" id="node4" href="./DefaultParserContext.html" title="&lt;TABLE&gt;" alt="" coords="345,5,509,53"/>
+<area shape="rect" id="node2_1" href="./DefaultParserContext.html" title="net.trajano.jetng.internal.DefaultParserContext" alt="" coords="112,16,259,43"/>
+<area shape="rect" id="node2" href="./DefaultParserContext.html" title="&lt;TABLE&gt;" alt="" coords="101,5,269,53"/>
+<area shape="rect" id="node3_2" href="./FilePosition.html" title="net.trajano.jetng.internal.FilePosition" alt="" coords="305,16,394,43"/>
+<area shape="rect" id="node3" href="./FilePosition.html" title="&lt;TABLE&gt;" alt="" coords="294,5,405,53"/>
+<area shape="rect" id="node4_3" href="./NullFile.html" title="net.trajano.jetng.internal.NullFile" alt="" coords="439,16,505,43"/>
+<area shape="rect" id="node4" href="./NullFile.html" title="&lt;TABLE&gt;" alt="" coords="429,5,515,53"/>
 </map>

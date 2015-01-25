@@ -39,10 +39,10 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
         }
 <span class="fc bfc" id="L40" title="All 2 branches covered.">        if (eol) {</span>
 <span class="fc" id="L41">            out.println(indents(2 + context.getIndentLevel()) + &quot;out.println(&quot;</span>
-<span class="fc" id="L42">                    + Util.escapeJavaString(characters) + &quot;);&quot;);</span>
-<span class="fc" id="L43">        } else {</span>
+                    + Util.escapeJavaString(characters) + &quot;);&quot;);
+        } else {
 <span class="fc" id="L44">            out.println(indents(2 + context.getIndentLevel()) + &quot;out.print(&quot;</span>
-<span class="fc" id="L45">                    + Util.escapeJavaString(characters) + &quot;);&quot;);</span>
+                    + Util.escapeJavaString(characters) + &quot;);&quot;);
         }
 <span class="fc" id="L47">    }</span>
 
@@ -57,7 +57,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
     @Override
     public void expression(final ParserContext context, final String expression) {
 <span class="fc" id="L59">        out.println(indents(2 + context.getIndentLevel()) + &quot;out.print(&quot;</span>
-<span class="fc" id="L60">                + expression + &quot;);&quot;);</span>
+                + expression + &quot;);&quot;);
 <span class="fc" id="L61">    }</span>
 
     @Override
@@ -67,14 +67,14 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 <span class="fc" id="L67">            out.println();</span>
 <span class="fc bfc" id="L68" title="All 2 branches covered.">            for (final String importPackage : context.getImports()) {</span>
 <span class="fc" id="L69">                out.println(&quot;import &quot; + importPackage + &quot;;&quot;);</span>
-            }
+<span class="fc" id="L70">            }</span>
         }
 <span class="fc" id="L72">        out.println();</span>
 <span class="fc" id="L73">        out.println(&quot;public class &quot; + context.getClassName() + &quot; {&quot;);</span>
 
 <span class="fc" id="L75">        out.println();</span>
 <span class="fc" id="L76">        out.println(format(&quot;    public String generate(final %s arguments) {&quot;,</span>
-<span class="fc" id="L77">                context.getArgumentsClassName()));</span>
+                context.getArgumentsClassName()));
 <span class="fc" id="L78">        out.println(&quot;        final java.io.StringWriter w = new java.io.StringWriter();&quot;);</span>
 <span class="fc" id="L79">        out.println(&quot;        generate(arguments, new java.io.PrintWriter(w));&quot;);</span>
 <span class="fc" id="L80">        out.println(&quot;        return w.toString();&quot;);</span>
@@ -82,8 +82,8 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 
 <span class="fc" id="L83">        out.println();</span>
 <span class="fc" id="L84">        out.println(format(</span>
-<span class="fc" id="L85">                &quot;    public void generate(final %s arguments, final java.io.PrintWriter out) {&quot;,</span>
-<span class="fc" id="L86">                context.getArgumentsClassName()));</span>
+                &quot;    public void generate(final %s arguments, final java.io.PrintWriter out) {&quot;,
+                context.getArgumentsClassName()));
 
 <span class="fc" id="L88">    }</span>
 

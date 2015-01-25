@@ -5,8 +5,8 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.jetng.ParseEventHandler
@@ -15,21 +15,21 @@ digraph G {
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ParseEventHandler </td></tr>
 		</table></td></tr>
-		</table>>, URL="./ParseEventHandler.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./ParseEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.JavaEmitterParseEventHandler
-	c67 [label=<<table title="net.trajano.jetng.JavaEmitterParseEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./JavaEmitterParseEventHandler.html">
+	c66 [label=<<table title="net.trajano.jetng.JavaEmitterParseEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./JavaEmitterParseEventHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> JavaEmitterParseEventHandler </td></tr>
 		</table></td></tr>
-		</table>>, URL="./JavaEmitterParseEventHandler.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./JavaEmitterParseEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.DefaultParseEventHandler
 	c68 [label=<<table title="net.trajano.jetng.DefaultParseEventHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DefaultParseEventHandler.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DefaultParseEventHandler </td></tr>
 		</table></td></tr>
-		</table>>, URL="./DefaultParseEventHandler.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./DefaultParseEventHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//net.trajano.jetng.JavaEmitterParseEventHandler extends net.trajano.jetng.DefaultParseEventHandler
-	c68:p -> c67:p [dir=back,arrowtail=empty];
+	c68:p -> c66:p [dir=back,arrowtail=empty];
 	//net.trajano.jetng.DefaultParseEventHandler implements net.trajano.jetng.ParseEventHandler
 	c65:p -> c68:p [dir=back,arrowtail=empty,style=dashed];
 }

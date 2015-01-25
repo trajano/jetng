@@ -58,13 +58,13 @@ import java.util.Set;
             }
 <span class="pc bpc" id="L59" title="1 of 2 branches missed.">        } else if (&quot;include&quot;.equals(directiveName)) {</span>
 <span class="fc" id="L60">            handleIncludeDirective(context, attributes);</span>
-<span class="pc bnc" id="L61" title="All 2 branches missed.">        } else if (&quot;taglib&quot;.equals(directiveName)) {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        } else if (&quot;taglib&quot;.equals(directiveName)) {</span>
             // TODO implement taglib support
 <span class="nc" id="L63">            throw new ParseException(&quot;Unsupported directive:&quot; + directiveName,</span>
-<span class="nc" id="L64">                    context);</span>
+                    context);
         } else {
 <span class="nc" id="L66">            throw new ParseException(&quot;Unsupported directive:&quot; + directiveName,</span>
-<span class="nc" id="L67">                    context);</span>
+                    context);
         }
 <span class="fc" id="L69">    }</span>
 
@@ -109,8 +109,8 @@ import java.util.Set;
             throws IOException {
 <span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (context.getIndentLevel() != 0) {</span>
 <span class="nc" id="L111">            throw new ParseException(</span>
-<span class="nc" id="L112">                    &quot;Indent level is not at zero at the end of the document&quot;,</span>
-<span class="nc" id="L113">                    context);</span>
+                    &quot;Indent level is not at zero at the end of the document&quot;,
+                    context);
         }
 <span class="fc" id="L115">        doEndDocument(context);</span>
 <span class="fc" id="L116">    }</span>
@@ -140,13 +140,13 @@ import java.util.Set;
             final Map&lt;String, String&gt; attributes) throws IOException {
 <span class="pc bpc" id="L141" title="2 of 4 branches missed.">        if (!(attributes.containsKey(&quot;file&quot;) &amp;&amp; attributes.size() == 1)) {</span>
 <span class="nc" id="L142">            throw new ParseException(</span>
-<span class="nc" id="L143">                    &quot;Unexpected JET directives attributes found &quot;</span>
-<span class="nc" id="L144">                            + attributes.keySet(), context);</span>
+                    &quot;Unexpected JET directives attributes found &quot;
+                            + attributes.keySet(), context);
         }
 
 <span class="fc" id="L147">        context.pushFile(attributes.get(&quot;file&quot;));</span>
 <span class="fc" id="L148">        new JetNgParser(context.getCurrentFilePosition().getFile(), this, 6)</span>
-<span class="fc" id="L149">        .parse(context);</span>
+        .parse(context);
 <span class="fc" id="L150">        context.popFile();</span>
 <span class="fc" id="L151">        context.setStartTag(context.getCurrentFilePosition().getStartTag());</span>
 <span class="fc" id="L152">        context.setEndTag(context.getCurrentFilePosition().getEndTag());</span>
@@ -170,13 +170,13 @@ import java.util.Set;
 <span class="fc" id="L170">            context.setEndTag(attributes.get(&quot;endTag&quot;));</span>
         }
 <span class="fc" id="L172">        final Set&lt;String&gt; attributeNames = new HashSet&lt;String&gt;(</span>
-<span class="fc" id="L173">                attributes.keySet());</span>
+                attributes.keySet());
 <span class="fc" id="L174">        attributeNames.remove(&quot;startTag&quot;);</span>
 <span class="fc" id="L175">        attributeNames.remove(&quot;endTag&quot;);</span>
 <span class="fc bfc" id="L176" title="All 4 branches covered.">        if (!attributeNames.isEmpty() &amp;&amp; headerSent) {</span>
 <span class="fc" id="L177">            throw new ParseException(</span>
-<span class="fc" id="L178">                    &quot;Unexpected JET directives attributes found &quot;</span>
-<span class="fc" id="L179">                            + attributeNames, context);</span>
+                    &quot;Unexpected JET directives attributes found &quot;
+                            + attributeNames, context);
         }
 <span class="fc bfc" id="L181" title="All 2 branches covered.">        if (attributes.get(&quot;imports&quot;) != null) {</span>
 <span class="fc" id="L182">            context.addImports(attributes.get(&quot;imports&quot;).split(&quot;\\s&quot;));</span>
@@ -196,7 +196,7 @@ import java.util.Set;
         }
 <span class="pc bpc" id="L197" title="1 of 2 branches missed.">        if (!attributeNames.isEmpty()) {</span>
 <span class="nc" id="L198">            throw new ParseException(&quot;Unsupported jet directive attributes  &quot;</span>
-<span class="nc" id="L199">                    + attributeNames, context);</span>
+                    + attributeNames, context);
         }
 <span class="fc" id="L201">    }</span>
 

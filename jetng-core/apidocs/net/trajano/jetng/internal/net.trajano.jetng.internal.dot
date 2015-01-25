@@ -5,8 +5,8 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.jetng.internal.Util
@@ -14,24 +14,24 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> Util </td></tr>
 		</table></td></tr>
-		</table>>, URL="./Util.html", fontname="arial", fontcolor="black", fontsize=10.0];
-	// net.trajano.jetng.internal.NullFile
-	c21 [label=<<table title="net.trajano.jetng.internal.NullFile" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NullFile.html">
+		</table>>, URL="./Util.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// net.trajano.jetng.internal.DefaultParserContext
+	c21 [label=<<table title="net.trajano.jetng.internal.DefaultParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DefaultParserContext.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> NullFile </td></tr>
+<tr><td align="center" balign="center"> DefaultParserContext </td></tr>
 		</table></td></tr>
-		</table>>, URL="./NullFile.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./DefaultParserContext.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.internal.FilePosition
 	c22 [label=<<table title="net.trajano.jetng.internal.FilePosition" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./FilePosition.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> FilePosition </td></tr>
 		</table></td></tr>
-		</table>>, URL="./FilePosition.html", fontname="arial", fontcolor="black", fontsize=10.0];
-	// net.trajano.jetng.internal.DefaultParserContext
-	c23 [label=<<table title="net.trajano.jetng.internal.DefaultParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./DefaultParserContext.html">
+		</table>>, URL="./FilePosition.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// net.trajano.jetng.internal.NullFile
+	c23 [label=<<table title="net.trajano.jetng.internal.NullFile" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./NullFile.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> DefaultParserContext </td></tr>
+<tr><td align="center" balign="center"> NullFile </td></tr>
 		</table></td></tr>
-		</table>>, URL="./DefaultParserContext.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./NullFile.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
