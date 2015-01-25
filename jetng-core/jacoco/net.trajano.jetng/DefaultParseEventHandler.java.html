@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DefaultParseEventHandler.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Emitter Template NG Core</a> &gt; <a href="index.source.html" class="el_package">net.trajano.jetng</a> &gt; <span class="el_source">DefaultParseEventHandler.java</span></div><h1>DefaultParseEventHandler.java</h1><pre class="source lang-java linenums">package net.trajano.jetng;
+
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * Default handler. Comments are ignored.
+ *
+ * @author Archimedes
+ *
+ */
+<span class="fc" id="L14">public class DefaultParseEventHandler implements ParseEventHandler {</span>
+    /**
+     * Flag indicating the {@link #header(ParserContext)} has been called.
+     */
+    private boolean headerSent;
+
+    @Override
+    public final void characters(final ParserContext context,
+            final String characters, final boolean eol,
+            final boolean aloneOnLine) throws IOException {
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">        if (!isContextReadyForWriting(context)) {</span>
+<span class="nc" id="L25">            throw new ContextNotReadyException(context);</span>
+        }
+<span class="fc" id="L27">        doCharacters(context, characters, eol, aloneOnLine);</span>
+
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Does nothing.
+     *
+     * @param context
+     *            ignored
+     * @param comment
+     *            ignored
+     * @param eol
+     *            ignored
+     */
+    @Override
+    public final void comment(final ParserContext context,
+            final String comment, final boolean eol) throws IOException {
+<span class="fc" id="L44">    }</span>
+
+    @Override
+    public void directive(final ParserContext context,
+            final String directiveName, final Map&lt;String, String&gt; attributes)
+                    throws IOException {
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (&quot;jet&quot;.equals(directiveName)) {</span>
+<span class="fc" id="L51">            handleJetDirective(context, attributes);</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if (!headerSent) {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">                if (!isContextReadyForWriting(context)) {</span>
+<span class="fc" id="L54">                    throw new ContextNotReadyException(context);</span>
+                }
+<span class="fc" id="L56">                header(context);</span>
+<span class="fc" id="L57">                headerSent = true;</span>
+            }
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        } else if (&quot;include&quot;.equals(directiveName)) {</span>
+<span class="fc" id="L60">            handleIncludeDirective(context, attributes);</span>
+<span class="pc bnc" id="L61" title="All 2 branches missed.">        } else if (&quot;taglib&quot;.equals(directiveName)) {</span>
+            // TODO implement taglib support
+<span class="nc" id="L63">            throw new ParseException(&quot;Unsupported directive:&quot; + directiveName,</span>
+<span class="nc" id="L64">                    context);</span>
+        } else {
+<span class="nc" id="L66">            throw new ParseException(&quot;Unsupported directive:&quot; + directiveName,</span>
+<span class="nc" id="L67">                    context);</span>
+        }
+<span class="fc" id="L69">    }</span>
+
+    /**
+     * Method to handle characters.
+     *
+     * @param context
+     *            context
+     * @param characters
+     *            characters
+     * @param eol
+     *            end of line
+     * @param aloneOnLine
+     *            alone on line indicator
+     */
+    protected void doCharacters(final ParserContext context,
+            final String characters, final boolean eol,
+            final boolean aloneOnLine) {
+<span class="nc" id="L86">    }</span>
+
+    /**
+     * Method to handle end of the document.
+     *
+     * @param context
+     *            context.
+     */
+    protected void doEndDocument(final ParserContext context) {
+<span class="nc" id="L95">    }</span>
+
+    /**
+     * Does nothing.
+     *
+     * @param context
+     *            ignored
+     */
+    @Override
+    public final void endComment(final ParserContext context) {
+<span class="fc" id="L105">    }</span>
+
+    @Override
+    public final void endDocument(final ParserContext context)
+            throws IOException {
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (context.getIndentLevel() != 0) {</span>
+<span class="nc" id="L111">            throw new ParseException(</span>
+<span class="nc" id="L112">                    &quot;Indent level is not at zero at the end of the document&quot;,</span>
+<span class="nc" id="L113">                    context);</span>
+        }
+<span class="fc" id="L115">        doEndDocument(context);</span>
+<span class="fc" id="L116">    }</span>
+
+    @Override
+    public void endExpression(final ParserContext context) {
+<span class="fc" id="L120">    }</span>
+
+    @Override
+    public void endScriptlet(final ParserContext context) {
+<span class="fc" id="L124">    }</span>
+
+    @Override
+    public void expression(final ParserContext context, final String expression) {
+<span class="nc" id="L128">    }</span>
+
+    /**
+     * Handle include directive.
+     *
+     * @param context
+     *            context
+     * @param attributes
+     *            attributes
+     * @throws IOException
+     */
+    private void handleIncludeDirective(final ParserContext context,
+            final Map&lt;String, String&gt; attributes) throws IOException {
+<span class="pc bpc" id="L141" title="2 of 4 branches missed.">        if (!(attributes.containsKey(&quot;file&quot;) &amp;&amp; attributes.size() == 1)) {</span>
+<span class="nc" id="L142">            throw new ParseException(</span>
+<span class="nc" id="L143">                    &quot;Unexpected JET directives attributes found &quot;</span>
+<span class="nc" id="L144">                            + attributes.keySet(), context);</span>
+        }
+
+<span class="fc" id="L147">        context.pushFile(attributes.get(&quot;file&quot;));</span>
+<span class="fc" id="L148">        new JetNgParser(context.getCurrentFilePosition().getFile(), this, 6)</span>
+<span class="fc" id="L149">        .parse(context);</span>
+<span class="fc" id="L150">        context.popFile();</span>
+<span class="fc" id="L151">        context.setStartTag(context.getCurrentFilePosition().getStartTag());</span>
+<span class="fc" id="L152">        context.setEndTag(context.getCurrentFilePosition().getEndTag());</span>
+<span class="fc" id="L153">    }</span>
+
+    /**
+     * This will throw a parse exception if anything but startTag or endTag is
+     * set.
+     *
+     * @param context
+     *            context
+     * @param attributes
+     *            attributes
+     */
+    private void handleJetDirective(final ParserContext context,
+            final Map&lt;String, String&gt; attributes) throws IOException {
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        if (attributes.get(&quot;startTag&quot;) != null) {</span>
+<span class="fc" id="L167">            context.setStartTag(attributes.get(&quot;startTag&quot;));</span>
+        }
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (attributes.get(&quot;endTag&quot;) != null) {</span>
+<span class="fc" id="L170">            context.setEndTag(attributes.get(&quot;endTag&quot;));</span>
+        }
+<span class="fc" id="L172">        final Set&lt;String&gt; attributeNames = new HashSet&lt;String&gt;(</span>
+<span class="fc" id="L173">                attributes.keySet());</span>
+<span class="fc" id="L174">        attributeNames.remove(&quot;startTag&quot;);</span>
+<span class="fc" id="L175">        attributeNames.remove(&quot;endTag&quot;);</span>
+<span class="fc bfc" id="L176" title="All 4 branches covered.">        if (!attributeNames.isEmpty() &amp;&amp; headerSent) {</span>
+<span class="fc" id="L177">            throw new ParseException(</span>
+<span class="fc" id="L178">                    &quot;Unexpected JET directives attributes found &quot;</span>
+<span class="fc" id="L179">                            + attributeNames, context);</span>
+        }
+<span class="fc bfc" id="L181" title="All 2 branches covered.">        if (attributes.get(&quot;imports&quot;) != null) {</span>
+<span class="fc" id="L182">            context.addImports(attributes.get(&quot;imports&quot;).split(&quot;\\s&quot;));</span>
+<span class="fc" id="L183">            attributeNames.remove(&quot;imports&quot;);</span>
+        }
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (attributes.get(&quot;package&quot;) != null) {</span>
+<span class="fc" id="L186">            context.setPackageName(attributes.get(&quot;package&quot;));</span>
+<span class="fc" id="L187">            attributeNames.remove(&quot;package&quot;);</span>
+        }
+<span class="fc bfc" id="L189" title="All 2 branches covered.">        if (attributes.get(&quot;class&quot;) != null) {</span>
+<span class="fc" id="L190">            context.setClassName(attributes.get(&quot;class&quot;));</span>
+<span class="fc" id="L191">            attributeNames.remove(&quot;class&quot;);</span>
+        }
+<span class="fc bfc" id="L193" title="All 2 branches covered.">        if (attributes.get(&quot;argumentsClass&quot;) != null) {</span>
+<span class="fc" id="L194">            context.setArgumentsClassName(attributes.get(&quot;argumentsClass&quot;));</span>
+<span class="fc" id="L195">            attributeNames.remove(&quot;argumentsClass&quot;);</span>
+        }
+<span class="pc bpc" id="L197" title="1 of 2 branches missed.">        if (!attributeNames.isEmpty()) {</span>
+<span class="nc" id="L198">            throw new ParseException(&quot;Unsupported jet directive attributes  &quot;</span>
+<span class="nc" id="L199">                    + attributeNames, context);</span>
+        }
+<span class="fc" id="L201">    }</span>
+
+    /**
+     * This is called by {@link #directive(ParserContext, String, Map)} just
+     * after the first jet directive is handled.
+     *
+     * @param context
+     *            context
+     */
+    public void header(final ParserContext context) {
+<span class="nc" id="L211">    }</span>
+
+    /**
+     * Check if the context is ready for writing. The class and package names
+     * have to be set for it to be ready for writing.
+     *
+     * @param context
+     *            context to evaluate
+     * @return &lt;code&gt;true&lt;/code&gt; if the context is ready for writing.
+     */
+    private boolean isContextReadyForWriting(final ParserContext context) {
+<span class="pc bpc" id="L222" title="1 of 4 branches missed.">        return context.getClassName() != null &amp;&amp; context.getPackageName() != null;</span>
+    }
+
+    @Override
+    public void scriptlet(final ParserContext context, final String scriptlet,
+            final boolean eol) {
+<span class="nc" id="L228">    }</span>
+
+    /**
+     * Does nothing.
+     *
+     * @param context
+     *            ignored
+     */
+    @Override
+    public final void startComment(final ParserContext context) {
+<span class="fc" id="L238">    }</span>
+
+    @Override
+    public void startDocument(final ParserContext context) {
+<span class="fc" id="L242">    }</span>
+
+    @Override
+    public void startExpression(final ParserContext context) {
+<span class="fc" id="L246">    }</span>
+
+    @Override
+    public void startScriptlet(final ParserContext context) {
+<span class="fc" id="L250">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

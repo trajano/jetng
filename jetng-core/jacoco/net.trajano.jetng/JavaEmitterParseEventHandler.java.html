@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>JavaEmitterParseEventHandler.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Emitter Template NG Core</a> &gt; <a href="index.source.html" class="el_package">net.trajano.jetng</a> &gt; <span class="el_source">JavaEmitterParseEventHandler.java</span></div><h1>JavaEmitterParseEventHandler.java</h1><pre class="source lang-java linenums">package net.trajano.jetng;
+
+import static java.lang.String.format;
+
+import java.io.PrintWriter;
+import java.util.Arrays;
+
+import net.trajano.jetng.internal.Util;
+
+/**
+ * Handles parse events.
+ *
+ * @author Archimedes
+ *
+ */
+public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
+
+    /**
+     * Writer.
+     */
+    private final PrintWriter out;
+
+    /**
+     * Constructs the handler with a given writer.
+     *
+     * @param out
+     *            writer
+     */
+<span class="fc" id="L29">    public JavaEmitterParseEventHandler(final PrintWriter out) {</span>
+<span class="fc" id="L30">        this.out = out;</span>
+<span class="fc" id="L31">    }</span>
+
+    @Override
+    public void doCharacters(final ParserContext context,
+            final String characters, final boolean eol,
+            final boolean aloneOnLine) {
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (aloneOnLine) {</span>
+<span class="fc" id="L38">            return;</span>
+        }
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (eol) {</span>
+<span class="fc" id="L41">            out.println(indents(2 + context.getIndentLevel()) + &quot;out.println(&quot;</span>
+<span class="fc" id="L42">                    + Util.escapeJavaString(characters) + &quot;);&quot;);</span>
+<span class="fc" id="L43">        } else {</span>
+<span class="fc" id="L44">            out.println(indents(2 + context.getIndentLevel()) + &quot;out.print(&quot;</span>
+<span class="fc" id="L45">                    + Util.escapeJavaString(characters) + &quot;);&quot;);</span>
+        }
+<span class="fc" id="L47">    }</span>
+
+    @Override
+    public void doEndDocument(final ParserContext context) {
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (context.isTopFile()) {</span>
+<span class="fc" id="L52">            out.println(&quot;    }&quot;);</span>
+<span class="fc" id="L53">            out.println(&quot;}&quot;);</span>
+        }
+<span class="fc" id="L55">    }</span>
+
+    @Override
+    public void expression(final ParserContext context, final String expression) {
+<span class="fc" id="L59">        out.println(indents(2 + context.getIndentLevel()) + &quot;out.print(&quot;</span>
+<span class="fc" id="L60">                + expression + &quot;);&quot;);</span>
+<span class="fc" id="L61">    }</span>
+
+    @Override
+    public void header(final ParserContext context) {
+<span class="fc" id="L65">        out.println(&quot;package &quot; + context.getPackageName() + &quot;;&quot;);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (!context.getImports().isEmpty()) {</span>
+<span class="fc" id="L67">            out.println();</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">            for (final String importPackage : context.getImports()) {</span>
+<span class="fc" id="L69">                out.println(&quot;import &quot; + importPackage + &quot;;&quot;);</span>
+            }
+        }
+<span class="fc" id="L72">        out.println();</span>
+<span class="fc" id="L73">        out.println(&quot;public class &quot; + context.getClassName() + &quot; {&quot;);</span>
+
+<span class="fc" id="L75">        out.println();</span>
+<span class="fc" id="L76">        out.println(format(&quot;    public String generate(final %s arguments) {&quot;,</span>
+<span class="fc" id="L77">                context.getArgumentsClassName()));</span>
+<span class="fc" id="L78">        out.println(&quot;        final java.io.StringWriter w = new java.io.StringWriter();&quot;);</span>
+<span class="fc" id="L79">        out.println(&quot;        generate(arguments, new java.io.PrintWriter(w));&quot;);</span>
+<span class="fc" id="L80">        out.println(&quot;        return w.toString();&quot;);</span>
+<span class="fc" id="L81">        out.println(&quot;    }&quot;);</span>
+
+<span class="fc" id="L83">        out.println();</span>
+<span class="fc" id="L84">        out.println(format(</span>
+<span class="fc" id="L85">                &quot;    public void generate(final %s arguments, final java.io.PrintWriter out) {&quot;,</span>
+<span class="fc" id="L86">                context.getArgumentsClassName()));</span>
+
+<span class="fc" id="L88">    }</span>
+
+    /**
+     * Build indentation string.
+     *
+     * @param level
+     *            indentation level
+     * @return indent.
+     */
+    private String indents(final int level) {
+<span class="fc" id="L98">        final char[] carray = new char[4 * level];</span>
+<span class="fc" id="L99">        Arrays.fill(carray, ' ');</span>
+<span class="fc" id="L100">        return new String(carray);</span>
+    }
+
+    @Override
+    public void scriptlet(final ParserContext context, final String scriptlet,
+            final boolean eol) {
+<span class="fc" id="L106">        out.println(indents(2 + context.getIndentLevel()) + scriptlet);</span>
+<span class="fc" id="L107">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

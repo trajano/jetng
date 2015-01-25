@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>FilePosition.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Emitter Template NG Core</a> &gt; <a href="index.source.html" class="el_package">net.trajano.jetng.internal</a> &gt; <span class="el_source">FilePosition.java</span></div><h1>FilePosition.java</h1><pre class="source lang-java linenums">package net.trajano.jetng.internal;
+
+import java.io.File;
+
+/**
+ * Represents the current file position.
+ */
+public class FilePosition {
+    /**
+     * Column.
+     */
+    private int col;
+
+    /**
+     * End tag.
+     */
+    private String endTag;
+
+    /**
+     * File.
+     */
+    private final File file;
+
+    /**
+     * Row.
+     */
+    private int row;
+    /**
+     * Start tag.
+     */
+    private String startTag;
+
+    /**
+     * Constructs the file position with the col and row at zero.
+     *
+     * @param file
+     *            file.
+     */
+<span class="fc" id="L39">    public FilePosition(final File file) {</span>
+<span class="fc" id="L40">        this.file = file;</span>
+<span class="fc" id="L41">        col = 1;</span>
+<span class="fc" id="L42">        row = 1;</span>
+<span class="fc" id="L43">    }</span>
+
+    public int getCol() {
+<span class="fc" id="L46">        return col;</span>
+    }
+
+    public String getEndTag() {
+<span class="fc" id="L50">        return endTag;</span>
+    }
+
+    public File getFile() {
+<span class="fc" id="L54">        return file;</span>
+    }
+
+    public int getRow() {
+<span class="fc" id="L58">        return row;</span>
+    }
+
+    public String getStartTag() {
+<span class="fc" id="L62">        return startTag;</span>
+    }
+
+    /**
+     * Increment column count.
+     */
+    public void inc() {
+<span class="fc" id="L69">        ++col;</span>
+<span class="fc" id="L70">    }</span>
+
+    /**
+     * Increment row count and reset column count.
+     */
+    public void nl() {
+<span class="fc" id="L76">        ++row;</span>
+<span class="fc" id="L77">        col = 1;</span>
+<span class="fc" id="L78">    }</span>
+
+    public void setCol(final int col) {
+<span class="nc" id="L81">        this.col = col;</span>
+<span class="nc" id="L82">    }</span>
+
+    public void setRow(final int row) {
+<span class="nc" id="L85">        this.row = row;</span>
+<span class="nc" id="L86">    }</span>
+
+    /**
+     * Set tags.
+     *
+     * @param start
+     *            start tag
+     * @param end
+     *            end tag
+     */
+    public void setTags(final String start, final String end) {
+<span class="fc" id="L97">        startTag = start;</span>
+<span class="fc" id="L98">        endTag = end;</span>
+<span class="fc" id="L99">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L103">        return String.format(&quot;%s[%d,%d]&quot;, file, row, col);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

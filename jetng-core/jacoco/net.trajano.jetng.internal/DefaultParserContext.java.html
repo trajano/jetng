@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>DefaultParserContext.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Emitter Template NG Core</a> &gt; <a href="index.source.html" class="el_package">net.trajano.jetng.internal</a> &gt; <span class="el_source">DefaultParserContext.java</span></div><h1>DefaultParserContext.java</h1><pre class="source lang-java linenums">package net.trajano.jetng.internal;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+import net.trajano.jetng.CycleFoundException;
+import net.trajano.jetng.ParseException;
+import net.trajano.jetng.ParserContext;
+
+/**
+ * Configuration for the JET parser.
+ *
+ * @author Archimedes Trajano
+ */
+public class DefaultParserContext implements ParserContext {
+    /**
+     * Object class name. Defaults to &quot;Object&quot;. If not fully qualified, then the
+     * package must be placed in imports.
+     */
+    private String argumentsClassName;
+    /**
+     * Class name.
+     */
+    private String className;
+    /**
+     * Current file.
+     */
+    private final File currentFile;
+
+    /**
+     * End comment tag. This is &quot;--&quot; followed by the end tag.
+     */
+    private String endCommentTag;
+
+    /**
+     * End tag.
+     */
+    private String endTag;
+
+    /**
+     * File positions.
+     */
+<span class="fc" id="L50">    private final Map&lt;File, FilePosition&gt; filePositions = new HashMap&lt;File, FilePosition&gt;();</span>
+
+    /**
+     * File stack.
+     */
+<span class="fc" id="L55">    private final Deque&lt;File&gt; fileStack = new LinkedList&lt;File&gt;();</span>
+
+    /**
+     * Imports.
+     */
+<span class="fc" id="L60">    private final SortedSet&lt;String&gt; importedPackages = new TreeSet&lt;String&gt;();</span>
+
+    /**
+     * Current indentation level.
+     */
+    private int indentLevel;
+
+    /**
+     * Package name.
+     */
+    private String packageName;
+
+    /**
+     * Start tag.
+     */
+    private String startTag;
+
+    /**
+     * Creates the configuration with the default start and end tags.
+     */
+    public DefaultParserContext() throws IOException {
+<span class="fc" id="L81">        this(NullFile.get());</span>
+<span class="fc" id="L82">    }</span>
+
+    /**
+     * Creates the configuration with the default start and end tags.
+     *
+     * @param file
+     *            initial file
+     */
+<span class="fc" id="L90">    public DefaultParserContext(final File file) throws IOException {</span>
+<span class="fc" id="L91">        currentFile = file;</span>
+<span class="fc" id="L92">        pushFile(file);</span>
+<span class="fc" id="L93">        setStartTag(&quot;&lt;%&quot;);</span>
+<span class="fc" id="L94">        setEndTag(&quot;%&gt;&quot;);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (file != NullFile.get()) {</span>
+<span class="fc" id="L96">            className = file.getName().substring(0,</span>
+<span class="fc" id="L97">                    file.getName().lastIndexOf('.'));</span>
+        }
+<span class="fc" id="L99">        argumentsClassName = &quot;Object&quot;;</span>
+<span class="fc" id="L100">    }</span>
+
+    @Override
+    public void addImports(final String... imports) {
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        for (final String importPackage : imports) {</span>
+<span class="fc" id="L105">            importedPackages.add(importPackage);</span>
+        }
+<span class="fc" id="L107">    }</span>
+
+    @Override
+    public String getArgumentsClassName() {
+<span class="fc" id="L111">        return argumentsClassName;</span>
+    }
+
+    @Override
+    public String getClassName() {
+<span class="fc" id="L116">        return className;</span>
+    }
+
+    @Override
+    public FilePosition getCurrentFilePosition() {
+<span class="fc" id="L121">        return filePositions.get(fileStack.peek());</span>
+    }
+
+    @Override
+    public String getEndCommentTag() {
+<span class="fc" id="L126">        return endCommentTag;</span>
+    }
+
+    @Override
+    public String getEndTag() {
+<span class="fc" id="L131">        return endTag;</span>
+    }
+
+    @Override
+    public Collection&lt;String&gt; getImports() {
+<span class="fc" id="L136">        return importedPackages;</span>
+    }
+
+    @Override
+    public int getIndentLevel() {
+<span class="fc" id="L141">        return indentLevel;</span>
+    }
+
+    @Override
+    public String getPackageName() {
+<span class="fc" id="L146">        return packageName;</span>
+    }
+
+    @Override
+    public String getStartTag() {
+<span class="fc" id="L151">        return startTag;</span>
+    }
+
+    @Override
+    public String getTargetFile() {
+<span class="fc" id="L156">        return packageName.replace('.', '/') + '/' + className + &quot;.java&quot;;</span>
+    }
+
+    /**
+     * Increment current file column.
+     */
+    @Override
+    public void inc() {
+<span class="fc" id="L164">        filePositions.get(fileStack.peek()).inc();</span>
+<span class="fc" id="L165">    }</span>
+
+    @Override
+    public void indent() {
+<span class="fc" id="L169">        ++indentLevel;</span>
+
+<span class="fc" id="L171">    }</span>
+
+    @Override
+    public boolean isTopFile() {
+<span class="fc bfc" id="L175" title="All 2 branches covered.">        return fileStack.size() == 1;</span>
+    }
+
+    /**
+     * Increment current file row and reset column.
+     */
+    @Override
+    public void nl() {
+<span class="fc" id="L183">        filePositions.get(fileStack.peek()).nl();</span>
+<span class="fc" id="L184">    }</span>
+
+    /**
+     * Pops file from stack.
+     */
+    @Override
+    public void popFile() {
+<span class="fc" id="L191">        filePositions.remove(fileStack.pop());</span>
+<span class="fc" id="L192">    }</span>
+
+    /**
+     * Pushes the file to the stack. If the file is already loaded, it will
+     * throw a parse exception to indicate a cycle. File can only be null if the
+     * stack is empty.
+     *
+     * @param file
+     *            file to push.
+     */
+    @Override
+    public void pushFile(final File file) throws IOException {
+<span class="pc bpc" id="L204" title="1 of 4 branches missed.">        if (file == NullFile.get() &amp;&amp; !fileStack.isEmpty()) {</span>
+<span class="nc" id="L205">            throw new ParseException(</span>
+<span class="nc" id="L206">                    &quot;Cannot pass a null file handle unless the parse context is empty&quot;,</span>
+<span class="nc" id="L207">                    this);</span>
+        }
+<span class="pc bpc" id="L209" title="1 of 2 branches missed.">        if (filePositions.containsKey(file)) {</span>
+<span class="nc" id="L210">            throw new CycleFoundException(file, this);</span>
+        }
+<span class="fc" id="L212">        filePositions.put(file, new FilePosition(file));</span>
+<span class="fc" id="L213">        fileStack.push(file);</span>
+<span class="fc" id="L214">    }</span>
+
+    @Override
+    public void pushFile(final String fileName) throws IOException {
+<span class="fc" id="L218">        final File includedFile = new File(currentFile.getParentFile(),</span>
+<span class="fc" id="L219">                fileName);</span>
+<span class="fc" id="L220">        pushFile(includedFile);</span>
+<span class="fc" id="L221">    }</span>
+
+    @Override
+    public void setArgumentsClassName(final String argumentsClassName) {
+<span class="fc" id="L225">        this.argumentsClassName = argumentsClassName;</span>
+<span class="fc" id="L226">    }</span>
+
+    @Override
+    public void setClassName(final String className) {
+<span class="fc" id="L230">        this.className = className;</span>
+<span class="fc" id="L231">    }</span>
+
+    /**
+     * Sets the end tag and related values.
+     *
+     * @param endTag
+     *            end tag
+     */
+    @Override
+    public void setEndTag(final String endTag) {
+<span class="fc" id="L241">        this.endTag = endTag;</span>
+<span class="fc" id="L242">        endCommentTag = &quot;--&quot; + endTag;</span>
+<span class="fc" id="L243">    }</span>
+
+    @Override
+    public void setPackageName(final String packageName) {
+<span class="fc" id="L247">        this.packageName = packageName;</span>
+<span class="fc" id="L248">    }</span>
+
+    /**
+     * Sets the start tag and related values.
+     *
+     * @param startTag
+     *            start tag
+     */
+    @Override
+    public void setStartTag(final String startTag) {
+<span class="fc" id="L258">        this.startTag = startTag;</span>
+<span class="fc" id="L259">    }</span>
+
+    @Override
+    public void unindent() throws IOException {
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">        if (indentLevel == 0) {</span>
+<span class="nc" id="L264">            throw new ParseException(&quot;Unable to reduce indent level&quot;, this);</span>
+        }
+<span class="fc" id="L266">        --indentLevel;</span>
+
+<span class="fc" id="L268">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

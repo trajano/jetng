@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Java Emitter Template NG Core,net.trajano.jetng.internal,DefaultParserContext,18,241,3,11,5,60,3,30,0,26
+Java Emitter Template NG Core,net.trajano.jetng.internal,NullFile,18,11,0,0,5,4,5,3,5,3
+Java Emitter Template NG Core,net.trajano.jetng.internal,FilePosition,8,73,0,0,4,19,2,10,2,10
+Java Emitter Template NG Core,net.trajano.jetng.internal,Util,7,197,1,33,3,48,2,20,1,4
+Java Emitter Template NG Core,net.trajano.jetng,ParseException,0,20,0,0,0,4,0,2,0,2
+Java Emitter Template NG Core,net.trajano.jetng,CycleFoundException,11,0,0,0,2,0,1,0,1,0
+Java Emitter Template NG Core,net.trajano.jetng,JetNgParser,69,509,16,58,18,135,16,31,2,8
+Java Emitter Template NG Core,net.trajano.jetng,ContextNotReadyException,0,5,0,0,0,2,0,1,0,1
+Java Emitter Template NG Core,net.trajano.jetng,JavaEmitterParseEventHandler,0,225,0,10,0,43,0,12,0,7
+Java Emitter Template NG Core,net.trajano.jetng,DefaultParseEventHandler,69,228,9,31,18,61,13,27,5,15
