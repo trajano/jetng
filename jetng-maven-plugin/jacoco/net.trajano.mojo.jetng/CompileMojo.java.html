@@ -37,7 +37,7 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 	 * Resource bundle.
 	 */
 <span class="nc" id="L39">	private static final ResourceBundle R = ResourceBundle</span>
-<span class="nc" id="L40">			.getBundle(&quot;META-INF/Messages&quot;);</span>
+			.getBundle(&quot;META-INF/Messages&quot;);
 	/**
 	 * Build context.
 	 */
@@ -93,7 +93,7 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 <span class="nc bnc" id="L93" title="All 2 branches missed.">		if (jetFileSets == null) {</span>
 <span class="nc" id="L94">			final FileSet defaultJetFileSet = new FileSet();</span>
 <span class="nc" id="L95">			defaultJetFileSet.setDirectory(new File(project.getBasedir(),</span>
-<span class="nc" id="L96">					&quot;src/main/jetng&quot;).getPath());</span>
+					&quot;src/main/jetng&quot;).getPath());
 <span class="nc" id="L97">			defaultJetFileSet.addInclude(&quot;**/*.jet&quot;);</span>
 <span class="nc" id="L98">			jetFileSets = Collections.singletonList(defaultJetFileSet);</span>
 		}
@@ -102,9 +102,9 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 <span class="nc" id="L102">			tmpFile = File.createTempFile(&quot;jetng-maven-plugin&quot;, &quot;.tmp&quot;); // NOPMD</span>
 <span class="nc" id="L103">		} catch (final IOException e) {</span>
 <span class="nc" id="L104">			throw new MojoExecutionException(</span>
-<span class="nc" id="L105">					R.getString(&quot;failedtocreatetempfile&quot;), e);</span>
+					R.getString(&quot;failedtocreatetempfile&quot;), e);
 
-		}
+<span class="nc" id="L107">		}</span>
 <span class="nc bnc" id="L108" title="All 2 branches missed.">		for (final FileSet fileSet : jetFileSets) {</span>
 <span class="nc" id="L109">			final String directory = fileSet.getDirectory();</span>
 <span class="nc" id="L110">			final File baseDirectory = new File(directory); // NOPMD</span>
@@ -119,32 +119,32 @@ import org.sonatype.plexus.build.incremental.BuildContext;
 <span class="nc" id="L119">			project.addCompileSourceRoot(destDir.toString());</span>
 <span class="nc bnc" id="L120" title="All 2 branches missed.">			for (final String includedFile : scanner.getIncludedFiles()) {</span>
 <span class="nc" id="L121">				final File inputFile = new File(baseDirectory, // NOPMD</span>
-<span class="nc" id="L122">						includedFile);</span>
+						includedFile);
 				try {
 <span class="nc" id="L124">					final PrintWriter out = new PrintWriter(// NOPMD</span>
-<span class="nc" id="L125">							buildContext.newFileOutputStream(tmpFile));</span>
+							buildContext.newFileOutputStream(tmpFile));
 <span class="nc" id="L126">					final JetNgParser parser = new JetNgParser(inputFile,</span>
-<span class="nc" id="L127">							new JavaEmitterParseEventHandler(out), maxTagSize);</span>
+							new JavaEmitterParseEventHandler(out), maxTagSize);
 <span class="nc" id="L128">					final ParserContext parseContext = parser.parse();</span>
 <span class="nc" id="L129">					out.close();</span>
 <span class="nc" id="L130">					final File targetFile = new File(destDir,</span>
-<span class="nc" id="L131">							parseContext.getTargetFile());</span>
+							parseContext.getTargetFile());
 <span class="nc" id="L132">					targetFile.getParentFile().mkdirs();</span>
 <span class="nc" id="L133">					final OutputStream output = buildContext</span>
-<span class="nc" id="L134">							.newFileOutputStream(targetFile);</span>
+							.newFileOutputStream(targetFile);
 <span class="nc" id="L135">					IOUtil.copy(new FileInputStream(tmpFile), output);</span>
 <span class="nc" id="L136">					output.close();</span>
 <span class="nc" id="L137">					buildContext.refresh(targetFile);</span>
 <span class="nc" id="L138">				} catch (final ParseException e) {</span>
 <span class="nc" id="L139">					throw new MojoExecutionException(String.format(R</span>
-<span class="nc" id="L140">							.getString(&quot;parseerror&quot;), inputFile, e.getContext()</span>
-<span class="nc" id="L141">							.getCurrentFilePosition()), e);</span>
+							.getString(&quot;parseerror&quot;), inputFile, e.getContext()
+							.getCurrentFilePosition()), e);
 <span class="nc" id="L142">				} catch (final Exception e) {</span>
 <span class="nc" id="L143">					throw new MojoExecutionException(String.format(</span>
-<span class="nc" id="L144">							R.getString(&quot;failedtocompile&quot;), inputFile), e);</span>
-				}
+							R.getString(&quot;failedtocompile&quot;), inputFile), e);
+<span class="nc" id="L145">				}</span>
 			}
-		}
+<span class="nc" id="L147">		}</span>
 <span class="nc" id="L148">		tmpFile.delete();</span>
 <span class="nc" id="L149">	}</span>
 
