@@ -27,12 +27,12 @@
         <site>
             <id>gh-pages</id>
             <name>Trajano Github Pages</name>
-            <url>github:http://site.trajano.net/${project.artifactId}/</url>
+            <url>github:http://site.trajano.net/jetng/</url>
         </site>
     </distributionManagement>
     <properties>
         <jdk.version>1.6</jdk.version>
-        <maven-plugin.version>3.2.3</maven-plugin.version>
+        <maven-plugin.version>3.2.5</maven-plugin.version>
         <surefire.version>2.18</surefire.version>
     </properties>
     <dependencies>
@@ -179,9 +179,6 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>findbugs-maven-plugin</artifactId>
                     <version>3.0.0</version>
-                    <configuration>
-<!--                         <excludeFilterFile>config/findbugs-exclude-filter.xml</excludeFilterFile>  -->
-                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.jacoco</groupId>
@@ -282,9 +279,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <configuration>
-<!--                     <excludeFilterFile>config/findbugs-exclude-filter.xml</excludeFilterFile> -->
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
