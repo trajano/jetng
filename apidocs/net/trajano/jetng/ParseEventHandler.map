@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./ParseEventHandler.html" title="net.trajano.jetng.ParseEventHandler" alt="" coords="36,11,165,53"/>
-<area shape="rect" id="node1" href="./ParseEventHandler.html" title="&lt;TABLE&gt;" alt="" coords="25,5,176,59"/>
-<area shape="rect" id="node2_1" href="./DefaultParseEventHandler.html" title="net.trajano.jetng.DefaultParseEventHandler" alt="" coords="16,118,185,143"/>
-<area shape="rect" id="node2" href="./DefaultParseEventHandler.html" title="&lt;TABLE&gt;" alt="" coords="5,107,196,155"/>
+<area shape="rect" id="node1_0" href="./ParseEventHandler.html" title="net.trajano.jetng.ParseEventHandler" alt="" coords="37,11,171,55"/>
+<area shape="rect" id="node1" href="./ParseEventHandler.html" title="&lt;TABLE&gt;" alt="" coords="27,6,181,61"/>
+<area shape="rect" id="node2_1" href="./DefaultParseEventHandler.html" title="net.trajano.jetng.DefaultParseEventHandler" alt="" coords="16,120,192,147"/>
+<area shape="rect" id="node2" href="./DefaultParseEventHandler.html" title="&lt;TABLE&gt;" alt="" coords="5,109,203,157"/>
 </map>

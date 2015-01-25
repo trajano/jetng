@@ -5,8 +5,8 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.jetng.test.ModuleTest
@@ -14,54 +14,54 @@ digraph G {
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ModuleTest </td></tr>
 		</table></td></tr>
-		</table>>, URL="./ModuleTest.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./ModuleTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.test.ReaderTest
 	c1 [label=<<table title="net.trajano.jetng.test.ReaderTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ReaderTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ReaderTest </td></tr>
 		</table></td></tr>
-		</table>>, URL="./ReaderTest.html", fontname="arial", fontcolor="black", fontsize=10.0];
-	// net.trajano.jetng.test.PrintWriterHandler
-	c2 [label=<<table title="net.trajano.jetng.test.PrintWriterHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PrintWriterHandler.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> PrintWriterHandler </td></tr>
-		</table></td></tr>
-		</table>>, URL="./PrintWriterHandler.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./ReaderTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.test.ParserTest
-	c3 [label=<<table title="net.trajano.jetng.test.ParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ParserTest.html">
+	c2 [label=<<table title="net.trajano.jetng.test.ParserTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./ParserTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> ParserTest </td></tr>
 		</table></td></tr>
-		</table>>, URL="./ParserTest.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./ParserTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// net.trajano.jetng.test.IndentStringBenchmark
+	c3 [label=<<table title="net.trajano.jetng.test.IndentStringBenchmark" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndentStringBenchmark.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> IndentStringBenchmark </td></tr>
+		</table></td></tr>
+		</table>>, URL="./IndentStringBenchmark.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.test.MemoryAllocationBenchmark
 	c4 [label=<<table title="net.trajano.jetng.test.MemoryAllocationBenchmark" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./MemoryAllocationBenchmark.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> MemoryAllocationBenchmark </td></tr>
 		</table></td></tr>
-		</table>>, URL="./MemoryAllocationBenchmark.html", fontname="arial", fontcolor="black", fontsize=10.0];
-	// net.trajano.jetng.test.IndentStringBenchmark
-	c5 [label=<<table title="net.trajano.jetng.test.IndentStringBenchmark" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./IndentStringBenchmark.html">
+		</table>>, URL="./MemoryAllocationBenchmark.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// net.trajano.jetng.test.BadEmitterTest
+	c5 [label=<<table title="net.trajano.jetng.test.BadEmitterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BadEmitterTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> IndentStringBenchmark </td></tr>
+<tr><td align="center" balign="center"> BadEmitterTest </td></tr>
 		</table></td></tr>
-		</table>>, URL="./IndentStringBenchmark.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./BadEmitterTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.test.EscapeTest
 	c6 [label=<<table title="net.trajano.jetng.test.EscapeTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EscapeTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EscapeTest </td></tr>
 		</table></td></tr>
-		</table>>, URL="./EscapeTest.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./EscapeTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
+	// net.trajano.jetng.test.PrintWriterHandler
+	c7 [label=<<table title="net.trajano.jetng.test.PrintWriterHandler" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./PrintWriterHandler.html">
+		<tr><td><table border="0" cellspacing="0" cellpadding="1">
+<tr><td align="center" balign="center"> PrintWriterHandler </td></tr>
+		</table></td></tr>
+		</table>>, URL="./PrintWriterHandler.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.test.EmitterTest
-	c7 [label=<<table title="net.trajano.jetng.test.EmitterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EmitterTest.html">
+	c8 [label=<<table title="net.trajano.jetng.test.EmitterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./EmitterTest.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> EmitterTest </td></tr>
 		</table></td></tr>
-		</table>>, URL="./EmitterTest.html", fontname="arial", fontcolor="black", fontsize=10.0];
-	// net.trajano.jetng.test.BadEmitterTest
-	c8 [label=<<table title="net.trajano.jetng.test.BadEmitterTest" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./BadEmitterTest.html">
-		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"> BadEmitterTest </td></tr>
-		</table></td></tr>
-		</table>>, URL="./BadEmitterTest.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./EmitterTest.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 

@@ -5,24 +5,24 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.jetng.ParserContext
-	c199 [label=<<table title="net.trajano.jetng.ParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ParserContext.html">
+	c206 [label=<<table title="net.trajano.jetng.ParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="../ParserContext.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ParserContext </td></tr>
 		</table></td></tr>
-		</table>>, URL="../ParserContext.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="../ParserContext.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.internal.DefaultParserContext
-	c210 [label=<<table title="net.trajano.jetng.internal.DefaultParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DefaultParserContext.html">
+	c208 [label=<<table title="net.trajano.jetng.internal.DefaultParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./DefaultParserContext.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DefaultParserContext </td></tr>
 		</table></td></tr>
-		</table>>, URL="./DefaultParserContext.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./DefaultParserContext.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//net.trajano.jetng.internal.DefaultParserContext implements net.trajano.jetng.ParserContext
-	c199:p -> c210:p [dir=back,arrowtail=empty,style=dashed];
+	c206:p -> c208:p [dir=back,arrowtail=empty,style=dashed];
 }
 
