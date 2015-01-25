@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CompileMojo.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java Emitter Template NG Maven Plugin</a> &gt; <a href="index.source.html" class="el_package">net.trajano.mojo.jetng</a> &gt; <span class="el_source">CompileMojo.java</span></div><h1>CompileMojo.java</h1><pre class="source lang-java linenums">package net.trajano.mojo.jetng;
+
+import static java.lang.String.format;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import net.trajano.jetng.JavaEmitterParseEventHandler;
+import net.trajano.jetng.JetNgParser;
+import net.trajano.jetng.ParseException;
+import net.trajano.jetng.ParserContext;
+
+import org.apache.maven.model.FileSet;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Component;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.IOUtil;
+import org.codehaus.plexus.util.Scanner;
+import org.sonatype.plexus.build.incremental.BuildContext;
+
+/**
+ * Compile.
+ */
+@Mojo(name = &quot;compile&quot;, defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true, requiresOnline = false)
+<span class="nc" id="L35">public class CompileMojo extends AbstractMojo {</span>
+	/**
+	 * Resource bundle.
+	 */
+<span class="nc" id="L39">	private static final ResourceBundle R = ResourceBundle</span>
+<span class="nc" id="L40">			.getBundle(&quot;META-INF/Messages&quot;);</span>
+	/**
+	 * Build context.
+	 */
+	@Component
+	private BuildContext buildContext;
+
+	/**
+	 * The directory to write the processed JET files.
+	 */
+	@Parameter(defaultValue = &quot;${project.build.directory}/generated-sources/jetng&quot;, required = true)
+	private File destDir;
+
+	/**
+	 * A list of jet file sets to import. The default is:
+	 *
+	 * &lt;pre&gt;
+	 * &amp;lt;jetFileSets&gt;
+	 *     &amp;lt;fileSet&gt;
+	 *         &amp;lt;directory&gt;${basedir}/src/main/jetng&amp;lt;/directory&gt;
+	 *         &amp;lt;includes&gt;
+	 *             &amp;lt;include&gt;**\/\*.jet&amp;lt;/include&gt;
+	 *         &amp;lt;/includes&gt;
+	 *         &amp;lt;excludes&gt;
+	 *         &amp;lt;/excludes&gt;
+	 *     &amp;lt;/fileSet&gt;
+	 * &amp;lt;/jetFileSets&gt;
+	 * &lt;/pre&gt;
+	 */
+	@Parameter(required = false)
+	private List&lt;FileSet&gt; jetFileSets;
+
+	/**
+	 * Maximum number of characters for tags.
+	 */
+	@Parameter(defaultValue = &quot;10&quot;, required = true)
+	private int maxTagSize;
+
+	/**
+	 * The Maven Project.
+	 */
+	@Parameter(defaultValue = &quot;${project}&quot;, readonly = true)
+	private MavenProject project;
+
+	/**
+	 * Performs the compile.
+	 *
+	 * @throws MojoExecutionException
+	 *             thrown when there is a problem executing mojo.
+	 */
+	@Override
+	public void execute() throws MojoExecutionException {
+<span class="nc" id="L92">		destDir.mkdirs();</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">		if (jetFileSets == null) {</span>
+<span class="nc" id="L94">			final FileSet defaultJetFileSet = new FileSet();</span>
+<span class="nc" id="L95">			defaultJetFileSet.setDirectory(new File(project.getBasedir(),</span>
+<span class="nc" id="L96">					&quot;src/main/jetng&quot;).getPath());</span>
+<span class="nc" id="L97">			defaultJetFileSet.addInclude(&quot;**/*.jet&quot;);</span>
+<span class="nc" id="L98">			jetFileSets = Collections.singletonList(defaultJetFileSet);</span>
+		}
+		final File tmpFile;
+		try {
+<span class="nc" id="L102">			tmpFile = File.createTempFile(&quot;jetng-maven-plugin&quot;, &quot;.tmp&quot;); // NOPMD</span>
+<span class="nc" id="L103">		} catch (final IOException e) {</span>
+<span class="nc" id="L104">			throw new MojoExecutionException(</span>
+<span class="nc" id="L105">					R.getString(&quot;failedtocreatetempfile&quot;), e);</span>
+
+		}
+<span class="nc bnc" id="L108" title="All 2 branches missed.">		for (final FileSet fileSet : jetFileSets) {</span>
+<span class="nc" id="L109">			final String directory = fileSet.getDirectory();</span>
+<span class="nc" id="L110">			final File baseDirectory = new File(directory); // NOPMD</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">			if (!baseDirectory.isDirectory()) { // NOPMD</span>
+<span class="nc" id="L112">				getLog().warn(format(R.getString(&quot;missingdir&quot;), directory));</span>
+<span class="nc" id="L113">				continue;</span>
+			}
+<span class="nc" id="L115">			final Scanner scanner = buildContext.newScanner(baseDirectory);</span>
+<span class="nc" id="L116">			scanner.setIncludes(fileSet.getIncludes().toArray(new String[0])); // NOPMD</span>
+<span class="nc" id="L117">			scanner.setExcludes(fileSet.getExcludes().toArray(new String[0])); // NOPMD</span>
+<span class="nc" id="L118">			scanner.scan();</span>
+<span class="nc" id="L119">			project.addCompileSourceRoot(destDir.toString());</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">			for (final String includedFile : scanner.getIncludedFiles()) {</span>
+<span class="nc" id="L121">				final File inputFile = new File(baseDirectory, // NOPMD</span>
+<span class="nc" id="L122">						includedFile);</span>
+				try {
+<span class="nc" id="L124">					final PrintWriter out = new PrintWriter(// NOPMD</span>
+<span class="nc" id="L125">							buildContext.newFileOutputStream(tmpFile));</span>
+<span class="nc" id="L126">					final JetNgParser parser = new JetNgParser(inputFile,</span>
+<span class="nc" id="L127">							new JavaEmitterParseEventHandler(out), maxTagSize);</span>
+<span class="nc" id="L128">					final ParserContext parseContext = parser.parse();</span>
+<span class="nc" id="L129">					out.close();</span>
+<span class="nc" id="L130">					final File targetFile = new File(destDir,</span>
+<span class="nc" id="L131">							parseContext.getTargetFile());</span>
+<span class="nc" id="L132">					targetFile.getParentFile().mkdirs();</span>
+<span class="nc" id="L133">					final OutputStream output = buildContext</span>
+<span class="nc" id="L134">							.newFileOutputStream(targetFile);</span>
+<span class="nc" id="L135">					IOUtil.copy(new FileInputStream(tmpFile), output);</span>
+<span class="nc" id="L136">					output.close();</span>
+<span class="nc" id="L137">					buildContext.refresh(targetFile);</span>
+<span class="nc" id="L138">				} catch (final ParseException e) {</span>
+<span class="nc" id="L139">					throw new MojoExecutionException(String.format(R</span>
+<span class="nc" id="L140">							.getString(&quot;parseerror&quot;), inputFile, e.getContext()</span>
+<span class="nc" id="L141">							.getCurrentFilePosition()), e);</span>
+<span class="nc" id="L142">				} catch (final Exception e) {</span>
+<span class="nc" id="L143">					throw new MojoExecutionException(String.format(</span>
+<span class="nc" id="L144">							R.getString(&quot;failedtocompile&quot;), inputFile), e);</span>
+				}
+			}
+		}
+<span class="nc" id="L148">		tmpFile.delete();</span>
+<span class="nc" id="L149">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
