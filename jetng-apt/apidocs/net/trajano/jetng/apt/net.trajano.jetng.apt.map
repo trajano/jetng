@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./Emits.html" title="net.trajano.jetng.apt.Emits" alt="" coords="16,17,69,42"/>
-<area shape="rect" id="node1" href="./Emits.html" title="&lt;TABLE&gt;" alt="" coords="5,5,80,53"/>
-<area shape="rect" id="node2_1" href="./Emit.html" title="net.trajano.jetng.apt.Emit" alt="" coords="117,17,163,42"/>
-<area shape="rect" id="node2" href="./Emit.html" title="&lt;TABLE&gt;" alt="" coords="104,5,176,53"/>
+<area shape="rect" id="node1_0" href="./Emits.html" title="net.trajano.jetng.apt.Emits" alt="" coords="15,16,70,43"/>
+<area shape="rect" id="node1" href="./Emits.html" title="&lt;TABLE&gt;" alt="" coords="5,5,81,53"/>
+<area shape="rect" id="node2_1" href="./Emit.html" title="net.trajano.jetng.apt.Emit" alt="" coords="117,16,165,43"/>
+<area shape="rect" id="node2" href="./Emit.html" title="&lt;TABLE&gt;" alt="" coords="105,5,177,53"/>
 </map>

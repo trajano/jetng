@@ -5,21 +5,21 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.jetng.apt.Emits
 	c0 [label=<<table title="net.trajano.jetng.apt.Emits" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Emits.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="arial italic"> Emits </font></td></tr>
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Emits </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="./Emits.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./Emits.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.apt.Emit
 	c1 [label=<<table title="net.trajano.jetng.apt.Emit" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./Emit.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
-<tr><td align="center" balign="center"><font face="arial italic"> Emit </font></td></tr>
+<tr><td align="center" balign="center"><font face="Helvetica-Oblique"> Emit </font></td></tr>
 		</table></td></tr>
-		</table>>, URL="./Emit.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./Emit.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
