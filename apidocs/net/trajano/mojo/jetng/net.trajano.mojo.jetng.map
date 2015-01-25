@@ -1,6 +1,6 @@
 <map id="G" name="G">
-<area shape="rect" id="node1_0" href="./HelpMojo.html" title="net.trajano.mojo.jetng.HelpMojo" alt="" coords="15,16,91,43"/>
-<area shape="rect" id="node1" href="./HelpMojo.html" title="&lt;TABLE&gt;" alt="" coords="5,5,102,53"/>
-<area shape="rect" id="node2_1" href="./CompileMojo.html" title="net.trajano.mojo.jetng.CompileMojo" alt="" coords="137,16,234,43"/>
-<area shape="rect" id="node2" href="./CompileMojo.html" title="&lt;TABLE&gt;" alt="" coords="126,5,245,53"/>
+<area shape="rect" id="node1_0" href="./HelpMojo.html" title="net.trajano.mojo.jetng.HelpMojo" alt="" coords="16,17,89,42"/>
+<area shape="rect" id="node1" href="./HelpMojo.html" title="&lt;TABLE&gt;" alt="" coords="5,5,100,53"/>
+<area shape="rect" id="node2_1" href="./CompileMojo.html" title="net.trajano.mojo.jetng.CompileMojo" alt="" coords="135,17,229,42"/>
+<area shape="rect" id="node2" href="./CompileMojo.html" title="&lt;TABLE&gt;" alt="" coords="124,5,240,53"/>
 </map>
