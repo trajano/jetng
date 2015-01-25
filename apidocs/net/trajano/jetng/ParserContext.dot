@@ -5,24 +5,24 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.jetng.ParserContext
-	c455 [label=<<table title="net.trajano.jetng.ParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ParserContext.html">
+	c462 [label=<<table title="net.trajano.jetng.ParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./ParserContext.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> &#171;interface&#187; </td></tr>
 <tr><td align="center" balign="center"> ParserContext </td></tr>
 		</table></td></tr>
-		</table>>, URL="./ParserContext.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./ParserContext.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	// net.trajano.jetng.internal.DefaultParserContext
-	c466 [label=<<table title="net.trajano.jetng.internal.DefaultParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./internal/DefaultParserContext.html">
+	c464 [label=<<table title="net.trajano.jetng.internal.DefaultParserContext" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" href="./internal/DefaultParserContext.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> DefaultParserContext </td></tr>
 		</table></td></tr>
-		</table>>, URL="./internal/DefaultParserContext.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./internal/DefaultParserContext.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 	//net.trajano.jetng.internal.DefaultParserContext implements net.trajano.jetng.ParserContext
-	c455:p -> c466:p [dir=back,arrowtail=empty,style=dashed];
+	c462:p -> c464:p [dir=back,arrowtail=empty,style=dashed];
 }
 

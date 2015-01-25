@@ -5,15 +5,15 @@
 #
 
 digraph G {
-	edge [fontname="arial",fontsize=10,labelfontname="arial",labelfontsize=10];
-	node [fontname="arial",fontsize=10,shape=plaintext];
+	edge [fontname="Helvetica",fontsize=10,labelfontname="Helvetica",labelfontsize=10];
+	node [fontname="Helvetica",fontsize=10,shape=plaintext];
 	nodesep=0.25;
 	ranksep=0.5;
 	// net.trajano.jetng.test.IndentStringBenchmark
-	c51 [label=<<table title="net.trajano.jetng.test.IndentStringBenchmark" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndentStringBenchmark.html">
+	c49 [label=<<table title="net.trajano.jetng.test.IndentStringBenchmark" border="0" cellborder="1" cellspacing="0" cellpadding="2" port="p" bgcolor="lemonChiffon" href="./IndentStringBenchmark.html">
 		<tr><td><table border="0" cellspacing="0" cellpadding="1">
 <tr><td align="center" balign="center"> IndentStringBenchmark </td></tr>
 		</table></td></tr>
-		</table>>, URL="./IndentStringBenchmark.html", fontname="arial", fontcolor="black", fontsize=10.0];
+		</table>>, URL="./IndentStringBenchmark.html", fontname="Helvetica", fontcolor="black", fontsize=10.0];
 }
 
