@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>OpenID Connect &#x2013; Project Plugin Management</title>
+    <title>Java Emitter Template NG &#x2013; Project Plugin Management</title>
     <style type="text/css" media="all">
       @import url("./css/maven-base.css");
       @import url("./css/maven-theme.css");
@@ -37,7 +37,7 @@
           </div>
     <header id="masthead" class="site-header" role="banner">
       <div class="header-main">
-        <h1 class="site-title"><a href="http://site.trajano.net/trajano/openid-connect/" rel="home">OpenID Connect</a></h1>
+        <h1 class="site-title"><a href="http://site.trajano.net/trajano/jetng/" rel="home">Java Emitter Template NG</a></h1>
         <nav id="primary-navigation" class="site-navigation primary-navigation" role="navigation">
           <ul class="nav-menu">
                   <li class="menu-item menu-item-type-post_type menu-item-object-page page_item">
@@ -169,22 +169,18 @@
 <td><a class="externalLink" href="http://maven.apache.org/surefire/maven-surefire-report-plugin">maven-surefire-report-plugin</a></td>
 <td>2.18.1</td></tr>
 <tr class="b">
-<td>org.apache.maven.plugins</td>
-<td><a class="externalLink" href="http://maven.apache.org/plugins/maven-war-plugin/">maven-war-plugin</a></td>
-<td>2.4</td></tr>
-<tr class="a">
 <td>org.codehaus.mojo</td>
-<td><a class="externalLink" href="http://gleclaire.github.io/findbugs-maven-plugin/">findbugs-maven-plugin</a></td>
-<td>3.0.1</td></tr>
-<tr class="b">
+<td><a class="externalLink" href="http://mojo.codehaus.org/findbugs-maven-plugin">findbugs-maven-plugin</a></td>
+<td>3.0.0</td></tr>
+<tr class="a">
 <td>org.codehaus.mojo</td>
 <td><a class="externalLink" href="http://mojo.codehaus.org/versions-maven-plugin">versions-maven-plugin</a></td>
 <td>2.1</td></tr>
-<tr class="a">
+<tr class="b">
 <td>org.jacoco</td>
 <td>http://jacoco-maven-plugin</td>
 <td>0.7.2.201409121644</td></tr>
-<tr class="b">
+<tr class="a">
 <td>org.sonatype.plugins</td>
 <td><a class="externalLink" href="http://www.sonatype.com/public-parent/nexus-maven-plugins/nexus-staging/nexus-staging-maven-plugin/">nexus-staging-maven-plugin</a></td>
 <td>1.6.5</td></tr></table></div>
@@ -204,9 +200,33 @@
       	</h2>
         <div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
                 <aside class="widget">
+            </aside>
+      <aside class="widget">
+                 <h1 class="widget-title">Parent Project</h1>
+                  <ul>
+                      <li class="none">
+                          <a href="../trajano/index.html" title="Trajano">Trajano</a>
+            </li>
+          </ul>
+        </aside>
+      <aside class="widget">
+                 <h1 class="widget-title">Modules</h1>
+                  <ul>
+                      <li class="none">
+                          <a href="jetng-apt/index.html" title="JET-NG Annotation Processor">JET-NG Annotation Processor</a>
+            </li>
+                      <li class="none">
+                          <a href="jetng-core/index.html" title="Java Emitter Template NG Core">Java Emitter Template NG Core</a>
+            </li>
+                      <li class="none">
+                          <a href="jetng-maven-plugin/index.html" title="Java Emitter Template NG Maven Plugin">Java Emitter Template NG Maven Plugin</a>
+            </li>
+          </ul>
+        </aside>
+      <aside class="widget">
                  <h1 class="widget-title">Project Documentation</h1>
                   <ul>
-                                                                                                                                                                                                                                                                                                                            <li class="expanded">
+                                                                                                                                                                                                                                                                                                          <li class="expanded">
                           <a href="project-info.html" title="Project Information">Project Information</a>
                     <ul>
                           <li class="none">
@@ -220,9 +240,6 @@
             </li>
                           <li class="none">
                           <a href="dependency-info.html" title="Dependency Information">Dependency Information</a>
-            </li>
-                          <li class="none">
-                          <a href="dependency-management.html" title="Dependency Management">Dependency Management</a>
             </li>
                           <li class="none">
                           <a href="distribution-management.html" title="Distribution Management">Distribution Management</a>
@@ -253,7 +270,7 @@
             </li>
               </ul>
         </li>
-                                                                                                                                                                                                      <li class="collapsed">
+                                                                                                                                                                                                                        <li class="collapsed">
                           <a href="project-reports.html" title="Project Reports">Project Reports</a>
                   </li>
           </ul>
