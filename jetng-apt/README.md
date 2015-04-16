@@ -14,9 +14,9 @@ The following plugins need to be configured in the `pom.xml` for this to work.
       <executions>
         <execution>
           <goals>
-        	   <goal>compile</goal>
+            <goal>compile</goal>
           </goals>
-    	  </execution>
+        </execution>
       </executions>
     </plugin>
 
@@ -39,7 +39,7 @@ The following plugins need to be configured in the `pom.xml` for this to work.
               </resource>
             </resources>
           </configuration>
-    	  </execution>
+        </execution>
       </executions>
     </plugin>
 
