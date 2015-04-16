@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./MapTokenStorage.html" title="net.trajano.openidconnect.sample.MapTokenStorage" alt="" coords="16,17,140,42"/>
+<area shape="rect" id="node1" href="./MapTokenStorage.html" title="&lt;TABLE&gt;" alt="" coords="5,5,151,53"/>
+<area shape="rect" id="node2_1" href="./LoginServlet.html" title="net.trajano.openidconnect.sample.LoginServlet" alt="" coords="185,17,275,42"/>
+<area shape="rect" id="node2" href="./LoginServlet.html" title="&lt;TABLE&gt;" alt="" coords="175,5,285,53"/>
+<area shape="rect" id="node3_2" href="./ConsentServlet.html" title="net.trajano.openidconnect.sample.ConsentServlet" alt="" coords="321,17,427,42"/>
+<area shape="rect" id="node3" href="./ConsentServlet.html" title="&lt;TABLE&gt;" alt="" coords="310,5,438,53"/>
+<area shape="rect" id="node4_3" href="./AcceptAllClientManager.html" title="net.trajano.openidconnect.sample.AcceptAllClientManager" alt="" coords="473,17,632,42"/>
+<area shape="rect" id="node4" href="./AcceptAllClientManager.html" title="&lt;TABLE&gt;" alt="" coords="463,5,643,53"/>
+</map>

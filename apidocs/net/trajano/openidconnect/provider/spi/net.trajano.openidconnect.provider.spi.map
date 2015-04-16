@@ -1,0 +1,18 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./UserinfoProvider.html" title="net.trajano.openidconnect.provider.spi.UserinfoProvider" alt="" coords="16,11,128,53"/>
+<area shape="rect" id="node1" href="./UserinfoProvider.html" title="&lt;TABLE&gt;" alt="" coords="5,5,139,59"/>
+<area shape="rect" id="node2_1" href="./TokenStorage.html" title="net.trajano.openidconnect.provider.spi.TokenStorage" alt="" coords="174,11,274,53"/>
+<area shape="rect" id="node2" href="./TokenStorage.html" title="&lt;TABLE&gt;" alt="" coords="163,5,285,59"/>
+<area shape="rect" id="node3_2" href="./TokenProvider.html" title="net.trajano.openidconnect.provider.spi.TokenProvider" alt="" coords="319,11,419,53"/>
+<area shape="rect" id="node3" href="./TokenProvider.html" title="&lt;TABLE&gt;" alt="" coords="309,5,430,59"/>
+<area shape="rect" id="node4_3" href="./KeyProvider.html" title="net.trajano.openidconnect.provider.spi.KeyProvider" alt="" coords="465,11,553,53"/>
+<area shape="rect" id="node4" href="./KeyProvider.html" title="&lt;TABLE&gt;" alt="" coords="455,5,564,59"/>
+<area shape="rect" id="node5_4" href="./Consent.html" title="net.trajano.openidconnect.provider.spi.Consent" alt="" coords="599,19,667,45"/>
+<area shape="rect" id="node5" href="./Consent.html" title="&lt;TABLE&gt;" alt="" coords="589,8,678,56"/>
+<area shape="rect" id="node6_5" href="./ClientManager.html" title="net.trajano.openidconnect.provider.spi.ClientManager" alt="" coords="713,11,815,53"/>
+<area shape="rect" id="node6" href="./ClientManager.html" title="&lt;TABLE&gt;" alt="" coords="702,5,826,59"/>
+<area shape="rect" id="node7_6" href="./Authenticator.html" title="net.trajano.openidconnect.provider.spi.Authenticator" alt="" coords="861,11,957,53"/>
+<area shape="rect" id="node7" href="./Authenticator.html" title="&lt;TABLE&gt;" alt="" coords="851,5,968,59"/>
+<area shape="rect" id="node8_7" href="./AuthenticationResponseProvider.html" title="net.trajano.openidconnect.provider.spi.AuthenticationResponseProvider" alt="" coords="1003,11,1210,53"/>
+<area shape="rect" id="node8" href="./AuthenticationResponseProvider.html" title="&lt;TABLE&gt;" alt="" coords="993,5,1221,59"/>
+</map>

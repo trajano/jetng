@@ -1,1 +1,5 @@
-net.trajano.jetng.test
+net.trajano.openidconnect.crypto.test
+net.trajano.openidconnect.jaspic.test
+net.trajano.openidconnect.jaxrs.test
+net.trajano.openidconnect.provider.ejb.test
+net.trajano.openidconnect.provider.test

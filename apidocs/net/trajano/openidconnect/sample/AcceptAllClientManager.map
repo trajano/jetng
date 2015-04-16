@@ -1,0 +1,10 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./AcceptAllClientManager.html" title="net.trajano.openidconnect.sample.AcceptAllClientManager" alt="" coords="146,118,305,143"/>
+<area shape="rect" id="node1" href="./AcceptAllClientManager.html" title="&lt;TABLE&gt;" alt="" coords="135,107,315,155"/>
+<area shape="rect" id="node2_1" href="../provider/spi/UserinfoProvider.html" title="net.trajano.openidconnect.provider.spi.UserinfoProvider" alt="" coords="16,11,128,53"/>
+<area shape="rect" id="node2" href="../provider/spi/UserinfoProvider.html" title="&lt;TABLE&gt;" alt="" coords="5,5,139,59"/>
+<area shape="rect" id="node3_2" href="../provider/spi/ClientManager.html" title="net.trajano.openidconnect.provider.spi.ClientManager" alt="" coords="174,11,277,53"/>
+<area shape="rect" id="node3" href="../provider/spi/ClientManager.html" title="&lt;TABLE&gt;" alt="" coords="163,5,287,59"/>
+<area shape="rect" id="node4_3" href="../provider/spi/Authenticator.html" title="net.trajano.openidconnect.provider.spi.Authenticator" alt="" coords="323,11,419,53"/>
+<area shape="rect" id="node4" href="../provider/spi/Authenticator.html" title="&lt;TABLE&gt;" alt="" coords="312,5,429,59"/>
+</map>

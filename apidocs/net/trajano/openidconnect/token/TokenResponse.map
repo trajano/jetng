@@ -1,0 +1,8 @@
+<map id="G" name="G">
+<area shape="rect" id="node1_0" href="./TokenResponse.html" title="net.trajano.openidconnect.token.TokenResponse" alt="" coords="21,118,133,143"/>
+<area shape="rect" id="node1" href="./TokenResponse.html" title="&lt;TABLE&gt;" alt="" coords="11,107,144,155"/>
+<area shape="rect" id="node2_1" href="./IdTokenResponse.html" title="net.trajano.openidconnect.token.IdTokenResponse" alt="" coords="16,214,139,239"/>
+<area shape="rect" id="node2" href="./IdTokenResponse.html" title="&lt;TABLE&gt;" alt="" coords="5,203,149,251"/>
+<area shape="rect" id="node3_2" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html" title="java.io.Serializable" alt="" coords="34,11,121,53"/>
+<area shape="rect" id="node3" href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/Serializable.html" title="&lt;TABLE&gt;" alt="" coords="23,5,131,59"/>
+</map>
