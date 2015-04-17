@@ -29,13 +29,12 @@ import net.trajano.jetng.apt.Emit;
 import net.trajano.jetng.apt.Emits;
 
 /**
- * This is used to process JPA classes to add support code. The support code is
- * the plural version of the entity name.
+ * Processes the {@link Emit} and {@link Emits} annotations.
  */
-@SupportedAnnotationTypes({ "net.trajano.jetng.apt.Emits",
-"net.trajano.jetng.apt.Emit" })
+@SupportedAnnotationTypes({ "net.trajano.jetng.apt.Emits", "net.trajano.jetng.apt.Emit" })
 @SupportedSourceVersion(SourceVersion.RELEASE_5)
 public class EmitsProcessor extends AbstractProcessor {
+
     /**
      * Known element types.
      */
@@ -44,17 +43,12 @@ public class EmitsProcessor extends AbstractProcessor {
     /**
      * Logger.
      */
-    private static final Logger LOG = Logger.getLogger("net.trajano.jetng.apt",
-            "META-INF/Messages");
+    private static final Logger LOG = Logger.getLogger("net.trajano.jetng.apt", "META-INF/Messages");
 
     static {
-        KNOWN_ELEMENT_TYPES = Collections.unmodifiableSet(new HashSet<String>(
-                Arrays.asList(TypeElement.class.getName(),
-                        Element.class.getName(),
-                        VariableElement.class.getName(),
-                        ExecutableElement.class.getName(),
-                        PackageElement.class.getName())));
+        KNOWN_ELEMENT_TYPES = Collections.unmodifiableSet(new HashSet<String>(Arrays.asList(TypeElement.class.getName(), Element.class.getName(), VariableElement.class.getName(), ExecutableElement.class.getName(), PackageElement.class.getName())));
     }
+
     /**
      * Annotation processors.
      */
@@ -72,41 +66,31 @@ public class EmitsProcessor extends AbstractProcessor {
     public boolean process(final Set<? extends TypeElement> annotations,
             final RoundEnvironment roundEnv) {
 
-        for (final Element element : roundEnv
-                .getElementsAnnotatedWith(Emits.class)) {
+        for (final Element element : roundEnv.getElementsAnnotatedWith(Emits.class)) {
             final TypeElement typeElement = (TypeElement) element;
             for (final Emit emit : typeElement.getAnnotation(Emits.class)
                     .value()) {
                 processEmit(emit, typeElement);
             }
         }
-        for (final Element element : roundEnv
-                .getElementsAnnotatedWith(Emit.class)) {
+        for (final Element element : roundEnv.getElementsAnnotatedWith(Emit.class)) {
             final TypeElement typeElement = (TypeElement) element;
             processEmit(typeElement.getAnnotation(Emit.class), typeElement);
         }
         if (roundEnv.processingOver() && !roundEnv.errorRaised()) {
             try {
-                final PrintWriter metaWriter = new PrintWriter(
-                        processingEnv
-                        .getFiler()
-                        .createResource(
-                                StandardLocation.SOURCE_OUTPUT,
-                                "",
-                                "META-INF/services/javax.annotation.processing.Processor",
-                                elementCollection
-                                .toArray(new Element[0]))
+                final PrintWriter metaWriter = new PrintWriter(processingEnv.getFiler()
+                        .createResource(StandardLocation.SOURCE_OUTPUT, "", "META-INF/services/javax.annotation.processing.Processor", elementCollection.toArray(new Element[0]))
                                 .openWriter());
                 for (final String processor : annotationProcessors) {
                     metaWriter.println(processor);
                 }
                 metaWriter.close();
             } catch (final IOException e) {
-                final String msg = MessageFormat
-                        .format(LOG.getResourceBundle().getString("ioerror"),
-                                "META-INF/services/javax.annotation.processing.Processor",
-                                e.getMessage());
-                processingEnv.getMessager().printMessage(Kind.ERROR, msg);
+                final String msg = MessageFormat.format(LOG.getResourceBundle()
+                        .getString("ioerror"), "META-INF/services/javax.annotation.processing.Processor", e.getMessage());
+                processingEnv.getMessager()
+                        .printMessage(Kind.ERROR, msg);
                 throw new IllegalStateException(msg, e);
             }
         }
@@ -122,64 +106,74 @@ public class EmitsProcessor extends AbstractProcessor {
      *            type element
      * @throws IOException
      */
-    private void processEmit(final Emit emit, final TypeElement typeElement) {
+    private void processEmit(final Emit emit,
+            final TypeElement typeElement) {
+
         elementCollection.add(typeElement);
         final EmitterGenerator generator = new EmitterGenerator();
         String elementClassUsedInArgumentsClassConstructor = null;
         for (final Element element : typeElement.getEnclosedElements()) {
             if (ElementKind.CONSTRUCTOR == element.getKind()) {
                 final ExecutableElement executableElement = (ExecutableElement) element;
-                final List<? extends VariableElement> parameters = executableElement
-                        .getParameters();
-                if (parameters.size() != 1
-                        && KNOWN_ELEMENT_TYPES.contains(parameters.get(0)
-                                .asType().toString())) {
+                final List<? extends VariableElement> parameters = executableElement.getParameters();
+                if (parameters.size() != 1 && KNOWN_ELEMENT_TYPES.contains(parameters.get(0)
+                        .asType()
+                        .toString())) {
                     continue;
                 }
                 if (elementClassUsedInArgumentsClassConstructor != null) {
-                    final String msg = MessageFormat.format(LOG
-                            .getResourceBundle().getString("manyconstructor"),
-                            typeElement.asType().toString());
-                    processingEnv.getMessager().printMessage(Kind.ERROR, msg);
+                    final String msg = MessageFormat.format(LOG.getResourceBundle()
+                            .getString("manyconstructor"),
+                            typeElement.asType()
+                                    .toString());
+                    processingEnv.getMessager()
+                            .printMessage(Kind.ERROR, msg);
                     throw new IllegalStateException(msg);
                 }
                 elementClassUsedInArgumentsClassConstructor = parameters.get(0)
-                        .asType().toString();
+                        .asType()
+                        .toString();
             }
         }
         if (elementClassUsedInArgumentsClassConstructor == null) {
             final String msg = MessageFormat.format(LOG.getResourceBundle()
-                    .getString("noconstructor"), typeElement.asType()
-                    .toString());
-            processingEnv.getMessager().printMessage(Kind.ERROR, msg);
+                    .getString("noconstructor"),
+                    typeElement.asType()
+                            .toString());
+            processingEnv.getMessager()
+                    .printMessage(Kind.ERROR, msg);
             throw new IllegalStateException(msg);
         }
         final EmitModel model = new EmitModel();
         if ("".equals(emit.packageName())) {
-            model.setPackageName(((PackageElement) typeElement
-                    .getEnclosingElement()).getQualifiedName().toString());
+            model.setPackageName(((PackageElement) typeElement.getEnclosingElement()).getQualifiedName()
+                    .toString());
         } else {
             model.setPackageName(emit.packageName());
         }
         model.setGeneratorClassName(emit.template());
         model.setClassName(emit.processorName());
-        model.setArgumentClassName(typeElement.asType().toString());
+        model.setArgumentClassName(typeElement.asType()
+                .toString());
         model.setQualifiedNameMethod(emit.qualifiedNameMethod());
         model.setArgumentConstructorParameterType(elementClassUsedInArgumentsClassConstructor);
         model.setSupportedAnnotationTypes(emit.supportedAnnotationTypes());
-        model.setSupportedSourceVersion("SourceVersion."
-                + emit.supportedSourceVersion());
+        model.setSupportedSourceVersion("SourceVersion." + emit.supportedSourceVersion());
         try {
             annotationProcessors.add(model.getQualifiedName());
             final PrintWriter writer = new PrintWriter(processingEnv.getFiler()
-                    .createSourceFile(model.getQualifiedName()).openWriter());
+                    .createSourceFile(model.getQualifiedName())
+                    .openWriter());
             generator.generate(model, writer);
             writer.close();
         } catch (final IOException e) {
             final String msg = MessageFormat.format(LOG.getResourceBundle()
-                    .getString("ioerror"), typeElement.asType().toString(), e
-                    .getMessage());
-            processingEnv.getMessager().printMessage(Kind.ERROR, msg);
+                    .getString("ioerror"),
+                    typeElement.asType()
+                            .toString(),
+                    e.getMessage());
+            processingEnv.getMessager()
+                    .printMessage(Kind.ERROR, msg);
             throw new IllegalStateException(msg, e);
         }
     }
