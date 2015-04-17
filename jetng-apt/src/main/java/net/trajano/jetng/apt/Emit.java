@@ -7,6 +7,7 @@ import javax.lang.model.SourceVersion;
  * element.
  */
 public @interface Emit {
+
     /**
      * Package name where the generator class will reside, if it is not
      * specified, then the package name of the class annotated will be used.
@@ -36,7 +37,7 @@ public @interface Emit {
      *
      * @return
      */
-    String[] supportedAnnotationTypes();
+    String[]supportedAnnotationTypes();
 
     /**
      * Supported source version.

@@ -81,7 +81,7 @@ public class EmitsProcessor extends AbstractProcessor {
             try {
                 final PrintWriter metaWriter = new PrintWriter(processingEnv.getFiler()
                         .createResource(StandardLocation.SOURCE_OUTPUT, "", "META-INF/services/javax.annotation.processing.Processor", elementCollection.toArray(new Element[0]))
-                                .openWriter());
+                        .openWriter());
                 for (final String processor : annotationProcessors) {
                     metaWriter.println(processor);
                 }
@@ -90,7 +90,7 @@ public class EmitsProcessor extends AbstractProcessor {
                 final String msg = MessageFormat.format(LOG.getResourceBundle()
                         .getString("ioerror"), "META-INF/services/javax.annotation.processing.Processor", e.getMessage());
                 processingEnv.getMessager()
-                        .printMessage(Kind.ERROR, msg);
+                .printMessage(Kind.ERROR, msg);
                 throw new IllegalStateException(msg, e);
             }
         }
@@ -125,9 +125,9 @@ public class EmitsProcessor extends AbstractProcessor {
                     final String msg = MessageFormat.format(LOG.getResourceBundle()
                             .getString("manyconstructor"),
                             typeElement.asType()
-                                    .toString());
+                            .toString());
                     processingEnv.getMessager()
-                            .printMessage(Kind.ERROR, msg);
+                    .printMessage(Kind.ERROR, msg);
                     throw new IllegalStateException(msg);
                 }
                 elementClassUsedInArgumentsClassConstructor = parameters.get(0)
@@ -139,9 +139,9 @@ public class EmitsProcessor extends AbstractProcessor {
             final String msg = MessageFormat.format(LOG.getResourceBundle()
                     .getString("noconstructor"),
                     typeElement.asType()
-                            .toString());
+                    .toString());
             processingEnv.getMessager()
-                    .printMessage(Kind.ERROR, msg);
+            .printMessage(Kind.ERROR, msg);
             throw new IllegalStateException(msg);
         }
         final EmitModel model = new EmitModel();
@@ -170,10 +170,10 @@ public class EmitsProcessor extends AbstractProcessor {
             final String msg = MessageFormat.format(LOG.getResourceBundle()
                     .getString("ioerror"),
                     typeElement.asType()
-                            .toString(),
+                    .toString(),
                     e.getMessage());
             processingEnv.getMessager()
-                    .printMessage(Kind.ERROR, msg);
+            .printMessage(Kind.ERROR, msg);
             throw new IllegalStateException(msg, e);
         }
     }
