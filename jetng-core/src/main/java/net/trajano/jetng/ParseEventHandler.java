@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Handles parse events.
  *
- * @author Archimedes
+ * @author Archimedes Trajano
  *
  */
 public interface ParseEventHandler {
@@ -25,8 +25,7 @@ public interface ParseEventHandler {
      *            flag for alone on the line.
      * @throws IOException
      */
-    void characters(ParserContext context, String characters, boolean eol,
-            boolean aloneOnLine) throws IOException;
+    void characters(ParserContext context, String characters, boolean eol, boolean aloneOnLine) throws IOException;
 
     /**
      * Characters in a comment.
@@ -38,8 +37,7 @@ public interface ParseEventHandler {
      * @param eol
      *            needs end of line.
      */
-    void comment(ParserContext context, String comment, boolean eol)
-            throws IOException;
+    void comment(ParserContext context, String comment, boolean eol) throws IOException;
 
     /**
      * Handles JET directives.
@@ -52,8 +50,7 @@ public interface ParseEventHandler {
      *            attributes
      * @throws IOException
      */
-    void directive(ParserContext context, String directiveName,
-            Map<String, String> attributes) throws IOException;
+    void directive(ParserContext context, String directiveName, Map<String, String> attributes) throws IOException;
 
     /**
      * Fired at the end of the comment.
@@ -100,8 +97,7 @@ public interface ParseEventHandler {
      *            expression string
      * @throws IOException
      */
-    void expression(ParserContext context, String expression)
-            throws IOException;
+    void expression(ParserContext context, String expression) throws IOException;
 
     /**
      * Characters in a scriptlet.
@@ -113,8 +109,7 @@ public interface ParseEventHandler {
      * @param eol
      *            needs end of line.
      */
-    void scriptlet(ParserContext context, String scriptlet, boolean eol)
-            throws IOException;
+    void scriptlet(ParserContext context, String scriptlet, boolean eol) throws IOException;
 
     /**
      * Fired at the start of a comment.

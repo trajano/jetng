@@ -10,7 +10,7 @@ import net.trajano.jetng.internal.Util;
 /**
  * Handles parse events.
  *
- * @author Archimedes
+ * @author Archimedes Trajano
  *
  */
 public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
@@ -31,18 +31,17 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
     }
 
     @Override
-    public void doCharacters(final ParserContext context,
-            final String characters, final boolean eol,
+    public void doCharacters(final ParserContext context, final String characters, final boolean eol,
             final boolean aloneOnLine) {
         if (aloneOnLine) {
             return;
         }
         if (eol) {
-            out.println(indents(2 + context.getIndentLevel()) + "out.println("
-                    + Util.escapeJavaString(characters) + ");");
+            out.println(
+                    indents(2 + context.getIndentLevel()) + "out.println(" + Util.escapeJavaString(characters) + ");");
         } else {
-            out.println(indents(2 + context.getIndentLevel()) + "out.print("
-                    + Util.escapeJavaString(characters) + ");");
+            out.println(
+                    indents(2 + context.getIndentLevel()) + "out.print(" + Util.escapeJavaString(characters) + ");");
         }
     }
 
@@ -56,10 +55,12 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 
     @Override
     public void expression(final ParserContext context, final String expression) {
-        out.println(indents(2 + context.getIndentLevel()) + "out.print("
-                + expression + ");");
+        out.println(indents(2 + context.getIndentLevel()) + "out.print(" + expression + ");");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void header(final ParserContext context) {
         out.println("package " + context.getPackageName() + ";");
@@ -73,17 +74,16 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
         out.println("public class " + context.getClassName() + " {");
 
         out.println();
-        out.println(format("    public String generate(final %s arguments) {",
-                context.getArgumentsClassName()));
+        out.println(format("    public String generate(final %s arguments) {", context.getArgumentsClassName()));
         out.println("        final java.io.StringWriter w = new java.io.StringWriter();");
-        out.println("        generate(arguments, new java.io.PrintWriter(w));");
+        out.println("        generate(arguments, w);");
         out.println("        return w.toString();");
         out.println("    }");
 
         out.println();
-        out.println(format(
-                "    public void generate(final %s arguments, final java.io.PrintWriter out) {",
+        out.println(format("    public void generate(final %s arguments, final java.io.Writer writer) {",
                 context.getArgumentsClassName()));
+        out.println("        final java.io.PrintWriter out = new java.io.PrintWriter(writer);");
 
     }
 
@@ -101,8 +101,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
     }
 
     @Override
-    public void scriptlet(final ParserContext context, final String scriptlet,
-            final boolean eol) {
+    public void scriptlet(final ParserContext context, final String scriptlet, final boolean eol) {
         out.println(indents(2 + context.getIndentLevel()) + scriptlet);
     }
 }
