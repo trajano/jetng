@@ -10,7 +10,7 @@ import net.trajano.jetng.internal.Util;
 /**
  * Handles parse events.
  *
- * @author Archimedes
+ * @author Archimedes Trajano
  *
  */
 public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
@@ -31,59 +31,59 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 <span class="fc" id="L31">    }</span>
 
     @Override
-    public void doCharacters(final ParserContext context,
-            final String characters, final boolean eol,
+    public void doCharacters(final ParserContext context, final String characters, final boolean eol,
             final boolean aloneOnLine) {
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (aloneOnLine) {</span>
-<span class="fc" id="L38">            return;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (aloneOnLine) {</span>
+<span class="fc" id="L37">            return;</span>
         }
-<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (eol) {</span>
-<span class="fc" id="L41">            out.println(indents(2 + context.getIndentLevel()) + &quot;out.println(&quot;</span>
-                    + Util.escapeJavaString(characters) + &quot;);&quot;);
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (eol) {</span>
+<span class="fc" id="L40">            out.println(</span>
+                    indents(2 + context.getIndentLevel()) + &quot;out.println(&quot; + Util.escapeJavaString(characters) + &quot;);&quot;);
         } else {
-<span class="fc" id="L44">            out.println(indents(2 + context.getIndentLevel()) + &quot;out.print(&quot;</span>
-                    + Util.escapeJavaString(characters) + &quot;);&quot;);
+<span class="fc" id="L43">            out.println(</span>
+                    indents(2 + context.getIndentLevel()) + &quot;out.print(&quot; + Util.escapeJavaString(characters) + &quot;);&quot;);
         }
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L46">    }</span>
 
     @Override
     public void doEndDocument(final ParserContext context) {
-<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (context.isTopFile()) {</span>
-<span class="fc" id="L52">            out.println(&quot;    }&quot;);</span>
-<span class="fc" id="L53">            out.println(&quot;}&quot;);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (context.isTopFile()) {</span>
+<span class="fc" id="L51">            out.println(&quot;    }&quot;);</span>
+<span class="fc" id="L52">            out.println(&quot;}&quot;);</span>
         }
-<span class="fc" id="L55">    }</span>
+<span class="fc" id="L54">    }</span>
 
     @Override
     public void expression(final ParserContext context, final String expression) {
-<span class="fc" id="L59">        out.println(indents(2 + context.getIndentLevel()) + &quot;out.print(&quot;</span>
-                + expression + &quot;);&quot;);
-<span class="fc" id="L61">    }</span>
+<span class="fc" id="L58">        out.println(indents(2 + context.getIndentLevel()) + &quot;out.print(&quot; + expression + &quot;);&quot;);</span>
+<span class="fc" id="L59">    }</span>
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void header(final ParserContext context) {
-<span class="fc" id="L65">        out.println(&quot;package &quot; + context.getPackageName() + &quot;;&quot;);</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (!context.getImports().isEmpty()) {</span>
-<span class="fc" id="L67">            out.println();</span>
-<span class="fc bfc" id="L68" title="All 2 branches covered.">            for (final String importPackage : context.getImports()) {</span>
-<span class="fc" id="L69">                out.println(&quot;import &quot; + importPackage + &quot;;&quot;);</span>
-<span class="fc" id="L70">            }</span>
+<span class="fc" id="L66">        out.println(&quot;package &quot; + context.getPackageName() + &quot;;&quot;);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (!context.getImports().isEmpty()) {</span>
+<span class="fc" id="L68">            out.println();</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            for (final String importPackage : context.getImports()) {</span>
+<span class="fc" id="L70">                out.println(&quot;import &quot; + importPackage + &quot;;&quot;);</span>
+<span class="fc" id="L71">            }</span>
         }
-<span class="fc" id="L72">        out.println();</span>
-<span class="fc" id="L73">        out.println(&quot;public class &quot; + context.getClassName() + &quot; {&quot;);</span>
+<span class="fc" id="L73">        out.println();</span>
+<span class="fc" id="L74">        out.println(&quot;public class &quot; + context.getClassName() + &quot; {&quot;);</span>
 
-<span class="fc" id="L75">        out.println();</span>
-<span class="fc" id="L76">        out.println(format(&quot;    public String generate(final %s arguments) {&quot;,</span>
-                context.getArgumentsClassName()));
+<span class="fc" id="L76">        out.println();</span>
+<span class="fc" id="L77">        out.println(format(&quot;    public String generate(final %s arguments) {&quot;, context.getArgumentsClassName()));</span>
 <span class="fc" id="L78">        out.println(&quot;        final java.io.StringWriter w = new java.io.StringWriter();&quot;);</span>
-<span class="fc" id="L79">        out.println(&quot;        generate(arguments, new java.io.PrintWriter(w));&quot;);</span>
+<span class="fc" id="L79">        out.println(&quot;        generate(arguments, w);&quot;);</span>
 <span class="fc" id="L80">        out.println(&quot;        return w.toString();&quot;);</span>
 <span class="fc" id="L81">        out.println(&quot;    }&quot;);</span>
 
 <span class="fc" id="L83">        out.println();</span>
-<span class="fc" id="L84">        out.println(format(</span>
-                &quot;    public void generate(final %s arguments, final java.io.PrintWriter out) {&quot;,
+<span class="fc" id="L84">        out.println(format(&quot;    public void generate(final %s arguments, final java.io.Writer writer) {&quot;,</span>
                 context.getArgumentsClassName()));
+<span class="fc" id="L86">        out.println(&quot;        final java.io.PrintWriter out = new java.io.PrintWriter(writer);&quot;);</span>
 
 <span class="fc" id="L88">    }</span>
 
@@ -101,9 +101,8 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
     }
 
     @Override
-    public void scriptlet(final ParserContext context, final String scriptlet,
-            final boolean eol) {
-<span class="fc" id="L106">        out.println(indents(2 + context.getIndentLevel()) + scriptlet);</span>
-<span class="fc" id="L107">    }</span>
+    public void scriptlet(final ParserContext context, final String scriptlet, final boolean eol) {
+<span class="fc" id="L105">        out.println(indents(2 + context.getIndentLevel()) + scriptlet);</span>
+<span class="fc" id="L106">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>

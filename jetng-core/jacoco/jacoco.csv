@@ -7,5 +7,5 @@ Java Emitter Template NG Core,net.trajano.jetng,ParseException,0,20,0,0,0,4,0,2,
 Java Emitter Template NG Core,net.trajano.jetng,CycleFoundException,12,0,0,0,2,0,1,0,1,0
 Java Emitter Template NG Core,net.trajano.jetng,JetNgParser,69,509,17,57,16,122,17,30,2,8
 Java Emitter Template NG Core,net.trajano.jetng,ContextNotReadyException,0,5,0,0,0,2,0,1,0,1
-Java Emitter Template NG Core,net.trajano.jetng,JavaEmitterParseEventHandler,0,228,0,10,0,37,0,12,0,7
+Java Emitter Template NG Core,net.trajano.jetng,JavaEmitterParseEventHandler,0,232,0,10,0,38,0,12,0,7
 Java Emitter Template NG Core,net.trajano.jetng,DefaultParseEventHandler,73,229,9,31,12,56,13,27,5,15
