@@ -71,21 +71,39 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
 <span class="fc" id="L71">            }</span>
         }
 <span class="fc" id="L73">        out.println();</span>
-<span class="fc" id="L74">        out.println(&quot;public class &quot; + context.getClassName() + &quot; {&quot;);</span>
+<span class="fc" id="L74">        out.println(&quot;/**&quot;);</span>
+<span class="fc" id="L75">        out.println(format(&quot; * %s template.&quot;, context.getClassName()));</span>
+<span class="fc" id="L76">        out.println(&quot; */&quot;);</span>
+<span class="fc" id="L77">        out.println(&quot;public class &quot; + context.getClassName() + &quot; {&quot;);</span>
 
-<span class="fc" id="L76">        out.println();</span>
-<span class="fc" id="L77">        out.println(format(&quot;    public String generate(final %s arguments) {&quot;, context.getArgumentsClassName()));</span>
-<span class="fc" id="L78">        out.println(&quot;        final java.io.StringWriter w = new java.io.StringWriter();&quot;);</span>
-<span class="fc" id="L79">        out.println(&quot;        generate(arguments, w);&quot;);</span>
-<span class="fc" id="L80">        out.println(&quot;        return w.toString();&quot;);</span>
-<span class="fc" id="L81">        out.println(&quot;    }&quot;);</span>
+<span class="fc" id="L79">        out.println();</span>
+<span class="fc" id="L80">        out.println(&quot;    /**&quot;);</span>
+<span class="fc" id="L81">        out.println(format(&quot;     * Generates %s template.&quot;, context.getClassName()));</span>
+<span class="fc" id="L82">        out.println(&quot;     *&quot;);</span>
+<span class="fc" id="L83">        out.println(&quot;     * @param arguments&quot;);</span>
+<span class="fc" id="L84">        out.println(&quot;     *            arguments&quot;);</span>
+<span class="fc" id="L85">        out.println(&quot;     * @return generated template&quot;);</span>
+<span class="fc" id="L86">        out.println(&quot;     */&quot;);</span>
+<span class="fc" id="L87">        out.println(format(&quot;    public String generate(final %s arguments) {&quot;, context.getArgumentsClassName()));</span>
+<span class="fc" id="L88">        out.println(&quot;        final java.io.StringWriter w = new java.io.StringWriter();&quot;);</span>
+<span class="fc" id="L89">        out.println(&quot;        generate(arguments, w);&quot;);</span>
+<span class="fc" id="L90">        out.println(&quot;        return w.toString();&quot;);</span>
+<span class="fc" id="L91">        out.println(&quot;    }&quot;);</span>
 
-<span class="fc" id="L83">        out.println();</span>
-<span class="fc" id="L84">        out.println(format(&quot;    public void generate(final %s arguments, final java.io.Writer writer) {&quot;,</span>
+<span class="fc" id="L93">        out.println();</span>
+<span class="fc" id="L94">        out.println(&quot;    /**&quot;);</span>
+<span class="fc" id="L95">        out.println(format(&quot;     * Writes %s template to a {@link java.io.Writer}.&quot;, context.getClassName()));</span>
+<span class="fc" id="L96">        out.println(&quot;     *&quot;);</span>
+<span class="fc" id="L97">        out.println(&quot;     * @param arguments&quot;);</span>
+<span class="fc" id="L98">        out.println(&quot;     *            arguments&quot;);</span>
+<span class="fc" id="L99">        out.println(&quot;     * @param writer&quot;);</span>
+<span class="fc" id="L100">        out.println(&quot;     *            writer to output to&quot;);</span>
+<span class="fc" id="L101">        out.println(&quot;     */&quot;);</span>
+<span class="fc" id="L102">        out.println(format(&quot;    public void generate(final %s arguments, final java.io.Writer writer) {&quot;,</span>
                 context.getArgumentsClassName()));
-<span class="fc" id="L86">        out.println(&quot;        final java.io.PrintWriter out = new java.io.PrintWriter(writer);&quot;);</span>
+<span class="fc" id="L104">        out.println(&quot;        final java.io.PrintWriter out = new java.io.PrintWriter(writer);&quot;);</span>
 
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L106">    }</span>
 
     /**
      * Build indentation string.
@@ -95,14 +113,14 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
      * @return indent.
      */
     private String indents(final int level) {
-<span class="fc" id="L98">        final char[] carray = new char[4 * level];</span>
-<span class="fc" id="L99">        Arrays.fill(carray, ' ');</span>
-<span class="fc" id="L100">        return new String(carray);</span>
+<span class="fc" id="L116">        final char[] carray = new char[4 * level];</span>
+<span class="fc" id="L117">        Arrays.fill(carray, ' ');</span>
+<span class="fc" id="L118">        return new String(carray);</span>
     }
 
     @Override
     public void scriptlet(final ParserContext context, final String scriptlet, final boolean eol) {
-<span class="fc" id="L105">        out.println(indents(2 + context.getIndentLevel()) + scriptlet);</span>
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L123">        out.println(indents(2 + context.getIndentLevel()) + scriptlet);</span>
+<span class="fc" id="L124">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.2.201409121644</span></div></body></html>
