@@ -34,7 +34,7 @@ public class <$=argument.getClassName()$> {
 <$+ for (final MetaNamedQuery namedQuery : argument.getNamedQueries()) { $>
     /**
      * Execute named query <$=namedQuery.getName()$>.
-    <$+ for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { $>
+    <$+ for (int i = 0; i < namedQuery.getParameters().size(); ++i) { $>
      * @param <$=namedQuery.getParameters().get(i)$> <$=namedQuery.getParameters().get(i)$> 
     <$- } $>
      * @return list of <$=argument.getEntityClassName()$>

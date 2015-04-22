@@ -3,14 +3,32 @@ package net.trajano.apt.jpa.internal;
 import java.util.*;
 import javax.xml.*;
 
+/**
+ * TableModuleGeneratorNg2 template.
+ */
 public class TableModuleGeneratorNg2 {
 
+    /**
+     * Generates TableModuleGeneratorNg2 template.
+     *
+     * @param arguments
+     *            arguments
+     * @return generated template
+     */
     public String generate(final MetaTableModule arguments) {
         final java.io.StringWriter w = new java.io.StringWriter();
         generate(arguments, w);
         return w.toString();
     }
 
+    /**
+     * Writes TableModuleGeneratorNg2 template to a {@link java.io.Writer}.
+     *
+     * @param arguments
+     *            arguments
+     * @param writer
+     *            writer to output to
+     */
     public void generate(final MetaTableModule arguments, final java.io.Writer writer) {
         final java.io.PrintWriter out = new java.io.PrintWriter(writer);
         out.print("package ");
@@ -62,7 +80,7 @@ public class TableModuleGeneratorNg2 {
             out.print(namedQuery.getName());
             out.println('.');
             out.print("    ");
-            for (int i = 0 ; i < namedQuery.getParameters().size(); ++i) { 
+            for (int i = 0; i < namedQuery.getParameters().size(); ++i) { 
                 out.print("     * @param ");
                 out.print(namedQuery.getParameters().get(i));
                 out.print(' ');

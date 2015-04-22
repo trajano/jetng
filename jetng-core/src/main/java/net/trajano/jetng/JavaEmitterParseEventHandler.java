@@ -71,9 +71,19 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
             }
         }
         out.println();
+        out.println("/**");
+        out.println(format(" * %s template.", context.getClassName()));
+        out.println(" */");
         out.println("public class " + context.getClassName() + " {");
 
         out.println();
+        out.println("    /**");
+        out.println(format("     * Generates %s template.", context.getClassName()));
+        out.println("     *");
+        out.println("     * @param arguments");
+        out.println("     *            arguments");
+        out.println("     * @return generated template");
+        out.println("     */");
         out.println(format("    public String generate(final %s arguments) {", context.getArgumentsClassName()));
         out.println("        final java.io.StringWriter w = new java.io.StringWriter();");
         out.println("        generate(arguments, w);");
@@ -81,6 +91,14 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
         out.println("    }");
 
         out.println();
+        out.println("    /**");
+        out.println(format("     * Writes %s template to a {@link java.io.Writer}.", context.getClassName()));
+        out.println("     *");
+        out.println("     * @param arguments");
+        out.println("     *            arguments");
+        out.println("     * @param writer");
+        out.println("     *            writer to output to");
+        out.println("     */");
         out.println(format("    public void generate(final %s arguments, final java.io.Writer writer) {",
                 context.getArgumentsClassName()));
         out.println("        final java.io.PrintWriter out = new java.io.PrintWriter(writer);");

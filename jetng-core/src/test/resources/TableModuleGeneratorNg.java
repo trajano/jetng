@@ -3,14 +3,32 @@ package net.trajano.apt.jpa.internal;
 import java.util.*;
 import javax.xml.*;
 
+/**
+ * TableModuleGenerator template.
+ */
 public class TableModuleGenerator {
 
+    /**
+     * Generates TableModuleGenerator template.
+     *
+     * @param arguments
+     *            arguments
+     * @return generated template
+     */
     public String generate(final MetaTableModule arguments) {
         final java.io.StringWriter w = new java.io.StringWriter();
         generate(arguments, w);
         return w.toString();
     }
 
+    /**
+     * Writes TableModuleGenerator template to a {@link java.io.Writer}.
+     *
+     * @param arguments
+     *            arguments
+     * @param writer
+     *            writer to output to
+     */
     public void generate(final MetaTableModule arguments, final java.io.Writer writer) {
         final java.io.PrintWriter out = new java.io.PrintWriter(writer);
         out.print("package ");
