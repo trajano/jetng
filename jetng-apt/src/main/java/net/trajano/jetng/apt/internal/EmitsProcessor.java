@@ -110,7 +110,6 @@ public class EmitsProcessor extends AbstractProcessor {
             final TypeElement typeElement) {
 
         elementCollection.add(typeElement);
-        final EmitterGenerator generator = new EmitterGenerator();
         String elementClassUsedInArgumentsClassConstructor = null;
         for (final Element element : typeElement.getEnclosedElements()) {
             if (ElementKind.CONSTRUCTOR == element.getKind()) {
@@ -160,6 +159,7 @@ public class EmitsProcessor extends AbstractProcessor {
         model.setSupportedAnnotationTypes(emit.supportedAnnotationTypes());
         model.setSupportedSourceVersion("SourceVersion." + emit.supportedSourceVersion());
         try {
+final EmitterGenerator generator = new EmitterGenerator();
             annotationProcessors.add(model.getQualifiedName());
             final PrintWriter writer = new PrintWriter(processingEnv.getFiler()
                     .createSourceFile(model.getQualifiedName())
