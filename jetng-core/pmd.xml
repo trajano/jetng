@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pmd version="5.2.3" timestamp="2015-06-08T09:19:25.561">
+<file name="/var/lib/jenkins/jobs/jetng/workspace/jetng-core/src/main/java/net/trajano/jetng/JavaEmitterParseEventHandler.java">
+<violation beginline="29" endline="31" begincolumn="12" endcolumn="5" rule="CallSuperInConstructor" ruleset="Controversial" package="net.trajano.jetng" class="JavaEmitterParseEventHandler" method="JavaEmitterParseEventHandler" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/controversial.html#CallSuperInConstructor" priority="3">
+It is a good practice to call super() in a constructor
+</violation>
+</file>
+<file name="/var/lib/jenkins/jobs/jetng/workspace/jetng-core/src/main/java/net/trajano/jetng/JetNgParser.java">
+<violation beginline="257" endline="257" begincolumn="23" endcolumn="41" rule="UseConcurrentHashMap" ruleset="Controversial" package="net.trajano.jetng" class="JetNgParser" method="processDirective" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/controversial.html#UseConcurrentHashMap" priority="3">
+If you run in Java5 or newer and have concurrent access, you should use the ConcurrentHashMap implementation
+</violation>
+</file>
+<file name="/var/lib/jenkins/jobs/jetng/workspace/jetng-core/src/main/java/net/trajano/jetng/internal/DefaultParserContext.java">
+<violation beginline="50" endline="50" begincolumn="19" endcolumn="41" rule="UseConcurrentHashMap" ruleset="Controversial" package="net.trajano.jetng.internal" class="DefaultParserContext" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/controversial.html#UseConcurrentHashMap" priority="3">
+If you run in Java5 or newer and have concurrent access, you should use the ConcurrentHashMap implementation
+</violation>
+</file>
+</pmd>
