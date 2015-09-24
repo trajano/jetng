@@ -11,6 +11,20 @@ other dependencies outside of the JDK.
 
 This implementation adds a few extra features to the JET specification.
 
+## Sample .jet file
+
+    <%@ jet package="foo" class="Bar" %>
+    Hello world
+    <%-- comments --%>
+    <% Meta meta = (Meta)arguments; %>
+    <%= meta.getValue()%>
+
+It emits a [java file][1] that can be used to build a string or write to a
+`java.io.Writer`.  The code itself is fully commented and does not itnroduce
+any implicit `import` statement that may cause issues for template writers.
+It will also pass most code quality checks from SonarQube, Checkstyle, FindBugs
+and PMD.
+
 ## Other implementations of JET
 The current Eclipse implementation of [JET][] does not work without loading up
 in Eclipse.  There is another Maven plugin that does similar work using ANTLR,
@@ -22,3 +36,4 @@ outside of Eclipse.
 
 [JET]: http://www.eclipse.org/modeling/m2t/?project=jet
 [JET2]: http://www.eclipse.org/modeling/emf/docs/architecture/jet2/jet2.html
+[1]: https://github.com/trajano/jetng/blob/master/jetng-core/src/test/resources/BlogPost.java
