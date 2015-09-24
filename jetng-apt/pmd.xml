@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pmd version="5.2.3" timestamp="2015-09-24T13:24:16.717">
-<file name="P:\jetng\jetng-apt\src\main\java\net\trajano\jetng\apt\internal\EmitModel.java">
+<pmd version="5.2.3" timestamp="2015-09-24T13:31:09.850">
+<file name="/var/lib/jenkins/jobs/jetng/workspace/jetng-apt/src/main/java/net/trajano/jetng/apt/internal/EmitModel.java">
 <violation beginline="86" endline="86" begincolumn="9" endcolumn="40" rule="MethodReturnsInternalArray" ruleset="Security Code Guidelines" package="net.trajano.jetng.apt.internal" class="EmitModel" method="getSupportedAnnotationTypes" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/sunsecure.html#MethodReturnsInternalArray" priority="3">
 Returning 'supportedAnnotationTypes' may expose an internal array.
 </violation>
 <violation beginline="148" endline="148" begincolumn="45" endcolumn="83" rule="ArrayIsStoredDirectly" ruleset="Security Code Guidelines" package="net.trajano.jetng.apt.internal" class="EmitModel" method="setSupportedAnnotationTypes" variable="supportedAnnotationTypes" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/sunsecure.html#ArrayIsStoredDirectly" priority="3">
 The user-supplied array 'supportedAnnotationTypes' is stored directly.
+</violation>
+</file>
+<file name="/var/lib/jenkins/jobs/jetng/workspace/jetng-apt/target/generated-sources/jetng/net/trajano/jetng/apt/internal/EmitterGenerator.java">
+<violation beginline="68" endline="68" begincolumn="14" endcolumn="33" rule="LocalVariableCouldBeFinal" ruleset="Optimization" package="net.trajano.jetng.apt.internal" class="EmitterGenerator" method="generate" variable="supportedType" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/optimizations.html#LocalVariableCouldBeFinal" priority="3">
+Local variable 'supportedType' could be declared final
 </violation>
 </file>
 </pmd>
