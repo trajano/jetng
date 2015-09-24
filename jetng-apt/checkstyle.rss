@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2012 - 2015 Trajano</copyright>
     <item>
-      <title>File: 7,
+      <title>File: 8,
              Errors: 0,
-             Warnings: 0,
+             Warnings: 3,
              Infos: 0
       </title>
             <link>http://site.trajano.net/trajano/jetng/jetng-apt//checkstyle.html</link>
@@ -44,6 +44,20 @@ under the License.
             </tr>
           </thead>
           <tbody>
+                          <tr>
+                <td>
+                  <a href="http://site.trajano.net/trajano/jetng/jetng-apt//checkstyle.html#net.trajano.jetng.apt.internal.EmitterGenerator.java">net/trajano/jetng/apt/internal/EmitterGenerator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
                           <tr>
                 <td>
                   <a href="http://site.trajano.net/trajano/jetng/jetng-apt//checkstyle.html#META-INF.Messages.properties">META-INF/Messages.properties</a>
