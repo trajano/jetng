@@ -76,11 +76,11 @@
 <tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td># of plugins where the next version available is smaller than an incremental version update</td>
-<td>1</td></tr>
+<td>0</td></tr>
 <tr class="a">
 <td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td># of plugins where the next version available is an incremental version update</td>
-<td>0</td></tr>
+<td>1</td></tr>
 <tr class="b">
 <td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td># of plugins where the next version available is a minor version update</td>
@@ -107,12 +107,12 @@
 <th>Next Major</th>
 <th>Dependency status</th></tr>
 <tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td>net.trajano.mojo</td>
 <td>cleanpom-maven-plugin</td>
-<td><b>1.1.0</b></td>
+<td>1.1.0</td>
 <td></td>
-<td></td>
+<td><b>1.1.1</b></td>
 <td></td>
 <td></td>
 <td><img src="images/icon_success_sml.gif" alt="" /></td></tr>
@@ -160,8 +160,8 @@
 <td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td>org.apache.maven.plugins</td>
 <td>maven-checkstyle-plugin</td>
-<td>2.15</td>
-<td><b>2.15-trajano-1</b></td>
+<td><b>2.15</b></td>
+<td></td>
 <td></td>
 <td></td>
 <td></td>
@@ -477,7 +477,7 @@
 <table border="0" class="bodyTable">
 <tr class="b">
 <th width="80%">Status</th>
-<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<td><img src="images/icon_warning_sml.gif" alt="" />&#160;There is at least one newer incremental version available. Incremental updates are typically passive.</td></tr>
 <tr class="a">
 <th width="80%">Group Id</th>
 <td>net.trajano.mojo</td></tr>
@@ -486,7 +486,10 @@
 <td>cleanpom-maven-plugin</td></tr>
 <tr class="a">
 <th width="80%">Current Version</th>
-<td>1.1.0</td></tr></table></div>
+<td>1.1.0</td></tr>
+<tr class="b">
+<th width="80%">Newer versions</th>
+<td><b>1.1.1</b>&#160;<i>Next Incremental</i></td></tr></table></div>
 <div class="section">
 <h3><a name="Plugin_net.trajano.mojo:m2e-codestyle-maven-plugin"></a>Plugin net.trajano.mojo:m2e-codestyle-maven-plugin</h3>
 <table border="0" class="bodyTable">
@@ -552,7 +555,7 @@
 <table border="0" class="bodyTable">
 <tr class="a">
 <th width="80%">Status</th>
-<td><img src="images/icon_warning_sml.gif" alt="" />&#160;There is at least one newer version available.</td></tr>
+<td><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
 <tr class="b">
 <th width="80%">Group Id</th>
 <td>org.apache.maven.plugins</td></tr>
@@ -561,10 +564,7 @@
 <td>maven-checkstyle-plugin</td></tr>
 <tr class="b">
 <th width="80%">Current Version</th>
-<td>2.15</td></tr>
-<tr class="a">
-<th width="80%">Newer versions</th>
-<td><b>2.15-trajano-1</b>&#160;<i>Next Version</i></td></tr></table>
+<td>2.15</td></tr></table>
 <div class="section">
 <h4><a name="Dependencies_of_org.apache.maven.plugins:maven-checkstyle-plugin"></a>Dependencies of org.apache.maven.plugins:maven-checkstyle-plugin</h4>
 <table border="0" class="bodyTable">
@@ -1346,7 +1346,7 @@
                                                                                                                                                                                                                                                                               <li class="collapsed">
                           <a href="project-info.html" title="Project Information">Project Information</a>
                   </li>
-                                                                                                                                                                                                                                                                      <li class="expanded">
+                                                                                                                                                                                                                                                                                        <li class="expanded">
                           <a href="project-reports.html" title="Project Reports">Project Reports</a>
                     <ul>
                           <li class="none">
@@ -1366,6 +1366,9 @@
             </li>
                           <li class="none">
                           <a href="checkstyle.html" title="Checkstyle">Checkstyle</a>
+            </li>
+                          <li class="none">
+                          <a href="pmd.html" title="PMD">PMD</a>
             </li>
                           <li class="none">
                           <a href="findbugs.html" title="FindBugs">FindBugs</a>
