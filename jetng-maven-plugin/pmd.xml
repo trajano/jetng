@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pmd version="5.2.3" timestamp="2015-09-24T13:29:35.968">
+<pmd version="5.2.3" timestamp="2015-09-24T13:40:06.162">
 <file name="/var/lib/jenkins/jobs/jetng/workspace/jetng-maven-plugin/target/generated-sources/plugin/net/trajano/mojo/jetng/HelpMojo.java">
 <violation beginline="71" endline="71" begincolumn="13" endcolumn="83" rule="LocalVariableCouldBeFinal" ruleset="Optimization" package="net.trajano.mojo.jetng" class="HelpMojo" method="build" variable="dbFactory" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/optimizations.html#LocalVariableCouldBeFinal" priority="3">
 Local variable 'dbFactory' could be declared final
