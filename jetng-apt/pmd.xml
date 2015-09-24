@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pmd version="5.2.3" timestamp="2015-09-24T13:31:09.850">
+<pmd version="5.2.3" timestamp="2015-09-24T13:41:39.793">
 <file name="/var/lib/jenkins/jobs/jetng/workspace/jetng-apt/src/main/java/net/trajano/jetng/apt/internal/EmitModel.java">
 <violation beginline="86" endline="86" begincolumn="9" endcolumn="40" rule="MethodReturnsInternalArray" ruleset="Security Code Guidelines" package="net.trajano.jetng.apt.internal" class="EmitModel" method="getSupportedAnnotationTypes" externalInfoUrl="http://pmd.sourceforge.net/pmd-5.2.3/pmd-java/rules/java/sunsecure.html#MethodReturnsInternalArray" priority="3">
 Returning 'supportedAnnotationTypes' may expose an internal array.
