@@ -36,8 +36,7 @@ public class CompileMojo extends AbstractMojo {
 	/**
 	 * Resource bundle.
 	 */
-	private static final ResourceBundle R = ResourceBundle
-			.getBundle("META-INF/Messages");
+	private static final ResourceBundle R = ResourceBundle.getBundle("META-INF/Messages");
 	/**
 	 * Build context.
 	 */
@@ -92,8 +91,7 @@ public class CompileMojo extends AbstractMojo {
 		destDir.mkdirs();
 		if (jetFileSets == null) {
 			final FileSet defaultJetFileSet = new FileSet();
-			defaultJetFileSet.setDirectory(new File(project.getBasedir(),
-					"src/main/jetng").getPath());
+			defaultJetFileSet.setDirectory(new File(project.getBasedir(), "src/main/jetng").getPath());
 			defaultJetFileSet.addInclude("**/*.jet");
 			jetFileSets = Collections.singletonList(defaultJetFileSet);
 		}
@@ -101,8 +99,7 @@ public class CompileMojo extends AbstractMojo {
 		try {
 			tmpFile = File.createTempFile("jetng-maven-plugin", ".tmp"); // NOPMD
 		} catch (final IOException e) {
-			throw new MojoExecutionException(
-					R.getString("failedtocreatetempfile"), e);
+			throw new MojoExecutionException(R.getString("failedtocreatetempfile"), e);
 
 		}
 		for (final FileSet fileSet : jetFileSets) {
@@ -123,29 +120,27 @@ public class CompileMojo extends AbstractMojo {
 				try {
 					final PrintWriter out = new PrintWriter(// NOPMD
 							buildContext.newFileOutputStream(tmpFile));
-					final JetNgParser parser = new JetNgParser(inputFile,
-							new JavaEmitterParseEventHandler(out), maxTagSize);
+					final JetNgParser parser = new JetNgParser(inputFile, new JavaEmitterParseEventHandler(out),
+							maxTagSize);
 					final ParserContext parseContext = parser.parse();
 					out.close();
-					final File targetFile = new File(destDir,
-							parseContext.getTargetFile());
+					final File targetFile = new File(destDir, parseContext.getTargetFile());
 					targetFile.getParentFile().mkdirs();
-					final OutputStream output = buildContext
-							.newFileOutputStream(targetFile);
+					final OutputStream output = buildContext.newFileOutputStream(targetFile);
 					IOUtil.copy(new FileInputStream(tmpFile), output);
 					output.close();
 					buildContext.refresh(targetFile);
 				} catch (final ParseException e) {
-					throw new MojoExecutionException(String.format(R
-							.getString("parseerror"), inputFile, e.getContext()
-							.getCurrentFilePosition()), e);
+					throw new MojoExecutionException(String.format(R.getString("parseerror"), inputFile,
+							e.getContext().getCurrentFilePosition()), e);
 				} catch (final Exception e) {
-					throw new MojoExecutionException(String.format(
-							R.getString("failedtocompile"), inputFile), e);
+					throw new MojoExecutionException(String.format(R.getString("failedtocompile"), inputFile), e);
 				}
 			}
 		}
-		tmpFile.delete();
+		if (!tmpFile.delete()) {
+			throw new MojoExecutionException(String.format(R.getString("failedtodelete"), tmpFile));
+		}
 	}
 
 }
