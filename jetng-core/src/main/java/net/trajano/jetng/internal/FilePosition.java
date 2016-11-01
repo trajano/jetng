@@ -1,12 +1,18 @@
 package net.trajano.jetng.internal;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * Represents the current file position.
  */
-public class FilePosition {
+public class FilePosition implements Serializable{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8110109550315429528L;
+
+	/**
      * Column.
      */
     private int col;
