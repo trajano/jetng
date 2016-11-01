@@ -27,6 +27,7 @@ public class JavaEmitterParseEventHandler extends DefaultParseEventHandler {
      *            writer
      */
     public JavaEmitterParseEventHandler(final PrintWriter out) {
+    	super();
         this.out = out;
     }
 
