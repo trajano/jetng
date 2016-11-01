@@ -1,6 +1,8 @@
 Java Emitter Template NG
 ========================
 
+[![Build Status](https://travis-ci.org/trajano/jetng.svg?branch=master)](https://travis-ci.org/trajano/jetng)
+
 This is a rebuild of the [Java Emitter Templates][JET] project without the use
 of any Eclipse dependencies.
 
